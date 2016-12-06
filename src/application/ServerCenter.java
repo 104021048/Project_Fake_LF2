@@ -762,7 +762,7 @@ public class ServerCenter implements Runnable {
 		source = -1;
 		dest = moveid;
 		type = -1;
-		X = -1;
+		X = -1; 
 		Y = -1;
 		direction = 1;
 		Stype = "@";
