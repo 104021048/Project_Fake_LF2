@@ -362,9 +362,16 @@ public class ServerCenter implements Runnable {
 			} else if (function.equals("atked")) {
 				inst11(Tid, X, Y, type);
 			} else if (function.equals("death")) {
-
 				setDeath.add(Tid);
 				inst12(Tid);
+			}else if(function.equals("moveup")){
+				instUp(Tid);
+			}else if(function.equals("movedown")){
+				instDown(Tid);
+			}else if(function.equals("moveleft")){
+				instLeft(Tid);
+			}else if(function.equals("moveright")){
+				instRight(Tid);
 			}
 
 		}
@@ -711,6 +718,55 @@ public class ServerCenter implements Runnable {
 		Y = -1;
 		direction = 0;
 		Stype = "@";
+	}
+	public void instUp(int moveid){
+		state = 1;
+		Tid = -1;
+		function = "moveup";
+		source = -1;
+		dest = moveid;
+		type = -1;
+		X = -1;
+		Y = -1;
+		direction = 0; 
+		Stype = "@";
+	}
+	public void instDown(int moveid){
+		state = 1;
+		Tid = -1;
+		function = "movedown";
+		source = -1;
+		dest = moveid;
+		type = -1;
+		X = -1;
+		Y = -1;
+		direction = 0;
+		Stype = "@";
+	}
+	public void instLeft(int moveid){
+		state = 1;
+		Tid = -1;
+		function = "moveleft";
+		source = -1;
+		dest = moveid;
+		type = -1;
+		X = -1;
+		Y = -1;
+		direction = -1;
+		Stype = "@";
+	}
+	public void instRight(int moveid){
+		state = 1;
+		Tid = -1;
+		function = "moveright";
+		source = -1;
+		dest = moveid;
+		type = -1;
+		X = -1;
+		Y = -1;
+		direction = 1;
+		Stype = "@";
+		
 	}
 
 }
