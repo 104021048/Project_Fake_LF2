@@ -9,11 +9,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
 	private int state;
-	private int Tid , myTid;
+	private int Tid, myTid;
 	private String function;
 	private int source;
 	private int dest;
@@ -21,22 +22,25 @@ public class ClientCenter implements Runnable {
 	private double X;
 	private double Y;
 	private int direction;
-	private String Stype;
+	private String Stype, myName;
 	private Socket sock;
 	private BufferedReader reader;
 	private PrintStream writer;
 	private String ta[];
 	private Stage primaryStage;
+	private Client client;
 
 	/*
 	 * state#Tid#function#source#dest#type#X#Y#direction#SType 0 1 2 3 4 5 6 7 8
 	 * 9 private String data[][] = new String[4][10];
 	 */
-	public ClientCenter(Stage stage, Socket socket, String ip, String name) {
+	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
 			EstablishConnection(ip, 8888);
-			primaryStage = stage;
-
+			this.client = client;
+			myName = name;
+			writer.println(("0#1#connect#-1#-1#-1#-1.0#-1.0#0#"+myName));
+			writer.flush();
 		} catch (Exception ex) {
 			System.out.println("連接失敗 in ClientCenter");
 		}
@@ -63,12 +67,6 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	/*
-	 * public class IncomingReader implements Runnable { public void run() {
-	 * String message; try { while ((message = reader.readLine()) != null) {
-	 * System.out.print(message + '\n'); } } catch (Exception ex) {
-	 * ex.printStackTrace(); } } }
-	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -79,6 +77,7 @@ public class ClientCenter implements Runnable {
 				if (message.contains("#")) {
 					// 這是因為暫時測試用的的client會把名字:打在前面
 					decoder(message);
+					handle();
 				}
 
 			}
@@ -127,17 +126,47 @@ public class ClientCenter implements Runnable {
 			// state 0
 			switch (function) {
 			case "connect":
-				switch (ta[5]) {
+				switch (myTid) {
 				// 觸發Tid
 				// TODO: 依照Tid設定房間內的角色.名字排序
-				case "1":
+				case 1:
+					  Platform.runLater(() -> {
+					        try {
+								client.label_room_name1.setText(myName);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
-				case "2":
+				case 2:
+					  Platform.runLater(() -> {
+					        try {
+								client.label_room_name2.setText(myName);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
-				case "3":
+				case 3:
+					  Platform.runLater(() -> {
+					        try {
+								client.label_room_name3.setText(myName);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
-				case "4":
+				case 4:
+					  Platform.runLater(() -> {
+					        try {
+								client.label_room_name4.setText(myName);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
+				default:
+						System.out.println(myTid);
 				}
 				break;
 			case "connected":
@@ -145,12 +174,41 @@ public class ClientCenter implements Runnable {
 				// 觸發Tid
 				// TODO:
 				case "1":
+					  Platform.runLater(() -> {
+					        try {
+					        	System.out.println("ted");
+								client.label_room_name1.setText(ta[9]);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
 				case "2":
+					  Platform.runLater(() -> {
+					        try {
+								client.label_room_name2.setText(ta[9]);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
 				case "3":
+					  Platform.runLater(() -> {
+					        try {
+								client.label_room_name3.setText(ta[9]);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
 				case "4":
+					  Platform.runLater(() -> {
+					        try {
+								client.label_room_name4.setText(ta[9]);
+					        } catch (Exception  ex) {
+					            
+					        }
+					    });
 					break;
 				}
 				break;
@@ -345,12 +403,12 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			}
-		} else if(state == 2){
+		} else if (state == 2) {
 			switch (function) {
 			case "win":
 				switch (ta[5]) {
 				// 觸發Tid
-				// TODO: 
+				// TODO:
 				case "1":
 					break;
 				case "2":
@@ -361,34 +419,34 @@ public class ClientCenter implements Runnable {
 					break;
 				}
 				break;
-				case "back1":
-					switch (ta[5]) {
-					// 觸發Tid
-					// TODO: 
-					case "1":
-						break;
-					case "2":
-						break;
-					case "3":
-						break;
-					case "4":
-						break;
-					}
+			case "back1":
+				switch (ta[5]) {
+				// 觸發Tid
+				// TODO:
+				case "1":
 					break;
-				case "back2":
-					switch (ta[5]) {
-					// 觸發Tid
-					// TODO: 
-					case "1":
-						break;
-					case "2":
-						break;
-					case "3":
-						break;
-					case "4":
-						break;
-					}
+				case "2":
 					break;
+				case "3":
+					break;
+				case "4":
+					break;
+				}
+				break;
+			case "back2":
+				switch (ta[5]) {
+				// 觸發Tid
+				// TODO:
+				case "1":
+					break;
+				case "2":
+					break;
+				case "3":
+					break;
+				case "4":
+					break;
+				}
+				break;
 			}
 		}
 	}
@@ -396,8 +454,8 @@ public class ClientCenter implements Runnable {
 	public void SelectedRole(int role) {
 		try {
 			function = "choose";
-			writer.println((state + "#" + myTid + "#" + function + "#" + source + "#" + dest + "#" + role + "#" + X + "#"
-					+ Y + "#" + direction + "#" + Stype));
+			writer.println((state + "#" + myTid + "#" + function + "#" + source + "#" + dest + "#" + role + "#" + X
+					+ "#" + Y + "#" + direction + "#" + Stype));
 			writer.flush();
 		} catch (Exception ex) {
 			System.out.println("送出資料失敗");
