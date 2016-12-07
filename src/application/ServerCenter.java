@@ -103,10 +103,8 @@ public class ServerCenter implements Runnable {
 				System.out.println("收到" + message);
 				if (message.contains("#")) {
 					// 這是因為暫時測試用的的client會把名字:打在前面
-					String a[] = message.split(":");
-					System.out.println(a[1]);
 
-					decoder(a[1]);
+					decoder(message);
 					handle();
 
 					if (state == 0 && setLocked.size() == setLive.size() && !started) {
@@ -324,10 +322,35 @@ public class ServerCenter implements Runnable {
 
 	// 處理所有接收到的訊息
 	public void handle() {
-
+		
 		if (state == 0) {
-			// state 0
-			if (function.equals("connect")) {
+			switch(function){
+			case "connect":
+				System.out.print("handle 線上名單 for " + myTid + ":" + setLive);
+				//
+				if (Stype.equals("@")) {
+					myName = "no name" + Tid;
+				} else {
+					myName = Stype;
+				}
+				tname.put(Tid, Stype);
+				inst2(Tid);
+				break;
+			case "disconnect":
+				setLive.remove(Tid);
+				inst3(Tid);
+				break;
+			case "choose":
+				tchoose.put(Tid, type);
+				inst4(Tid, type);
+				break;
+			case "lock":
+				setLocked.add(Tid);
+				System.out.print("鎖定名單 for " + myTid + ":" + setLocked);
+				inst5(Tid, type);
+				break;
+			}
+			/*if (function.equals("connect")) {
 				// 將連入Tid加入Live的行列
 				// setLive.add(Tid);
 				System.out.print("handle 線上名單 for " + myTid + ":" + setLive);
@@ -353,8 +376,37 @@ public class ServerCenter implements Runnable {
 				System.out.print("鎖定名單 for " + myTid + ":" + setLocked);
 				inst5(Tid, type);
 			}
+			*/
 
 		} else if (state == 1) {
+			switch(function){
+			case "atk":
+				inst9(Tid, X, Y, direction);
+				break;
+			case "atk2":
+				inst10(Tid, X, Y, direction);
+				break;
+			case "atked":
+				inst11(Tid, X, Y, type);
+				break;
+			case "death":
+				setDeath.add(Tid);
+				inst12(Tid);
+				break;
+			case "moveup":
+				instUp(Tid);
+				break;
+			case "movedown":
+				instDown(Tid);
+				break;
+			case "moveleft":
+				instLeft(Tid);
+				break;
+			case "moveright":
+				instRight(Tid);
+				break;
+			}
+			/*
 			if (function.equals("atk")) {
 				inst9(Tid, X, Y, direction);
 			} else if (function.equals("atk2")) {
@@ -364,15 +416,16 @@ public class ServerCenter implements Runnable {
 			} else if (function.equals("death")) {
 				setDeath.add(Tid);
 				inst12(Tid);
-			}else if(function.equals("moveup")){
+			} else if (function.equals("moveup")) {
 				instUp(Tid);
-			}else if(function.equals("movedown")){
+			} else if (function.equals("movedown")) {
 				instDown(Tid);
-			}else if(function.equals("moveleft")){
+			} else if (function.equals("moveleft")) {
 				instLeft(Tid);
-			}else if(function.equals("moveright")){
+			} else if (function.equals("moveright")) {
 				instRight(Tid);
 			}
+			*/
 
 		}
 	}
@@ -499,10 +552,10 @@ public class ServerCenter implements Runnable {
 		tmap.remove(myTid);
 		inst3(myTid);
 		tellOthers();
-		System.out.println(myTid+" dcHandle:");
-		System.out.println("線上名單:"+setLive);
-		System.out.println("鎖定名單:"+setLocked);
-		System.out.println("線上名單:"+setDeath);
+		System.out.println(myTid + " dcHandle:");
+		System.out.println("線上名單:" + setLive);
+		System.out.println("鎖定名單:" + setLocked);
+		System.out.println("線上名單:" + setDeath);
 	}
 
 	// --------------------------------------------------------------------//
@@ -719,7 +772,8 @@ public class ServerCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
-	public void instUp(int moveid){
+
+	public void instUp(int moveid) {
 		state = 1;
 		Tid = -1;
 		function = "moveup";
@@ -728,10 +782,11 @@ public class ServerCenter implements Runnable {
 		type = -1;
 		X = -1;
 		Y = -1;
-		direction = 0; 
+		direction = 0;
 		Stype = "@";
 	}
-	public void instDown(int moveid){
+
+	public void instDown(int moveid) {
 		state = 1;
 		Tid = -1;
 		function = "movedown";
@@ -743,7 +798,8 @@ public class ServerCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
-	public void instLeft(int moveid){
+
+	public void instLeft(int moveid) {
 		state = 1;
 		Tid = -1;
 		function = "moveleft";
@@ -755,18 +811,19 @@ public class ServerCenter implements Runnable {
 		direction = -1;
 		Stype = "@";
 	}
-	public void instRight(int moveid){
+
+	public void instRight(int moveid) {
 		state = 1;
 		Tid = -1;
 		function = "moveright";
 		source = -1;
 		dest = moveid;
 		type = -1;
-		X = -1; 
+		X = -1;
 		Y = -1;
 		direction = 1;
 		Stype = "@";
-		
+
 	}
 
 }

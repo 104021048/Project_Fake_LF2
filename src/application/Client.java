@@ -18,22 +18,21 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Client extends Application {
-
-	private final int int_port = 8888;
-	private Scene scene_login , scene_room;
-	private Socket sock;
-	private BufferedReader reader;
-	private PrintStream writer;
-	private GridPane gridpane_login_root , gridpane_room_root;
-	private TextField textfield_login_ip , textfield_login_name;
-	private Label label_login_ip , label_login_name;
-	private Button button_login_connect , button_login_exit , button_room_character1 , button_room_character2 , button_room_character3 , button_room_character4 , 
+	private ClientCenter clientCenter;
+	public Scene scene_login , scene_room;
+	public Socket sock;
+	public BufferedReader reader;
+	public PrintStream writer;
+	public GridPane gridpane_login_root , gridpane_room_root;
+	public TextField textfield_login_ip , textfield_login_name;
+	public Label label_login_ip , label_login_name;
+	public Button button_login_connect , button_login_exit , button_room_character1 , button_room_character2 , button_room_character3 , button_room_character4 , 
 	button_room_character5 , button_room_ready;
-	private ImageView image_login_logo , image_room_player_1 , image_room_player_2 , image_room_player_3 , image_room_player_4;
-	private Label label_room_headpicture1 , label_room_headpicture2 , label_room_headpicture3 , label_room_headpicture4 ,
+	public ImageView image_login_logo , image_room_player_1 , image_room_player_2 , image_room_player_3 , image_room_player_4;
+	public Label label_room_headpicture1 , label_room_headpicture2 , label_room_headpicture3 , label_room_headpicture4 ,
 	label_room_name1 , label_room_name2 , label_room_name3 , label_room_name4 , label_room_systemmessage;
-	private HBox hbox_room_button;
-	private String name;
+	public HBox hbox_room_button;
+	public String name;
 	public void login_init(){
 		gridpane_login_root = new GridPane();
 		gridpane_login_root.setPadding(new Insets(25, 25, 25, 25));
@@ -69,7 +68,9 @@ public class Client extends Application {
 	public void login_setupListener(Stage primaryStage) {
 		button_login_connect.setOnAction(e -> {
 			name = textfield_login_name.getText().toString();
-			EstablishConnection();
+			String ip = textfield_login_ip.getText().toString();
+			Thread t = new Thread(clientCenter = new ClientCenter(primaryStage,sock,ip,name));
+			t.start();
 			room_init();
 			room_setupUI();
 			room_setupListener(primaryStage);
@@ -163,27 +164,27 @@ public class Client extends Application {
 		 button_room_character1.setOnAction(e -> {
 			 image_room_player_1 = new ImageView("role_1.png");
 			 label_room_headpicture1.setGraphic(image_room_player_1);
-			 SelectedRole_1();
+			clientCenter.SelectedRole_1();
 		 });
 		 button_room_character2.setOnAction(e -> {
 			 image_room_player_1 = new ImageView("role_2.png");
 			 label_room_headpicture1.setGraphic(image_room_player_1);
-			 SelectedRole_2();
+			 clientCenter.SelectedRole_2();
 		 });
 		 button_room_character3.setOnAction(e -> {
 			 image_room_player_1 = new ImageView("role_3.png");
 			 label_room_headpicture1.setGraphic(image_room_player_1);
-			 SelectedRole_3();
+			 clientCenter.SelectedRole_3();
 		 });
 		 button_room_character4.setOnAction(e -> {
 			 image_room_player_1 = new ImageView("role_4.png");
 			 label_room_headpicture1.setGraphic(image_room_player_1);
-			 SelectedRole_4();
+			 clientCenter.SelectedRole_4();
 		 });
 		 button_room_character5.setOnAction(e -> {
 			 image_room_player_1 = new ImageView("role_5.png");
 			 label_room_headpicture1.setGraphic(image_room_player_1);
-			 SelectedRole_5();
+			 clientCenter.SelectedRole_5();
 		 });
 		 button_room_ready.setOnAction(e -> {});
 	}
@@ -196,85 +197,12 @@ public class Client extends Application {
 		primaryStage.setScene(scene_login);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-	private void EstablishConnection() {
-		try {
-			// 請求建立連線
-			sock = new Socket(textfield_login_ip.getText(), int_port);
-			Thread t = new Thread(new ClientCenter(sock));
-			t.start();
-			
-			// 建立I/O資料流
-			InputStreamReader streamReader =
-			// 取得Socket的輸入資料流
-					new InputStreamReader(sock.getInputStream());
-			// 放入暫存區
-			reader = new BufferedReader(streamReader);
-			// 取得Socket的輸出資料流
-
-			writer = new PrintStream(sock.getOutputStream());
-			// 連線成功
-			System.out.println("網路建立-連線成功");
-
-		} catch (IOException ex) {
-			System.out.println("建立連線失敗");
-		}
-	}
 	
-	public void SelectedRole_1(){
-		try{
-			writer.println(("0#1#choose#-1#-1#1#-1.0#-1.0#0#@"));
-			writer.flush();
-		}catch(Exception ex){
-			System.out.println("送出資料失敗");
-		}
-	}
-	public void SelectedRole_2(){
-		try{
-			writer.println(("0#1#choose#-1#-1#2#-1.0#-1.0#0#@"));
-			writer.flush();
-		}catch(Exception ex){
-			System.out.println("送出資料失敗");
-		}
-	}
-	public void SelectedRole_3(){
-		try{
-			writer.println(("0#1#choose#-1#-1#3#-1.0#-1.0#0#@"));
-			writer.flush();
-		}catch(Exception ex){
-			System.out.println("送出資料失敗");
-		}
-	}public void SelectedRole_4(){
-		try{
-			writer.println(("0#1#choose#-1#-1#4#-1.0#-1.0#0#@"));
-			writer.flush();
-		}catch(Exception ex){
-			System.out.println("送出資料失敗");
-		}
-	}
-	public void SelectedRole_5(){
-		try{
-			writer.println(("0#1#choose#-1#-1#5#-1.0#-1.0#0#@"));
-			writer.flush();
-		}catch(Exception ex){
-			System.out.println("送出資料失敗");
-		}
-	}
-	public class IncomingReader implements Runnable {
-		public void run() {
-			String message;
-			try {
-				while ((message = reader.readLine()) != null) {
-					System.out.print(message + '\n');
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
 
 }
