@@ -205,6 +205,9 @@ public class Client extends Application {
 		try {
 			// 請求建立連線
 			sock = new Socket(textfield_login_ip.getText(), int_port);
+			Thread t = new Thread(new ClientCenter(sock));
+			t.start();
+			
 			// 建立I/O資料流
 			InputStreamReader streamReader =
 			// 取得Socket的輸入資料流
