@@ -186,7 +186,7 @@ public class MyClient extends JFrame implements ActionListener {
 			// 不可沒有ip及送出空白
 			if ((ip != null) && (outgoing.getText() != "")) {
 				try {// 送出資料
-					writer.println((name + ":" + outgoing.getText()));
+					writer.println((outgoing.getText()));
 					// 刷新該串流的緩衝。
 					writer.flush();
 				} catch (Exception ex) {

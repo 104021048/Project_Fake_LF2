@@ -39,8 +39,6 @@ public class ClientCenter implements Runnable {
 			EstablishConnection(ip, 8888);
 			this.client = client;
 			myName = name;
-			writer.println(("0#1#connect#-1#-1#-1#-1.0#-1.0#0#"+myName));
-			writer.flush();
 		} catch (Exception ex) {
 			System.out.println("連接失敗 in ClientCenter");
 		}
@@ -78,6 +76,10 @@ public class ClientCenter implements Runnable {
 					// 這是因為暫時測試用的的client會把名字:打在前面
 					decoder(message);
 					handle();
+					if(Integer.parseInt(ta[1]) == -1){
+					writer.println(("0#"+myTid+"#connect#-1#-1#-1#-1.0#-1.0#0#"+myName));
+					writer.flush();
+					}
 				}
 
 			}
@@ -106,6 +108,7 @@ public class ClientCenter implements Runnable {
 		Y = Double.parseDouble(ta[7]);
 		direction = Integer.parseInt(ta[8]);
 		Stype = ta[9];
+		if(function.equals("connect"))
 		myTid = Integer.parseInt(ta[5]);
 		System.out.println("state: " + state);
 		System.out.println("Tid: " + Tid);
