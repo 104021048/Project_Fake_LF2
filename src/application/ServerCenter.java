@@ -79,7 +79,7 @@ public class ServerCenter implements Runnable {
 			tchoose = tc;
 			tname = tn;
 			started = flag;
-			setLive.add(-1);
+			setLive.add(myTid);
 			System.out.print("Center 線上名單 for " + myTid + ":" + setLive);
 			// 第一次連線回傳給Client 他專屬的Thread id
 			refreshInst();
@@ -217,7 +217,7 @@ public class ServerCenter implements Runnable {
 			PrintStream writer = tmap.get(myTid);
 			inst1(myTid);
 			// 第一次傳送Tid時Client還不知道自己的tid
-			String message = encoder(myTid);
+			String message = encoder(-1);
 			writer.println(message);
 			writer.flush();
 		} catch (Exception ex) {
