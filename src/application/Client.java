@@ -227,7 +227,7 @@ public class Client extends Application {
 	
 	public void SelectedRole_1(){
 		try{
-			writer.println((name + ":" + "0#1#choose#-1#-1#1#-1.0#-1.0#0#@"));
+			writer.println(("0#1#choose#-1#-1#1#-1.0#-1.0#0#@"));
 			writer.flush();
 		}catch(Exception ex){
 			System.out.println("送出資料失敗");
@@ -235,7 +235,7 @@ public class Client extends Application {
 	}
 	public void SelectedRole_2(){
 		try{
-			writer.println((name + ":" + "0#1#choose#-1#-1#2#-1.0#-1.0#0#@"));
+			writer.println(("0#1#choose#-1#-1#2#-1.0#-1.0#0#@"));
 			writer.flush();
 		}catch(Exception ex){
 			System.out.println("送出資料失敗");
@@ -243,14 +243,14 @@ public class Client extends Application {
 	}
 	public void SelectedRole_3(){
 		try{
-			writer.println((name + ":" + "0#1#choose#-1#-1#3#-1.0#-1.0#0#@"));
+			writer.println(("0#1#choose#-1#-1#3#-1.0#-1.0#0#@"));
 			writer.flush();
 		}catch(Exception ex){
 			System.out.println("送出資料失敗");
 		}
 	}public void SelectedRole_4(){
 		try{
-			writer.println((name + ":" + "0#1#choose#-1#-1#4#-1.0#-1.0#0#@"));
+			writer.println(("0#1#choose#-1#-1#4#-1.0#-1.0#0#@"));
 			writer.flush();
 		}catch(Exception ex){
 			System.out.println("送出資料失敗");
@@ -258,7 +258,7 @@ public class Client extends Application {
 	}
 	public void SelectedRole_5(){
 		try{
-			writer.println((name + ":" + "0#1#choose#-1#-1#5#-1.0#-1.0#0#@"));
+			writer.println(("0#1#choose#-1#-1#5#-1.0#-1.0#0#@"));
 			writer.flush();
 		}catch(Exception ex){
 			System.out.println("送出資料失敗");
