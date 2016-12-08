@@ -10,6 +10,8 @@ import java.util.Set;
 import java.util.Vector;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
@@ -76,9 +78,9 @@ public class ClientCenter implements Runnable {
 					// 這是因為暫時測試用的的client會把名字:打在前面
 					decoder(message);
 					handle();
-					if(Integer.parseInt(ta[1]) == -1){
-					writer.println(("0#"+myTid+"#connect#-1#-1#-1#-1.0#-1.0#0#"+myName));
-					writer.flush();
+					if (Integer.parseInt(ta[1]) == -1) {
+						writer.println(("0#" + myTid + "#connect#-1#-1#-1#-1.0#-1.0#0#" + myName));
+						writer.flush();
 					}
 				}
 
@@ -108,8 +110,8 @@ public class ClientCenter implements Runnable {
 		Y = Double.parseDouble(ta[7]);
 		direction = Integer.parseInt(ta[8]);
 		Stype = ta[9];
-		if(function.equals("connect"))
-		myTid = Integer.parseInt(ta[5]);
+		if (function.equals("connect"))
+			myTid = Integer.parseInt(ta[5]);
 		System.out.println("state: " + state);
 		System.out.println("Tid: " + Tid);
 		System.out.println("function: " + function);
@@ -133,43 +135,43 @@ public class ClientCenter implements Runnable {
 				// 觸發Tid
 				// TODO: 依照Tid設定房間內的角色.名字排序
 				case 1:
-					  Platform.runLater(() -> {
-					        try {
-								client.label_room_name1.setText(myName);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							client.label_room_name1.setText(myName);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				case 2:
-					  Platform.runLater(() -> {
-					        try {
-								client.label_room_name2.setText(myName);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							client.label_room_name2.setText(myName);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				case 3:
-					  Platform.runLater(() -> {
-					        try {
-								client.label_room_name3.setText(myName);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							client.label_room_name3.setText(myName);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				case 4:
-					  Platform.runLater(() -> {
-					        try {
-								client.label_room_name4.setText(myName);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							client.label_room_name4.setText(myName);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				default:
-						System.out.println(myTid);
+					System.out.println(myTid);
 				}
 				break;
 			case "connected":
@@ -177,41 +179,41 @@ public class ClientCenter implements Runnable {
 				// 觸發Tid
 				// TODO:
 				case "1":
-					  Platform.runLater(() -> {
-					        try {
-					        	System.out.println("ted");
-								client.label_room_name1.setText(ta[9]);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							System.out.println("ted");
+							client.label_room_name1.setText(ta[9]);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				case "2":
-					  Platform.runLater(() -> {
-					        try {
-								client.label_room_name2.setText(ta[9]);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							client.label_room_name2.setText(ta[9]);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				case "3":
-					  Platform.runLater(() -> {
-					        try {
-								client.label_room_name3.setText(ta[9]);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							client.label_room_name3.setText(ta[9]);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				case "4":
-					  Platform.runLater(() -> {
-					        try {
-								client.label_room_name4.setText(ta[9]);
-					        } catch (Exception  ex) {
-					            
-					        }
-					    });
+					Platform.runLater(() -> {
+						try {
+							client.label_room_name4.setText(ta[9]);
+						} catch (Exception ex) {
+
+						}
+					});
 					break;
 				}
 				break;
@@ -230,20 +232,7 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "choosed":
-				switch (ta[5]) {
-				// 觸發Tid
-				// TODO: 依照Tid設定房間內誰選擇角色
-				case "1":
-					// SelectedRole();
-					// Label.set
-					break;
-				case "2":
-					break;
-				case "3":
-					break;
-				case "4":
-					break;
-				}
+				SelectedRole(Integer.parseInt(ta[4]));
 				break;
 			case "locked":
 				switch (ta[5]) {
@@ -454,14 +443,136 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
+	public void selecte_role_method(ImageView image, String png, Label label) {
+		image = new ImageView(png);
+		label.setGraphic(image);
+	}
+
+	public void SelecteRole(int role) {
+
+		Platform.runLater(() -> {
+			try {
+				switch (myTid) {
+				case 1:
+					switch (role) {
+					case 1:
+						selecte_role_method(client.image_room_player_1,"role_1.png",client.label_room_headpicture1);
+						break;
+					case 2:
+						selecte_role_method(client.image_room_player_1,"role_2.png",client.label_room_headpicture1);
+						break;
+					case 3:
+						selecte_role_method(client.image_room_player_1,"role_3.png",client.label_room_headpicture1);
+						break;
+					case 4:
+						selecte_role_method(client.image_room_player_1,"role_4.png",client.label_room_headpicture1);
+						break;
+					case 5:
+						selecte_role_method(client.image_room_player_1,"role_5.png",client.label_room_headpicture1);
+						break;
+					}
+					break;
+				case 2:
+					switch (role) {
+					case 1:
+						selecte_role_method(client.image_room_player_2,"role_1.png",client.label_room_headpicture2);
+						break;
+					case 2:
+						selecte_role_method(client.image_room_player_2,"role_2.png",client.label_room_headpicture2);
+						break;
+					case 3:
+						selecte_role_method(client.image_room_player_2,"role_3.png",client.label_room_headpicture2);
+						break;
+					case 4:
+						selecte_role_method(client.image_room_player_2,"role_4.png",client.label_room_headpicture2);
+						break;
+					case 5:
+						selecte_role_method(client.image_room_player_2,"role_5.png",client.label_room_headpicture2);
+						break;
+					}
+					break;
+				case 3:
+					switch (role) {
+					case 1:
+						selecte_role_method(client.image_room_player_3,"role_1.png",client.label_room_headpicture3);
+						break;
+					case 2:
+						selecte_role_method(client.image_room_player_3,"role_2.png",client.label_room_headpicture3);
+						break;
+					case 3:
+						selecte_role_method(client.image_room_player_3,"role_3.png",client.label_room_headpicture3);
+						break;
+					case 4:
+						selecte_role_method(client.image_room_player_3,"role_4.png",client.label_room_headpicture3);
+						break;
+					case 5:
+						selecte_role_method(client.image_room_player_3,"role_5.png",client.label_room_headpicture3);
+						break;
+					}
+					break;
+				case 4:
+					switch (role) {
+					case 1:
+						selecte_role_method(client.image_room_player_4,"role_1.png",client.label_room_headpicture4);
+						break;
+					case 2:
+						selecte_role_method(client.image_room_player_4,"role_2.png",client.label_room_headpicture4);
+						break;
+					case 3:
+						selecte_role_method(client.image_room_player_4,"role_3.png",client.label_room_headpicture4);
+						break;
+					case 4:
+						selecte_role_method(client.image_room_player_4,"role_4.png",client.label_room_headpicture4);
+						break;
+					case 5:
+						selecte_role_method(client.image_room_player_4,"role_5.png",client.label_room_headpicture4);
+						break;
+					}
+					writer.println(("0#" + myTid + "#choose#-1#-1#"+role+"#-1.0#-1.0#0#" + myName));
+					writer.flush();
+					break;
+				}
+			} catch (Exception ex) {
+				System.out.println("送出資料失敗");
+			}
+		});
+	}
+
 	public void SelectedRole(int role) {
-		try {
-			function = "choose";
-			writer.println((state + "#" + myTid + "#" + function + "#" + source + "#" + dest + "#" + role + "#" + X
-					+ "#" + Y + "#" + direction + "#" + Stype));
-			writer.flush();
-		} catch (Exception ex) {
-			System.out.println("送出資料失敗");
+		String str = "";
+		switch (role) {
+		case 1:
+			str = "role_1.png";
+			break;
+		case 2:
+			str = "role_2.png";
+			break;
+		case 3:
+			str = "role_3.png";
+			break;
+		case 4:
+			str = "role_4.png";
+			break;
+		case 5:
+			str = "role_5.png";
+			break;
+		}
+		switch (ta[5]) {
+		// 觸發Tid
+		// TODO: 依照Tid設定房間內誰選擇角色
+		case "1":
+			client.image_room_player_1 = new ImageView(str);
+			break;
+		case "2":
+			client.image_room_player_2 = new ImageView(str);
+			break;
+		case "3":
+			client.image_room_player_3 = new ImageView(str);
+			break;
+		case "4":
+			client.image_room_player_4 = new ImageView(str);
+			break;
+
 		}
 	}
 }

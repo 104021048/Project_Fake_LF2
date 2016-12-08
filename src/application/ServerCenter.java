@@ -84,11 +84,7 @@ public class ServerCenter implements Runnable {
 			// 第一次連線回傳給Client 他專屬的Thread id
 			refreshInst();
 			tidSend();
-			if (setLive.size() > 1) {
-				// 接收前人的資訊
-				getChoose();
-				getName();
-			}
+
 		} catch (Exception ex) {
 			System.out.println("連接失敗 in Center");
 		}
@@ -143,6 +139,10 @@ public class ServerCenter implements Runnable {
 						started = false;
 						setLocked.clear();
 						setDeath.clear();
+					} else if (setLive.size() > 0 && Stype.equals(myName)) {
+						// 第一次連入接收前人的資訊S
+						getChoose();
+						getName();
 					} else {
 						tellOthers();
 					}
@@ -322,12 +322,13 @@ public class ServerCenter implements Runnable {
 
 	// 處理所有接收到的訊息
 	public void handle() {
-		
+
 		if (state == 0) {
-			switch(function){
+			switch (function) {
 			case "connect":
 				System.out.print("handle 線上名單 for " + myTid + ":" + setLive);
 				//
+
 				if (Stype.equals("@")) {
 					myName = "no name" + Tid;
 				} else {
@@ -342,6 +343,7 @@ public class ServerCenter implements Runnable {
 				break;
 			case "choose":
 				tchoose.put(Tid, type);
+				System.out.print("tchoose名單 for " + myTid + ":" + tchoose);
 				inst4(Tid, type);
 				break;
 			case "lock":
@@ -350,36 +352,10 @@ public class ServerCenter implements Runnable {
 				inst5(Tid, type);
 				break;
 			}
-			/*if (function.equals("connect")) {
-				// 將連入Tid加入Live的行列
-				// setLive.add(Tid);
-				System.out.print("handle 線上名單 for " + myTid + ":" + setLive);
-				//
-				if (Stype.equals("@")) {
-					myName = "no name" + Tid;
-				} else {
-					myName = Stype;
-				}
-				tname.put(Tid, Stype);
-				inst2(Tid);
-
-			} else if (function.equals("disconnect")) {
-				// 將斷線Tid除去Live的行列之中
-				setLive.remove(Tid);
-				inst3(Tid);
-
-			} else if (function.equals("choose")) {
-				tchoose.put(Tid, type);
-				inst4(Tid, type);
-			} else if (function.equals("lock")) {
-				setLocked.add(Tid);
-				System.out.print("鎖定名單 for " + myTid + ":" + setLocked);
-				inst5(Tid, type);
-			}
-			*/
+			
 
 		} else if (state == 1) {
-			switch(function){
+			switch (function) {
 			case "atk":
 				inst9(Tid, X, Y, direction);
 				break;
@@ -406,26 +382,7 @@ public class ServerCenter implements Runnable {
 				instRight(Tid);
 				break;
 			}
-			/*
-			if (function.equals("atk")) {
-				inst9(Tid, X, Y, direction);
-			} else if (function.equals("atk2")) {
-				inst10(Tid, X, Y, direction);
-			} else if (function.equals("atked")) {
-				inst11(Tid, X, Y, type);
-			} else if (function.equals("death")) {
-				setDeath.add(Tid);
-				inst12(Tid);
-			} else if (function.equals("moveup")) {
-				instUp(Tid);
-			} else if (function.equals("movedown")) {
-				instDown(Tid);
-			} else if (function.equals("moveleft")) {
-				instLeft(Tid);
-			} else if (function.equals("moveright")) {
-				instRight(Tid);
-			}
-			*/
+			
 
 		}
 	}

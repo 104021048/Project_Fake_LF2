@@ -173,29 +173,24 @@ public class Client extends Application {
 
 	public void room_setupListener(Stage primaryStage) {
 		button_room_character1.setOnAction(e -> {
-			image_room_player_1 = new ImageView("role_1.png");
-			label_room_headpicture1.setGraphic(image_room_player_1);
 			clientCenter.SelectedRole(1);
+			System.out.println("1");
 		});
 		button_room_character2.setOnAction(e -> {
-			image_room_player_1 = new ImageView("role_2.png");
-			label_room_headpicture1.setGraphic(image_room_player_1);
 			clientCenter.SelectedRole(2);
+			System.out.println("2");
 		});
 		button_room_character3.setOnAction(e -> {
-			image_room_player_1 = new ImageView("role_3.png");
-			label_room_headpicture1.setGraphic(image_room_player_1);
 			clientCenter.SelectedRole(3);
+			System.out.println("3");
 		});
 		button_room_character4.setOnAction(e -> {
-			image_room_player_1 = new ImageView("role_4.png");
-			label_room_headpicture1.setGraphic(image_room_player_1);
 			clientCenter.SelectedRole(4);
+			System.out.println("4");
 		});
 		button_room_character5.setOnAction(e -> {
-			image_room_player_1 = new ImageView("role_5.png");
-			label_room_headpicture1.setGraphic(image_room_player_1);
 			clientCenter.SelectedRole(5);
+			System.out.println("5");
 		});
 		button_room_ready.setOnAction(e -> {
 			game_init();
