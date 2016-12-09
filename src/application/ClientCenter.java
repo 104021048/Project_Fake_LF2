@@ -630,13 +630,114 @@ public class ClientCenter implements Runnable {
 								role);
 						System.out.println("LockPicture");
 						break;
+					case 2:
+						lock_role_method(client.image_room_player_1, "lock_role_2.png", client.label_room_headpicture1,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 3:
+						lock_role_method(client.image_room_player_1, "lock_role_3.png", client.label_room_headpicture1,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 4:
+						lock_role_method(client.image_room_player_1, "lock_role_4.png", client.label_room_headpicture1,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 5:
+						lock_role_method(client.image_room_player_1, "lock_role_5.png", client.label_room_headpicture1,
+								role);
+						System.out.println("LockPicture");
+						break;
 					}
 					break;
 				case 2:
+					switch (role) {
+					case 1:
+						lock_role_method(client.image_room_player_2, "lock_role_1.png", client.label_room_headpicture2,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 2:
+						lock_role_method(client.image_room_player_2, "lock_role_2.png", client.label_room_headpicture2,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 3:
+						lock_role_method(client.image_room_player_2, "lock_role_3.png", client.label_room_headpicture2,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 4:
+						lock_role_method(client.image_room_player_2, "lock_role_4.png", client.label_room_headpicture2,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 5:
+						lock_role_method(client.image_room_player_2, "lock_role_5.png", client.label_room_headpicture2,
+								role);
+						System.out.println("LockPicture");
+						break;
+					}
 					break;
 				case 3:
+					switch (role) {
+					case 1:
+						lock_role_method(client.image_room_player_3, "lock_role_1.png", client.label_room_headpicture3,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 2:
+						lock_role_method(client.image_room_player_3, "lock_role_2.png", client.label_room_headpicture3,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 3:
+						lock_role_method(client.image_room_player_3, "lock_role_3.png", client.label_room_headpicture3,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 4:
+						lock_role_method(client.image_room_player_3, "lock_role_4.png", client.label_room_headpicture3,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 5:
+						lock_role_method(client.image_room_player_3, "lock_role_5.png", client.label_room_headpicture3,
+								role);
+						System.out.println("LockPicture");
+						break;
+					}
 					break;
 				case 4:
+					switch (role) {
+					case 1:
+						lock_role_method(client.image_room_player_4, "lock_role_1.png", client.label_room_headpicture4,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 2:
+						lock_role_method(client.image_room_player_4, "lock_role_2.png", client.label_room_headpicture4,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 3:
+						lock_role_method(client.image_room_player_4, "lock_role_3.png", client.label_room_headpicture4,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 4:
+						lock_role_method(client.image_room_player_4, "lock_role_4.png", client.label_room_headpicture4,
+								role);
+						System.out.println("LockPicture");
+						break;
+					case 5:
+						lock_role_method(client.image_room_player_4, "lock_role_5.png", client.label_room_headpicture4,
+								role);
+						System.out.println("LockPicture");
+						break;
+					}
 					break;
 				}
 			} catch (Exception e) {
