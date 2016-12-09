@@ -43,7 +43,7 @@ public class Client extends Application {
 	public  String name;
 	public ProgressBar progressbar_game_blood, progressbar_game_characterblood1, progressbar_game_characterblood2,
 			progressbar_game_characterblood3, progressbar_game_characterblood4;
-	
+	public Stage primaryStage;
 	//login
 	
 	//region
@@ -182,36 +182,43 @@ public class Client extends Application {
 
 	public void room_setupListener(Stage primaryStage) {
 		button_room_character1.setOnAction(e -> {
-			clientCenter.SelecteRole(1);
+			clientCenter.selecteRole(1);
 			System.out.println("button_room_character1");
 		});
 		button_room_character2.setOnAction(e -> {
-			clientCenter.SelecteRole(2);
+			clientCenter.selecteRole(2);
 			System.out.println("button_room_character2");
 		});
 		button_room_character3.setOnAction(e -> {
-			clientCenter.SelecteRole(3);
+			clientCenter.selecteRole(3);
 			System.out.println("button_room_character3");
 		});
 		button_room_character4.setOnAction(e -> {
-			clientCenter.SelecteRole(4);
+			clientCenter.selecteRole(4);
 			System.out.println("button_room_character4");
 		});
 		button_room_character5.setOnAction(e -> {
-			clientCenter.SelecteRole(5);
+			clientCenter.selecteRole(5);
 			System.out.println("button_room_character5");
 		});
 		button_room_ready.setOnAction(e -> {
-			clientCenter.lockRole();
-			/*game_init();
+			//clientCenter.lockRole();
+			game_init();
 			game_setupUI();
 			game_setupListener(primaryStage);
-			primaryStage.setScene(scene_game);*/
-
+			primaryStage.setScene(scene_game);
 		});
 	}
 	//endregion
 	
+	public void togame(){
+		game_init();
+		game_setupUI();
+		game_setupListener(primaryStage);
+		primaryStage.setScene(scene_game);
+		System.out.println("toGame");
+		
+	}
 	//game
 	
 	//region
@@ -331,6 +338,7 @@ public class Client extends Application {
 	
 	//region
 	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		client = this;
 		login_init();
 		login_setupUI();
