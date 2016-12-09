@@ -30,7 +30,7 @@ public class Client extends Application {
 	public StackPane stackpane_game_root, stackpane_game_backgroundblood, stackpane_game_backgroundsky,
 			stackpane_game_backgroundground;
 	public TextField textfield_login_ip, textfield_login_name;
-	public static Label label_login_ip, label_login_name, label_room_headpicture1, label_room_headpicture2,
+	public  Label label_login_ip, label_login_name, label_room_headpicture1, label_room_headpicture2,
 			label_room_headpicture3, label_room_headpicture4, label_room_name1, label_room_name2, label_room_name3,
 			label_room_name4, label_room_systemmessage, label_game_backgroundblood, label_game_backgroundsky,
 			label_game_backgroundground, label_game_headpicture, label_game_character1, label_game_character2,
@@ -40,7 +40,7 @@ public class Client extends Application {
 	public ImageView image_login_logo, image_room_player_1, image_room_player_2, image_room_player_3,
 			image_room_player_4;
 	public HBox hbox_room_button;
-	public static String name;
+	public  String name;
 	public ProgressBar progressbar_game_blood, progressbar_game_characterblood1, progressbar_game_characterblood2,
 			progressbar_game_characterblood3, progressbar_game_characterblood4;
 
@@ -80,7 +80,8 @@ public class Client extends Application {
 		button_login_connect.setOnAction(e -> {
 			name = textfield_login_name.getText().toString();
 			String ip = textfield_login_ip.getText().toString();
-			Thread t = new Thread(clientCenter = new ClientCenter(client, sock, ip, name));
+			clientCenter = new ClientCenter(client, sock, ip, name);
+			Thread t = new Thread(clientCenter);
 			t.start();
 			room_init();
 			room_setupUI();
@@ -173,24 +174,24 @@ public class Client extends Application {
 
 	public void room_setupListener(Stage primaryStage) {
 		button_room_character1.setOnAction(e -> {
-			clientCenter.SelectedRole(1);
-			System.out.println("1");
+			clientCenter.SelecteRole(1);
+			System.out.println("button_room_character1");
 		});
 		button_room_character2.setOnAction(e -> {
-			clientCenter.SelectedRole(2);
-			System.out.println("2");
+			clientCenter.SelecteRole(2);
+			System.out.println("button_room_character2");
 		});
 		button_room_character3.setOnAction(e -> {
-			clientCenter.SelectedRole(3);
-			System.out.println("3");
+			clientCenter.SelecteRole(3);
+			System.out.println("button_room_character3");
 		});
 		button_room_character4.setOnAction(e -> {
-			clientCenter.SelectedRole(4);
-			System.out.println("4");
+			clientCenter.SelecteRole(4);
+			System.out.println("button_room_character4");
 		});
 		button_room_character5.setOnAction(e -> {
-			clientCenter.SelectedRole(5);
-			System.out.println("5");
+			clientCenter.SelecteRole(5);
+			System.out.println("button_room_character5");
 		});
 		button_room_ready.setOnAction(e -> {
 			game_init();

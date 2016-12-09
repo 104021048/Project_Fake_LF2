@@ -181,7 +181,7 @@ public class ClientCenter implements Runnable {
 				case "1":
 					Platform.runLater(() -> {
 						try {
-							System.out.println("ted");
+							System.out.println("Switch - connected");
 							client.label_room_name1.setText(ta[9]);
 						} catch (Exception ex) {
 
@@ -232,7 +232,84 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "choosed":
-				SelectedRole(Integer.parseInt(ta[4]));
+				switch (dest) {
+				case 1:
+					switch (type) {
+					case 1:
+						SelectedRole(client.image_room_player_1,"role_1.png",client.label_room_headpicture1);
+						break;
+					case 2:
+						SelectedRole(client.image_room_player_1,"role_2.png",client.label_room_headpicture1);
+						break;
+					case 3:
+						SelectedRole(client.image_room_player_1,"role_3.png",client.label_room_headpicture1);
+						break;
+					case 4:
+						SelectedRole(client.image_room_player_1,"role_4.png",client.label_room_headpicture1);
+						break;
+					case 5:
+						SelectedRole(client.image_room_player_1,"role_5.png",client.label_room_headpicture1);
+						break;
+					}
+					break;
+				case 2:
+					switch (type) {
+					case 1:
+						SelectedRole(client.image_room_player_2,"role_1.png",client.label_room_headpicture2);
+						break;
+					case 2:
+						SelectedRole(client.image_room_player_2,"role_2.png",client.label_room_headpicture2);
+						break;
+					case 3:
+						SelectedRole(client.image_room_player_2,"role_3.png",client.label_room_headpicture2);
+						break;
+					case 4:
+						SelectedRole(client.image_room_player_2,"role_4.png",client.label_room_headpicture2);
+						break;
+					case 5:
+						SelectedRole(client.image_room_player_2,"role_5.png",client.label_room_headpicture2);
+						break;
+					}
+					break;
+				case 3:
+					switch (type) {
+					case 1:
+						SelectedRole(client.image_room_player_3,"role_1.png",client.label_room_headpicture3);
+						break;
+					case 2:
+						SelectedRole(client.image_room_player_3,"role_2.png",client.label_room_headpicture3);
+						break;
+					case 3:
+						SelectedRole(client.image_room_player_3,"role_3.png",client.label_room_headpicture3);
+						break;
+					case 4:
+						SelectedRole(client.image_room_player_3,"role_4.png",client.label_room_headpicture3);
+						break;
+					case 5:
+						SelectedRole(client.image_room_player_3,"role_5.png",client.label_room_headpicture3);
+						break;
+					}
+					break;
+				case 4:
+					switch (type) {
+					case 1:
+						SelectedRole(client.image_room_player_4,"role_1.png",client.label_room_headpicture4);
+						break;
+					case 2:
+						SelectedRole(client.image_room_player_4,"role_2.png",client.label_room_headpicture4);
+						break;
+					case 3:
+						SelectedRole(client.image_room_player_4,"role_3.png",client.label_room_headpicture4);
+						break;
+					case 4:
+						SelectedRole(client.image_room_player_4,"role_4.png",client.label_room_headpicture4);
+						break;
+					case 5:
+						SelectedRole(client.image_room_player_4,"role_5.png",client.label_room_headpicture4);
+						break;
+					}
+					break;
+				}
 				break;
 			case "locked":
 				switch (ta[5]) {
@@ -443,136 +520,130 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public void selecte_role_method(ImageView image, String png, Label label) {
+	public void selecte_role_method(ImageView image, String png, Label label, int role) {
 		image = new ImageView(png);
 		label.setGraphic(image);
+		writer.println(("0#" + myTid + "#choose#-1#-1#" + role + "#-1.0#-1.0#0#@"));
+		writer.flush();
+		System.out.println("SelecteRole_writer_send");
 	}
 
 	public void SelecteRole(int role) {
-
 		Platform.runLater(() -> {
 			try {
 				switch (myTid) {
 				case 1:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_1,"role_1.png",client.label_room_headpicture1);
+						selecte_role_method(client.image_room_player_1, "role_1.png", client.label_room_headpicture1,
+								role);
+
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_1,"role_2.png",client.label_room_headpicture1);
+						selecte_role_method(client.image_room_player_1, "role_2.png", client.label_room_headpicture1,
+								role);
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_1,"role_3.png",client.label_room_headpicture1);
+						selecte_role_method(client.image_room_player_1, "role_3.png", client.label_room_headpicture1,
+								role);
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_1,"role_4.png",client.label_room_headpicture1);
+						selecte_role_method(client.image_room_player_1, "role_4.png", client.label_room_headpicture1,
+								role);
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_1,"role_5.png",client.label_room_headpicture1);
+						selecte_role_method(client.image_room_player_1, "role_5.png", client.label_room_headpicture1,
+								role);
 						break;
 					}
 					break;
 				case 2:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_2,"role_1.png",client.label_room_headpicture2);
+						selecte_role_method(client.image_room_player_2, "role_1.png", client.label_room_headpicture2,
+								role);
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_2,"role_2.png",client.label_room_headpicture2);
+						selecte_role_method(client.image_room_player_2, "role_2.png", client.label_room_headpicture2,
+								role);
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_2,"role_3.png",client.label_room_headpicture2);
+						selecte_role_method(client.image_room_player_2, "role_3.png", client.label_room_headpicture2,
+								role);
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_2,"role_4.png",client.label_room_headpicture2);
+						selecte_role_method(client.image_room_player_2, "role_4.png", client.label_room_headpicture2,
+								role);
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_2,"role_5.png",client.label_room_headpicture2);
+						selecte_role_method(client.image_room_player_2, "role_5.png", client.label_room_headpicture2,
+								role);
 						break;
 					}
 					break;
 				case 3:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_3,"role_1.png",client.label_room_headpicture3);
+						selecte_role_method(client.image_room_player_3, "role_1.png", client.label_room_headpicture3,
+								role);
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_3,"role_2.png",client.label_room_headpicture3);
+						selecte_role_method(client.image_room_player_3, "role_2.png", client.label_room_headpicture3,
+								role);
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_3,"role_3.png",client.label_room_headpicture3);
+						selecte_role_method(client.image_room_player_3, "role_3.png", client.label_room_headpicture3,
+								role);
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_3,"role_4.png",client.label_room_headpicture3);
+						selecte_role_method(client.image_room_player_3, "role_4.png", client.label_room_headpicture3,
+								role);
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_3,"role_5.png",client.label_room_headpicture3);
+						selecte_role_method(client.image_room_player_3, "role_5.png", client.label_room_headpicture3,
+								role);
 						break;
 					}
 					break;
 				case 4:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_4,"role_1.png",client.label_room_headpicture4);
+						selecte_role_method(client.image_room_player_4, "role_1.png", client.label_room_headpicture4,
+								role);
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_4,"role_2.png",client.label_room_headpicture4);
+						selecte_role_method(client.image_room_player_4, "role_2.png", client.label_room_headpicture4,
+								role);
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_4,"role_3.png",client.label_room_headpicture4);
+						selecte_role_method(client.image_room_player_4, "role_3.png", client.label_room_headpicture4,
+								role);
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_4,"role_4.png",client.label_room_headpicture4);
+						selecte_role_method(client.image_room_player_4, "role_4.png", client.label_room_headpicture4,
+								role);
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_4,"role_5.png",client.label_room_headpicture4);
+						selecte_role_method(client.image_room_player_4, "role_5.png", client.label_room_headpicture4,
+								role);
 						break;
 					}
-					writer.println(("0#" + myTid + "#choose#-1#-1#"+role+"#-1.0#-1.0#0#" + myName));
-					writer.flush();
 					break;
 				}
+
 			} catch (Exception ex) {
 				System.out.println("送出資料失敗");
 			}
 		});
 	}
 
-	public void SelectedRole(int role) {
-		String str = "";
-		switch (role) {
-		case 1:
-			str = "role_1.png";
-			break;
-		case 2:
-			str = "role_2.png";
-			break;
-		case 3:
-			str = "role_3.png";
-			break;
-		case 4:
-			str = "role_4.png";
-			break;
-		case 5:
-			str = "role_5.png";
-			break;
-		}
-		switch (ta[5]) {
-		// 觸發Tid
-		// TODO: 依照Tid設定房間內誰選擇角色
-		case "1":
-			client.image_room_player_1 = new ImageView(str);
-			break;
-		case "2":
-			client.image_room_player_2 = new ImageView(str);
-			break;
-		case "3":
-			client.image_room_player_3 = new ImageView(str);
-			break;
-		case "4":
-			client.image_room_player_4 = new ImageView(str);
-			break;
+	public void SelectedRole(ImageView image2,String png, Label label) {
+		
+		ImageView image = new ImageView(png);
 
-		}
+		Platform.runLater(() -> {
+		label.setGraphic(image);
+		});
+		System.out.println("SelectedRole_finish");
 	}
 }

@@ -59,6 +59,8 @@ public class ServerCenter implements Runnable {
 	private double Y;
 	private int direction;
 	private String Stype;
+	//需不需要接收前人訊息
+	private boolean getHistory = false;
 
 	public ServerCenter(Socket acceptSocket, int playerTid, Vector<PrintStream> x, Map<Integer, PrintStream> inserttMap,
 			Map<PrintStream, Integer> insertpMap, Set<Integer> Live, Set<Integer> Locked, Set<Integer> Death,
@@ -84,6 +86,9 @@ public class ServerCenter implements Runnable {
 			// 第一次連線回傳給Client 他專屬的Thread id
 			refreshInst();
 			tidSend();
+			if(setLive.size()>0){
+				getHistory=true;
+			}
 
 		} catch (Exception ex) {
 			System.out.println("連接失敗 in Center");
@@ -139,10 +144,12 @@ public class ServerCenter implements Runnable {
 						started = false;
 						setLocked.clear();
 						setDeath.clear();
-					} else if (setLive.size() > 0 && Stype.equals(myName)) {
+					} else if (state ==0 && setLive.size() > 0  && getHistory) {
 						// 第一次連入接收前人的資訊S
+						tellOthers();
 						getChoose();
 						getName();
+						getHistory=false;
 					} else {
 						tellOthers();
 					}
@@ -326,7 +333,7 @@ public class ServerCenter implements Runnable {
 		if (state == 0) {
 			switch (function) {
 			case "connect":
-				System.out.print("handle 線上名單 for " + myTid + ":" + setLive);
+				System.out.println("handle 線上名單 for " + myTid + ":" + setLive);
 				//
 
 				if (Stype.equals("@")) {
@@ -343,12 +350,12 @@ public class ServerCenter implements Runnable {
 				break;
 			case "choose":
 				tchoose.put(Tid, type);
-				System.out.print("tchoose名單 for " + myTid + ":" + tchoose);
+				System.out.println("tchoose名單 for " + myTid + ":" + tchoose);
 				inst4(Tid, type);
 				break;
 			case "lock":
 				setLocked.add(Tid);
-				System.out.print("鎖定名單 for " + myTid + ":" + setLocked);
+				System.out.println("鎖定名單 for " + myTid + ":" + setLocked);
 				inst5(Tid, type);
 				break;
 			}
