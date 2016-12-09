@@ -617,6 +617,9 @@ public class ClientCenter implements Runnable {
 	}
 	
 	public void lockRole() {
+		System.out.println("LockRole Start");
+		System.out.println("myTid: "+ myTid);
+		System.out.println("role: " + role);
 		Platform.runLater(() -> {
 			try {
 				switch (myTid) {
