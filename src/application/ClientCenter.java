@@ -148,7 +148,7 @@ public class ClientCenter implements Runnable {
 					Platform.runLater(() -> {
 						try {
 							System.out.println("Switch - connected");
-							client.label_room_name1.setText(ta[9]);
+							client.label_room_name1.setText(Stype);
 						} catch (Exception ex) {
 
 						}
@@ -157,7 +157,7 @@ public class ClientCenter implements Runnable {
 				case 2:
 					Platform.runLater(() -> {
 						try {
-							client.label_room_name2.setText(ta[9]);
+							client.label_room_name2.setText(Stype);
 						} catch (Exception ex) {
 
 						}
@@ -166,7 +166,7 @@ public class ClientCenter implements Runnable {
 				case 3:
 					Platform.runLater(() -> {
 						try {
-							client.label_room_name3.setText(ta[9]);
+							client.label_room_name3.setText(Stype);
 						} catch (Exception ex) {
 
 						}
@@ -175,7 +175,7 @@ public class ClientCenter implements Runnable {
 				case 4:
 					Platform.runLater(() -> {
 						try {
-							client.label_room_name4.setText(ta[9]);
+							client.label_room_name4.setText(Stype);
 						} catch (Exception ex) {
 
 						}
@@ -476,27 +476,7 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public void lockRole() {
-		Platform.runLater(() -> {
-			try {
-				switch (myTid) {
-				case 1:
-					switch (role) {
-					case 1:
-						lock_role_method(client.image_room_player_1, "lock_role_1.png", client.label_room_headpicture1,
-								role);
-						break;
-					}
-					break;
-				case 2:
-				case 3:
-				case 4:
-				}
-			} catch (Exception e) {
 
-			}
-		});
-	}
 
 	public void SelecteRole(int role) {
 		Platform.runLater(() -> {
@@ -634,6 +614,32 @@ public class ClientCenter implements Runnable {
 			label.setGraphic(image);
 		});
 		System.out.println("SelectedRole_finish");
+	}
+	
+	public void lockRole() {
+		Platform.runLater(() -> {
+			try {
+				switch (myTid) {
+				case 1:
+					switch (role) {
+					case 1:
+						lock_role_method(client.image_room_player_1, "lock_role_1.png", client.label_room_headpicture1,
+								role);
+						System.out.println("LockPicture");
+						break;
+					}
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				}
+			} catch (Exception e) {
+
+			}
+		});
 	}
 	//endregion
 	
