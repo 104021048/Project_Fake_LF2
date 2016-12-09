@@ -21,6 +21,7 @@ public class ClientCenter implements Runnable {
 	private int source;
 	private int dest;
 	private int type;
+	private int role;
 	private double X;
 	private double Y;
 	private int direction;
@@ -32,10 +33,6 @@ public class ClientCenter implements Runnable {
 	private Stage primaryStage;
 	private Client client;
 
-	/*
-	 * state#Tid#function#source#dest#type#X#Y#direction#SType 0 1 2 3 4 5 6 7 8
-	 * 9 private String data[][] = new String[4][10];
-	 */
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
 			EstablishConnection(ip, 8888);
@@ -78,7 +75,7 @@ public class ClientCenter implements Runnable {
 					// 這是因為暫時測試用的的client會把名字:打在前面
 					decoder(message);
 					handle();
-					if (Integer.parseInt(ta[1]) == -1) {
+					if (Tid == -1) {
 						writer.println(("0#" + myTid + "#connect#-1#-1#-1#-1.0#-1.0#0#" + myName));
 						writer.flush();
 					}
@@ -91,40 +88,9 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public void decoder(String message) {
-		// 把message用#分開
-		ta = message.split("#");
-		// System.out.print("解開訊息:");
-		// for (int i = 0; i < ta.length; i++) {
-		// System.out.print(ta[i] + "+");
-		// }
-		// System.out.println();
-		// 把所有拆開的訊息依序填入thread中的參數
-		state = Integer.parseInt(ta[0]);
-		Tid = Integer.parseInt(ta[1]);
-		function = ta[2];
-		source = Integer.parseInt(ta[3]);
-		dest = Integer.parseInt(ta[4]);
-		type = Integer.parseInt(ta[5]);
-		X = Double.parseDouble(ta[6]);
-		Y = Double.parseDouble(ta[7]);
-		direction = Integer.parseInt(ta[8]);
-		Stype = ta[9];
-		if (function.equals("connect"))
-			myTid = Integer.parseInt(ta[5]);
-		System.out.println("state: " + state);
-		System.out.println("Tid: " + Tid);
-		System.out.println("function: " + function);
-		System.out.println("source: " + source);
-		System.out.println("dest: " + dest);
-		System.out.println("type: " + type);
-		System.out.println("X: " + X);
-		System.out.println("Y: " + Y);
-		System.out.println("direction: " + direction);
-		System.out.println("Stype: " + Stype);
-		System.out.println("myTid: " + myTid);
-	}
-
+	//Event Handler
+	
+	//region
 	public void handle() {
 
 		if (state == 0) {
@@ -175,10 +141,10 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "connected":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO:
-				case "1":
+				case 1:
 					Platform.runLater(() -> {
 						try {
 							System.out.println("Switch - connected");
@@ -188,7 +154,7 @@ public class ClientCenter implements Runnable {
 						}
 					});
 					break;
-				case "2":
+				case 2:
 					Platform.runLater(() -> {
 						try {
 							client.label_room_name2.setText(ta[9]);
@@ -197,7 +163,7 @@ public class ClientCenter implements Runnable {
 						}
 					});
 					break;
-				case "3":
+				case 3:
 					Platform.runLater(() -> {
 						try {
 							client.label_room_name3.setText(ta[9]);
@@ -206,7 +172,7 @@ public class ClientCenter implements Runnable {
 						}
 					});
 					break;
-				case "4":
+				case 4:
 					Platform.runLater(() -> {
 						try {
 							client.label_room_name4.setText(ta[9]);
@@ -218,16 +184,16 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "disconnected":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid顯示誰斷線
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
@@ -236,136 +202,126 @@ public class ClientCenter implements Runnable {
 				case 1:
 					switch (type) {
 					case 1:
-						SelectedRole(client.image_room_player_1,"role_1.png",client.label_room_headpicture1);
+						SelectedRole(client.image_room_player_1, "role_1.png", client.label_room_headpicture1);
 						break;
 					case 2:
-						SelectedRole(client.image_room_player_1,"role_2.png",client.label_room_headpicture1);
+						SelectedRole(client.image_room_player_1, "role_2.png", client.label_room_headpicture1);
 						break;
 					case 3:
-						SelectedRole(client.image_room_player_1,"role_3.png",client.label_room_headpicture1);
+						SelectedRole(client.image_room_player_1, "role_3.png", client.label_room_headpicture1);
 						break;
 					case 4:
-						SelectedRole(client.image_room_player_1,"role_4.png",client.label_room_headpicture1);
+						SelectedRole(client.image_room_player_1, "role_4.png", client.label_room_headpicture1);
 						break;
 					case 5:
-						SelectedRole(client.image_room_player_1,"role_5.png",client.label_room_headpicture1);
+						SelectedRole(client.image_room_player_1, "role_5.png", client.label_room_headpicture1);
 						break;
 					}
 					break;
 				case 2:
 					switch (type) {
 					case 1:
-						SelectedRole(client.image_room_player_2,"role_1.png",client.label_room_headpicture2);
+						SelectedRole(client.image_room_player_2, "role_1.png", client.label_room_headpicture2);
 						break;
 					case 2:
-						SelectedRole(client.image_room_player_2,"role_2.png",client.label_room_headpicture2);
+						SelectedRole(client.image_room_player_2, "role_2.png", client.label_room_headpicture2);
 						break;
 					case 3:
-						SelectedRole(client.image_room_player_2,"role_3.png",client.label_room_headpicture2);
+						SelectedRole(client.image_room_player_2, "role_3.png", client.label_room_headpicture2);
 						break;
 					case 4:
-						SelectedRole(client.image_room_player_2,"role_4.png",client.label_room_headpicture2);
+						SelectedRole(client.image_room_player_2, "role_4.png", client.label_room_headpicture2);
 						break;
 					case 5:
-						SelectedRole(client.image_room_player_2,"role_5.png",client.label_room_headpicture2);
+						SelectedRole(client.image_room_player_2, "role_5.png", client.label_room_headpicture2);
 						break;
 					}
 					break;
 				case 3:
 					switch (type) {
 					case 1:
-						SelectedRole(client.image_room_player_3,"role_1.png",client.label_room_headpicture3);
+						SelectedRole(client.image_room_player_3, "role_1.png", client.label_room_headpicture3);
 						break;
 					case 2:
-						SelectedRole(client.image_room_player_3,"role_2.png",client.label_room_headpicture3);
+						SelectedRole(client.image_room_player_3, "role_2.png", client.label_room_headpicture3);
 						break;
 					case 3:
-						SelectedRole(client.image_room_player_3,"role_3.png",client.label_room_headpicture3);
+						SelectedRole(client.image_room_player_3, "role_3.png", client.label_room_headpicture3);
 						break;
 					case 4:
-						SelectedRole(client.image_room_player_3,"role_4.png",client.label_room_headpicture3);
+						SelectedRole(client.image_room_player_3, "role_4.png", client.label_room_headpicture3);
 						break;
 					case 5:
-						SelectedRole(client.image_room_player_3,"role_5.png",client.label_room_headpicture3);
+						SelectedRole(client.image_room_player_3, "role_5.png", client.label_room_headpicture3);
 						break;
 					}
 					break;
 				case 4:
 					switch (type) {
 					case 1:
-						SelectedRole(client.image_room_player_4,"role_1.png",client.label_room_headpicture4);
+						SelectedRole(client.image_room_player_4, "role_1.png", client.label_room_headpicture4);
 						break;
 					case 2:
-						SelectedRole(client.image_room_player_4,"role_2.png",client.label_room_headpicture4);
+						SelectedRole(client.image_room_player_4, "role_2.png", client.label_room_headpicture4);
 						break;
 					case 3:
-						SelectedRole(client.image_room_player_4,"role_3.png",client.label_room_headpicture4);
+						SelectedRole(client.image_room_player_4, "role_3.png", client.label_room_headpicture4);
 						break;
 					case 4:
-						SelectedRole(client.image_room_player_4,"role_4.png",client.label_room_headpicture4);
+						SelectedRole(client.image_room_player_4, "role_4.png", client.label_room_headpicture4);
 						break;
 					case 5:
-						SelectedRole(client.image_room_player_4,"role_5.png",client.label_room_headpicture4);
+						SelectedRole(client.image_room_player_4, "role_5.png", client.label_room_headpicture4);
 						break;
 					}
 					break;
 				}
 				break;
 			case "locked":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰鎖定角色
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "go1":
-				switch (ta[5]) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰鎖定角色
-				case "1":
-					break;
-				case "2":
-					break;
-				case "3":
-					break;
-				case "4":
-					break;
-				}
+				// 鎖定畫面
+				SelecteRole(myTid);
 				break;
 
 			case "go2":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰鎖定角色
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 
 			case "initial":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰鎖定角色
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
@@ -374,100 +330,100 @@ public class ClientCenter implements Runnable {
 		} else if (state == 1) {
 			switch (function) {
 			case "atk2":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰發動攻擊
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "atked":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰被攻擊
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "death":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰死亡
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "movedup":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往上
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "moveddown":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往下
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "movedleft":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往左
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "movedright":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往右
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
@@ -475,44 +431,44 @@ public class ClientCenter implements Runnable {
 		} else if (state == 2) {
 			switch (function) {
 			case "win":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO:
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "back1":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO:
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
 			case "back2":
-				switch (ta[5]) {
+				switch (type) {
 				// 觸發Tid
 				// TODO:
-				case "1":
+				case 1:
 					break;
-				case "2":
+				case 2:
 					break;
-				case "3":
+				case 3:
 					break;
-				case "4":
+				case 4:
 					break;
 				}
 				break;
@@ -520,12 +476,26 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public void selecte_role_method(ImageView image, String png, Label label, int role) {
-		image = new ImageView(png);
-		label.setGraphic(image);
-		writer.println(("0#" + myTid + "#choose#-1#-1#" + role + "#-1.0#-1.0#0#@"));
-		writer.flush();
-		System.out.println("SelecteRole_writer_send");
+	public void lockRole() {
+		Platform.runLater(() -> {
+			try {
+				switch (myTid) {
+				case 1:
+					switch (role) {
+					case 1:
+						lock_role_method(client.image_room_player_1, "lock_role_1.png", client.label_room_headpicture1,
+								role);
+						break;
+					}
+					break;
+				case 2:
+				case 3:
+				case 4:
+				}
+			} catch (Exception e) {
+
+			}
+		});
 	}
 
 	public void SelecteRole(int role) {
@@ -535,97 +505,116 @@ public class ClientCenter implements Runnable {
 				case 1:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_1, "role_1.png", client.label_room_headpicture1,
+						select_role_method(client.image_room_player_1, "role_1.png", client.label_room_headpicture1,
 								role);
-
+						this.role = role;
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_1, "role_2.png", client.label_room_headpicture1,
+						select_role_method(client.image_room_player_1, "role_2.png", client.label_room_headpicture1,
 								role);
+						this.role = role;
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_1, "role_3.png", client.label_room_headpicture1,
+						select_role_method(client.image_room_player_1, "role_3.png", client.label_room_headpicture1,
 								role);
+						this.role = role;
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_1, "role_4.png", client.label_room_headpicture1,
+						select_role_method(client.image_room_player_1, "role_4.png", client.label_room_headpicture1,
 								role);
+						this.role = role;
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_1, "role_5.png", client.label_room_headpicture1,
+						select_role_method(client.image_room_player_1, "role_5.png", client.label_room_headpicture1,
 								role);
+						this.role = role;
 						break;
 					}
 					break;
 				case 2:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_2, "role_1.png", client.label_room_headpicture2,
+						select_role_method(client.image_room_player_2, "role_1.png", client.label_room_headpicture2,
 								role);
+						this.role = role;
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_2, "role_2.png", client.label_room_headpicture2,
+						select_role_method(client.image_room_player_2, "role_2.png", client.label_room_headpicture2,
 								role);
+						this.role = role;
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_2, "role_3.png", client.label_room_headpicture2,
+						select_role_method(client.image_room_player_2, "role_3.png", client.label_room_headpicture2,
 								role);
+						this.role = role;
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_2, "role_4.png", client.label_room_headpicture2,
+						select_role_method(client.image_room_player_2, "role_4.png", client.label_room_headpicture2,
 								role);
+						this.role = role;
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_2, "role_5.png", client.label_room_headpicture2,
+						select_role_method(client.image_room_player_2, "role_5.png", client.label_room_headpicture2,
 								role);
+						this.role = role;
 						break;
 					}
 					break;
 				case 3:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_3, "role_1.png", client.label_room_headpicture3,
+						select_role_method(client.image_room_player_3, "role_1.png", client.label_room_headpicture3,
 								role);
+						this.role = role;
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_3, "role_2.png", client.label_room_headpicture3,
+						select_role_method(client.image_room_player_3, "role_2.png", client.label_room_headpicture3,
 								role);
+						this.role = role;
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_3, "role_3.png", client.label_room_headpicture3,
+						select_role_method(client.image_room_player_3, "role_3.png", client.label_room_headpicture3,
 								role);
+						this.role = role;
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_3, "role_4.png", client.label_room_headpicture3,
+						select_role_method(client.image_room_player_3, "role_4.png", client.label_room_headpicture3,
 								role);
+						this.role = role;
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_3, "role_5.png", client.label_room_headpicture3,
+						select_role_method(client.image_room_player_3, "role_5.png", client.label_room_headpicture3,
 								role);
+						this.role = role;
 						break;
 					}
 					break;
 				case 4:
 					switch (role) {
 					case 1:
-						selecte_role_method(client.image_room_player_4, "role_1.png", client.label_room_headpicture4,
+						select_role_method(client.image_room_player_4, "role_1.png", client.label_room_headpicture4,
 								role);
+						this.role = role;
 						break;
 					case 2:
-						selecte_role_method(client.image_room_player_4, "role_2.png", client.label_room_headpicture4,
+						select_role_method(client.image_room_player_4, "role_2.png", client.label_room_headpicture4,
 								role);
+						this.role = role;
 						break;
 					case 3:
-						selecte_role_method(client.image_room_player_4, "role_3.png", client.label_room_headpicture4,
+						select_role_method(client.image_room_player_4, "role_3.png", client.label_room_headpicture4,
 								role);
+						this.role = role;
 						break;
 					case 4:
-						selecte_role_method(client.image_room_player_4, "role_4.png", client.label_room_headpicture4,
+						select_role_method(client.image_room_player_4, "role_4.png", client.label_room_headpicture4,
 								role);
+						this.role = role;
 						break;
 					case 5:
-						selecte_role_method(client.image_room_player_4, "role_5.png", client.label_room_headpicture4,
+						select_role_method(client.image_room_player_4, "role_5.png", client.label_room_headpicture4,
 								role);
+						this.role = role;
 						break;
 					}
 					break;
@@ -637,13 +626,148 @@ public class ClientCenter implements Runnable {
 		});
 	}
 
-	public void SelectedRole(ImageView image2,String png, Label label) {
-		
+	public void SelectedRole(ImageView image2, String png, Label label) {
+
 		ImageView image = new ImageView(png);
 
 		Platform.runLater(() -> {
-		label.setGraphic(image);
+			label.setGraphic(image);
 		});
 		System.out.println("SelectedRole_finish");
 	}
+	//endregion
+	
+	//method
+	
+	//region
+	public void select_role_method(ImageView image, String png, Label label, int role) {
+		image = new ImageView(png);
+		label.setGraphic(image);
+		initSelect();
+		writer.println(encoder());
+		writer.flush();
+		refreshInst();
+		System.out.println("SelecteRole_writer_send");
+	}
+
+	public void lock_role_method(ImageView image, String png, Label label, int role) {
+		image = new ImageView(png);
+		label.setGraphic(image);
+		initLock();
+		writer.println(encoder());
+		writer.flush();
+		refreshInst();
+		System.out.println("Lock_finish");
+		
+	}
+	//endregion
+	
+	//coder
+	
+	//region
+	public String encoder() {
+		String ta[] = new String[10];
+		ta[0] = Integer.toString(state);
+		ta[1] = Integer.toString(myTid);
+		ta[2] = function;
+		ta[3] = Integer.toString(source);
+		ta[4] = Integer.toString(dest);
+		ta[5] = Integer.toString(type);
+		ta[6] = Double.toString(X);
+		ta[7] = Double.toString(Y);
+		ta[8] = Integer.toString(direction);
+		ta[9] = Stype;
+		StringBuilder strBuilder = new StringBuilder();
+		for (int i = 0; i < ta.length; i++) {
+			strBuilder.append(ta[i]);
+			if (i != ta.length - 1) {
+				strBuilder.append("#");
+			}
+		}
+		String message = strBuilder.toString();
+		return message;
+	}
+	
+	public void decoder(String message) {
+		// 把message用#分開
+		ta = message.split("#");
+		// System.out.print("解開訊息:");
+		// for (int i = 0; i < ta.length; i++) {
+		// System.out.print(ta[i] + "+");
+		// }
+		// System.out.println();
+		// 把所有拆開的訊息依序填入thread中的參數
+		state = Integer.parseInt(ta[0]);
+		Tid = Integer.parseInt(ta[1]);
+		function = ta[2];
+		source = Integer.parseInt(ta[3]);
+		dest = Integer.parseInt(ta[4]);
+		type = Integer.parseInt(ta[5]);
+		X = Double.parseDouble(ta[6]);
+		Y = Double.parseDouble(ta[7]);
+		direction = Integer.parseInt(ta[8]);
+		Stype = ta[9];
+		if (function.equals("connect"))
+			myTid = Integer.parseInt(ta[5]);
+		System.out.println("state: " + state);
+		System.out.println("Tid: " + Tid);
+		System.out.println("function: " + function);
+		System.out.println("source: " + source);
+		System.out.println("dest: " + dest);
+		System.out.println("type: " + type);
+		System.out.println("X: " + X);
+		System.out.println("Y: " + Y);
+		System.out.println("direction: " + direction);
+		System.out.println("Stype: " + Stype);
+		System.out.println("myTid: " + myTid);
+	}
+	//endregion
+	
+	//init
+	
+	//region
+	public void initSelect() {
+		state = 0;
+		myTid = myTid;
+		function = "choose";
+		source = -1;
+		dest = -1;
+		type = role;
+		X = -1.0;
+		Y = -1.0;
+		direction = 0;
+		Stype = "@";
+	}
+
+	public void initLock() {
+		state = 0;
+		myTid = myTid;
+		function = "lock";
+		source = -1;
+		dest = -1;
+		type = role;
+		X = -1.0;
+		Y = -1.0;
+		direction = 0;
+		Stype = "@";
+	}
+	//endregion
+	
+	//refresh
+	
+	//region
+	public void refreshInst() {
+
+		state = -1;
+		Tid = -1;
+		function = "";
+		source = -1;
+		dest = -1;
+		type = -1;
+		X = -1;
+		Y = -1;
+		direction = 0;
+		Stype = "@";
+	}
+	//endregion
 }

@@ -59,7 +59,7 @@ public class ServerCenter implements Runnable {
 	private double Y;
 	private int direction;
 	private String Stype;
-	//需不需要接收前人訊息
+	// 需不需要接收前人訊息
 	private boolean getHistory = false;
 
 	public ServerCenter(Socket acceptSocket, int playerTid, Vector<PrintStream> x, Map<Integer, PrintStream> inserttMap,
@@ -86,8 +86,8 @@ public class ServerCenter implements Runnable {
 			// 第一次連線回傳給Client 他專屬的Thread id
 			refreshInst();
 			tidSend();
-			if(setLive.size()>0){
-				getHistory=true;
+			if (setLive.size() > 0) {
+				getHistory = true;
 			}
 
 		} catch (Exception ex) {
@@ -108,7 +108,7 @@ public class ServerCenter implements Runnable {
 					decoder(message);
 					handle();
 
-					if (state == 0 && setLocked.size() == setLive.size() && !started) {
+					if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size() > 1) {
 						// 如果大家都鎖定了
 						System.out.println("鎖定已滿遊戲準備開始");
 						// go1 告訴自己準備要開始
@@ -144,12 +144,12 @@ public class ServerCenter implements Runnable {
 						started = false;
 						setLocked.clear();
 						setDeath.clear();
-					} else if (state ==0 && setLive.size() > 0  && getHistory) {
+					} else if (state == 0 && setLive.size() > 0 && getHistory) {
 						// 第一次連入接收前人的資訊S
 						tellOthers();
 						getChoose();
 						getName();
-						getHistory=false;
+						getHistory = false;
 					} else {
 						tellOthers();
 					}
@@ -359,7 +359,6 @@ public class ServerCenter implements Runnable {
 				inst5(Tid, type);
 				break;
 			}
-			
 
 		} else if (state == 1) {
 			switch (function) {
@@ -389,7 +388,6 @@ public class ServerCenter implements Runnable {
 				instRight(Tid);
 				break;
 			}
-			
 
 		}
 	}

@@ -43,7 +43,11 @@ public class Client extends Application {
 	public  String name;
 	public ProgressBar progressbar_game_blood, progressbar_game_characterblood1, progressbar_game_characterblood2,
 			progressbar_game_characterblood3, progressbar_game_characterblood4;
-
+	
+	//login
+	
+	//region
+	
 	public void login_init() {
 		gridpane_login_root = new GridPane();
 		gridpane_login_root.setPadding(new Insets(25, 25, 25, 25));
@@ -92,7 +96,11 @@ public class Client extends Application {
 			System.exit(1);
 		});
 	}
-
+	//endregion
+	
+	//room
+	
+	//region
 	public void room_init() {
 		image_room_player_1 = new ImageView("role_1.png");
 		image_room_player_2 = new ImageView("role_1.png");
@@ -194,14 +202,19 @@ public class Client extends Application {
 			System.out.println("button_room_character5");
 		});
 		button_room_ready.setOnAction(e -> {
-			game_init();
+			clientCenter.lockRole();
+			/*game_init();
 			game_setupUI();
 			game_setupListener(primaryStage);
-			primaryStage.setScene(scene_game);
+			primaryStage.setScene(scene_game);*/
 
 		});
 	}
-
+	//endregion
+	
+	//game
+	
+	//region
 	public void game_init() {
 		stackpane_game_root = new StackPane();
 		stackpane_game_backgroundblood = new StackPane();
@@ -312,7 +325,11 @@ public class Client extends Application {
 	public void game_setupListener(Stage stage) {
 
 	}
-
+	//endregion
+	
+	//main
+	
+	//region
 	public void start(Stage primaryStage) {
 		client = this;
 		login_init();
@@ -328,4 +345,5 @@ public class Client extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	//endregion
 }
