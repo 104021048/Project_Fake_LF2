@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,7 +31,7 @@ public class Client extends Application {
 	public StackPane stackpane_game_root, stackpane_game_backgroundblood, stackpane_game_backgroundsky,
 			stackpane_game_backgroundground;
 	public TextField textfield_login_ip, textfield_login_name;
-	public  Label label_login_ip, label_login_name, label_room_headpicture1, label_room_headpicture2,
+	public Label label_login_ip, label_login_name, label_room_headpicture1, label_room_headpicture2,
 			label_room_headpicture3, label_room_headpicture4, label_room_name1, label_room_name2, label_room_name3,
 			label_room_name4, label_room_systemmessage, label_game_backgroundblood, label_game_backgroundsky,
 			label_game_backgroundground, label_game_headpicture, label_game_character1, label_game_character2,
@@ -40,14 +41,13 @@ public class Client extends Application {
 	public ImageView image_login_logo, image_room_player_1, image_room_player_2, image_room_player_3,
 			image_room_player_4;
 	public HBox hbox_room_button;
-	public  String name;
+	public String name;
 	public ProgressBar progressbar_game_blood, progressbar_game_characterblood1, progressbar_game_characterblood2,
 			progressbar_game_characterblood3, progressbar_game_characterblood4;
-	public Stage primaryStage;
-	//login
-	
-	//region
-	
+	// login
+
+	// region
+
 	public void login_init() {
 		gridpane_login_root = new GridPane();
 		gridpane_login_root.setPadding(new Insets(25, 25, 25, 25));
@@ -61,10 +61,10 @@ public class Client extends Application {
 	}
 
 	public void login_setupUI() {
-		label_login_ip.setPrefSize(100 ,10);
-		textfield_login_ip.setPrefSize(1100 ,10);
-		label_login_name.setPrefSize(100 ,10);
-		textfield_login_name.setPrefSize(1100 ,10);
+		label_login_ip.setPrefSize(100, 10);
+		textfield_login_ip.setPrefSize(1100, 10);
+		label_login_name.setPrefSize(100, 10);
+		textfield_login_name.setPrefSize(1100, 10);
 		button_login_connect.setPrefSize(100, 10);
 		button_login_exit.setPrefSize(100, 10);
 		gridpane_login_root.setHgap(10);
@@ -96,11 +96,11 @@ public class Client extends Application {
 			System.exit(1);
 		});
 	}
-	//endregion
-	
-	//room
-	
-	//region
+	// endregion
+
+	// room
+
+	// region
 	public void room_init() {
 		image_room_player_1 = new ImageView("role_1.png");
 		image_room_player_2 = new ImageView("role_1.png");
@@ -133,10 +133,10 @@ public class Client extends Application {
 		label_room_headpicture2.setGraphic(image_room_player_2);
 		label_room_headpicture3.setGraphic(image_room_player_3);
 		label_room_headpicture4.setGraphic(image_room_player_4);
-		label_room_headpicture1.setPrefSize(1100 ,100);
-		label_room_headpicture2.setPrefSize(1100 ,100);
-		label_room_headpicture3.setPrefSize(1100 ,100);
-		label_room_headpicture4.setPrefSize(1100 ,100);
+		label_room_headpicture1.setPrefSize(1100, 100);
+		label_room_headpicture2.setPrefSize(1100, 100);
+		label_room_headpicture3.setPrefSize(1100, 100);
+		label_room_headpicture4.setPrefSize(1100, 100);
 		label_room_name1.setPrefSize(150, 30);
 		label_room_name2.setPrefSize(150, 30);
 		label_room_name3.setPrefSize(150, 30);
@@ -202,26 +202,26 @@ public class Client extends Application {
 			System.out.println("button_room_character5");
 		});
 		button_room_ready.setOnAction(e -> {
-			//clientCenter.lockRole();
-			game_init();
-			game_setupUI();
-			game_setupListener(primaryStage);
-			primaryStage.setScene(scene_game);
+			clientCenter.lockRole(primaryStage);
 		});
 	}
-	//endregion
-	
-	public void togame(){
-		game_init();
-		game_setupUI();
-		game_setupListener(primaryStage);
-		primaryStage.setScene(scene_game);
-		System.out.println("toGame");
-		
+
+	// endregion
+	public void toGame(Stage primaryStage) {
+		Platform.runLater(() -> {
+			try {
+				game_init();
+				clientCenter.setGameView();
+				game_setupListener(primaryStage);
+				primaryStage.setScene(scene_game);
+			} catch (Exception ex) {
+
+			}
+		});
 	}
-	//game
-	
-	//region
+	// game
+
+	// region
 	public void game_init() {
 		stackpane_game_root = new StackPane();
 		stackpane_game_backgroundblood = new StackPane();
@@ -242,8 +242,8 @@ public class Client extends Application {
 		progressbar_game_characterblood4 = new ProgressBar(1);
 	}
 
-	public void game_setupUI() {
-
+	public void game_setupUI(double c1_x, double c1_y, double c2_x, double c2_y, double c3_x, double c3_y, double c4_x,
+			double c4_y, String c1_png, String c2_png, String c3_png, String c4_png) {
 		label_game_headpicture.setPrefSize(100, 100);
 		// label_headpicture.setStyle("-fx-background-color: #33CCFF");
 		label_game_headpicture.setTranslateX(-330);
@@ -275,44 +275,44 @@ public class Client extends Application {
 		progressbar_game_blood.setTranslateY(-285);
 
 		label_game_character1.setPrefSize(50, 50);
-		label_game_character1.setTranslateX(-350);
-		label_game_character1.setTranslateY(150);
-		ImageView imageview_character1 = new ImageView("img_game_role1.png");
+		label_game_character1.setTranslateX(c1_x);
+		label_game_character1.setTranslateY(c1_y);
+		ImageView imageview_character1 = new ImageView(c1_png);
 		label_game_character1.setGraphic(imageview_character1);
 		progressbar_game_characterblood1.setStyle("-fx-accent: red");
-		progressbar_game_characterblood1.setPrefSize(100 ,1);
-		progressbar_game_characterblood1.setTranslateX(-350);
-		progressbar_game_characterblood1.setTranslateY(120);
+		progressbar_game_characterblood1.setPrefSize(100, 1);
+		progressbar_game_characterblood1.setTranslateX(c1_x);
+		progressbar_game_characterblood1.setTranslateY(c1_y - 30);
 
 		label_game_character2.setPrefSize(50, 50);
-		label_game_character2.setTranslateX(-350);
-		label_game_character2.setTranslateY(260);
-		ImageView imageview_character2 = new ImageView("img_game_role2.png");
+		label_game_character2.setTranslateX(c2_x);
+		label_game_character2.setTranslateY(c2_y);
+		ImageView imageview_character2 = new ImageView(c2_png);
 		label_game_character2.setGraphic(imageview_character2);
 		progressbar_game_characterblood2.setStyle("-fx-accent: red");
-		progressbar_game_characterblood2.setPrefSize(100 ,1);
-		progressbar_game_characterblood2.setTranslateX(-350);
-		progressbar_game_characterblood2.setTranslateY(230);
+		progressbar_game_characterblood2.setPrefSize(100, 1);
+		progressbar_game_characterblood2.setTranslateX(c2_x);
+		progressbar_game_characterblood2.setTranslateY(c2_y - 30);
 
 		label_game_character3.setPrefSize(50, 50);
-		label_game_character3.setTranslateX(350);
-		label_game_character3.setTranslateY(150);
-		ImageView imageview_character3 = new ImageView("img_game_role3.png");
+		label_game_character3.setTranslateX(c3_x);
+		label_game_character3.setTranslateY(c3_y);
+		ImageView imageview_character3 = new ImageView(c3_png);
 		label_game_character3.setGraphic(imageview_character3);
 		progressbar_game_characterblood3.setStyle("-fx-accent: red");
-		progressbar_game_characterblood3.setPrefSize(100 ,1);
-		progressbar_game_characterblood3.setTranslateX(350);
-		progressbar_game_characterblood3.setTranslateY(120);
+		progressbar_game_characterblood3.setPrefSize(100, 1);
+		progressbar_game_characterblood3.setTranslateX(c3_x);
+		progressbar_game_characterblood3.setTranslateY(c3_y - 30);
 
 		label_game_character4.setPrefSize(50, 50);
-		label_game_character4.setTranslateX(350);
-		label_game_character4.setTranslateY(260);
-		ImageView imageview_character4 = new ImageView("img_game_role4.png");
+		label_game_character4.setTranslateX(c4_x);
+		label_game_character4.setTranslateY(c4_y);
+		ImageView imageview_character4 = new ImageView(c4_png);
 		label_game_character4.setGraphic(imageview_character4);
 		progressbar_game_characterblood4.setStyle("-fx-accent: red");
-		progressbar_game_characterblood4.setPrefSize(100 ,1);
-		progressbar_game_characterblood4.setTranslateX(350);
-		progressbar_game_characterblood4.setTranslateY(230);
+		progressbar_game_characterblood4.setPrefSize(100, 1);
+		progressbar_game_characterblood4.setTranslateX(c4_x);
+		progressbar_game_characterblood4.setTranslateY(c4_x - 30);
 
 		stackpane_game_root.getChildren().addAll(stackpane_game_backgroundblood, stackpane_game_backgroundsky,
 				stackpane_game_backgroundground);
@@ -324,7 +324,7 @@ public class Client extends Application {
 		stackpane_game_backgroundground.getChildren().addAll(label_game_character3, progressbar_game_characterblood3);
 		stackpane_game_backgroundground.getChildren().addAll(label_game_character4, progressbar_game_characterblood4);
 
-		scene_game = new Scene(stackpane_game_root,sence_width, sence_height);
+		scene_game = new Scene(stackpane_game_root, sence_width, sence_height);
 		scene_game.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 	}
@@ -332,13 +332,12 @@ public class Client extends Application {
 	public void game_setupListener(Stage stage) {
 
 	}
-	//endregion
-	
-	//main
-	
-	//region
+	// endregion
+
+	// main
+
+	// region
 	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
 		client = this;
 		login_init();
 		login_setupUI();
@@ -353,5 +352,5 @@ public class Client extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	//endregion
+	// endregion
 }

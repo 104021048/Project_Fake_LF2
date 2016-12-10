@@ -108,7 +108,7 @@ public class ServerCenter implements Runnable {
 					decoder(message);
 					handle();
 
-					if (state == 0 && setLocked.size() == setLive.size() && !started &&setLive.size()>1) {
+					if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size() > 1) {
 						// 如果大家都鎖定了
 						System.out.println("鎖定已滿遊戲準備開始");
 						// go1 告訴自己準備要開始
