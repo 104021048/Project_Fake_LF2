@@ -32,9 +32,15 @@ public class ClientCenter implements Runnable {
 	private Stage primaryStage;
 	private Client client;
 	private Stage stage;
+	private boolean room_boolean[] = new boolean[4];
+	private int room_Tid_data[] = new int[4];
+	private int myTid_int = 99, dest_int = 99;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
+			for (int i = 0; i < 4; i++) {
+				room_boolean[i] = false;
+			}
 			EstablishConnection(ip, 8888);
 			this.client = client;
 			myName = name;
@@ -102,90 +108,101 @@ public class ClientCenter implements Runnable {
 			// state 0
 			switch (function) {
 			case "connect":
-				switch (myTid) {
-				// 觸發Tid
-				// TODO: 依照Tid設定房間內的角色.名字排序
-				case 1:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name1.setText(myName);
-						} catch (Exception ex) {
+				for (int i = 0; i < 4; i++) {
+					if (room_boolean[i] == false) {
+						switch (i) {
+						// 觸發Tid
+						// TODO: 依照Tid設定房間內的角色.名字排序
+						case 1:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name1.setText(myName);
+								} catch (Exception ex) {
 
-						}
-					});
-					break;
-				case 2:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name2.setText(myName);
-						} catch (Exception ex) {
+								}
+							});
+							break;
+						case 2:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name2.setText(myName);
+								} catch (Exception ex) {
 
-						}
-					});
-					break;
-				case 3:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name3.setText(myName);
-						} catch (Exception ex) {
+								}
+							});
+							break;
+						case 3:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name3.setText(myName);
+								} catch (Exception ex) {
 
-						}
-					});
-					break;
-				case 4:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name4.setText(myName);
-						} catch (Exception ex) {
+								}
+							});
+							break;
+						case 4:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name4.setText(myName);
+								} catch (Exception ex) {
 
+								}
+							});
+							break;
 						}
-					});
-					break;
-				default:
-					System.out.println(myTid);
+						room_boolean[i] = true;
+						room_Tid_data[i] = myTid;
+						break;
+					}
 				}
 				break;
 			case "connected":
-				switch (type) {
-				// 觸發Tid
-				// TODO:
-				case 1:
-					Platform.runLater(() -> {
-						try {
-							System.out.println("Switch - connected");
-							client.label_room_name1.setText(Stype);
-						} catch (Exception ex) {
+				for (int i = 0; i < 4; i++) {
+					if (room_boolean[i] == false) {
+						switch (i) {
+						// 觸發Tid
+						// TODO:
+						case 1:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name1.setText(Stype);
+								} catch (Exception ex) {
 
-						}
-					});
-					break;
-				case 2:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name2.setText(Stype);
-						} catch (Exception ex) {
+								}
+							});
+							break;
+						case 2:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name2.setText(Stype);
+								} catch (Exception ex) {
 
-						}
-					});
-					break;
-				case 3:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name3.setText(Stype);
-						} catch (Exception ex) {
+								}
+							});
+							break;
+						case 3:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name3.setText(Stype);
+								} catch (Exception ex) {
 
-						}
-					});
-					break;
-				case 4:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name4.setText(Stype);
-						} catch (Exception ex) {
+								}
+							});
+							break;
+						case 4:
+							Platform.runLater(() -> {
+								try {
+									client.label_room_name4.setText(Stype);
+								} catch (Exception ex) {
 
+								}
+							});
+							break;
 						}
-					});
-					break;
+						room_boolean[i] = true;
+						room_Tid_data[i] = type;
+						break;
+					}
 				}
 				break;
 			case "disconnected":
@@ -203,7 +220,12 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "choosed":
-				switch (dest) {
+				for (int i = 0; i < 4; i++) {
+					if (room_Tid_data[i] == dest) {
+						dest_int = i;
+					}
+				}
+				switch (dest_int) {
 				case 1:
 					switch (type) {
 					case 1:
@@ -283,8 +305,13 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "locked":
+				for (int i = 0; i < 4; i++) {
+					if (room_Tid_data[i] == dest) {
+						dest_int = i;
+					}
+				}
 				role_data[dest - 1] = type;
-				switch (dest) {
+				switch (dest_int) {
 				case 1:
 					switch (type) {
 					// 觸發Tid
@@ -374,7 +401,10 @@ public class ClientCenter implements Runnable {
 			case "go1":
 				// 鎖定畫面
 				Platform.runLater(() -> {
-					client.button_room_ready.setDisable(true);
+					try {
+						client.button_room_ready.setDisable(true);
+					} catch (Exception ex) {
+					}
 				});
 				break;
 
@@ -406,7 +436,9 @@ public class ClientCenter implements Runnable {
 				break;
 			}
 
-		} else if (state == 1) {
+		} else if (state == 1)
+
+		{
 			switch (function) {
 			case "atk2":
 				switch (type) {
@@ -558,7 +590,12 @@ public class ClientCenter implements Runnable {
 	public void selecteRole(int role) {
 		Platform.runLater(() -> {
 			try {
-				switch (myTid) {
+				for (int i = 0; i < 4; i++) {
+					if (room_Tid_data[i] == myTid) {
+						myTid_int = i;
+					}
+				}
+				switch (myTid_int) {
 				case 1:
 					switch (role) {
 					case 1:
