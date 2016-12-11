@@ -9,6 +9,7 @@ import java.net.Socket;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,6 +19,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
 public class Client extends Application {
@@ -275,7 +278,7 @@ public class Client extends Application {
 		ImageView imageview_backgroundground = new ImageView("ground.jpg");
 		label_game_backgroundground.setGraphic(imageview_backgroundground);
 
-		progressbar_game_blood.setStyle("-fx-accent: red"); // ÀY¹³¦å±ø
+		progressbar_game_blood.setStyle("-fx-accent: red"); // ?Y繒糧礎疇簣繪
 		progressbar_game_blood.setPrefSize(500, 25);
 		progressbar_game_blood.setTranslateX(10);
 		progressbar_game_blood.setTranslateY(-285);
@@ -290,8 +293,10 @@ public class Client extends Application {
 		progressbar_game_characterblood1.setTranslateX(c1_x);
 		progressbar_game_characterblood1.setTranslateY(c1_y - 30);
 		label_game_name1.setPrefSize(100, 30);
+		label_game_name1.setFont(Font.font("Arial", FontPosture.ITALIC, 22));
+		label_game_name1.setAlignment(Pos.CENTER);
 		label_game_name1.setTranslateX(c1_x);
-		label_game_name1.setTranslateY(c1_y - 60);
+		label_game_name1.setTranslateY(c1_y + 40);
 		label_game_name1.setText(name1);
 
 		label_game_character2.setPrefSize(50, 50);
@@ -304,8 +309,10 @@ public class Client extends Application {
 		progressbar_game_characterblood2.setTranslateX(c2_x);
 		progressbar_game_characterblood2.setTranslateY(c2_y - 30);
 		label_game_name2.setPrefSize(100, 30);
+		label_game_name2.setFont(Font.font("Arial", FontPosture.ITALIC, 22));
+		label_game_name2.setAlignment(Pos.CENTER);
 		label_game_name2.setTranslateX(c2_x);
-		label_game_name2.setTranslateY(c2_y - 60);
+		label_game_name2.setTranslateY(c2_y + 40);
 		label_game_name2.setText(name2);
 
 		label_game_character3.setPrefSize(50, 50);
@@ -318,8 +325,10 @@ public class Client extends Application {
 		progressbar_game_characterblood3.setTranslateX(c3_x);
 		progressbar_game_characterblood3.setTranslateY(c3_y - 30);
 		label_game_name3.setPrefSize(100, 30);
+		label_game_name3.setFont(Font.font("Arial", FontPosture.ITALIC, 22));
+		label_game_name3.setAlignment(Pos.CENTER);
 		label_game_name3.setTranslateX(c3_x);
-		label_game_name3.setTranslateY(c3_y - 60);
+		label_game_name3.setTranslateY(c3_y + 40);
 		label_game_name3.setText(name3);
 
 		label_game_character4.setPrefSize(50, 50);
@@ -332,8 +341,10 @@ public class Client extends Application {
 		progressbar_game_characterblood4.setTranslateX(c4_x);
 		progressbar_game_characterblood4.setTranslateY(c4_y - 30);
 		label_game_name4.setPrefSize(100, 30);
+		label_game_name4.setFont(Font.font("Arial", FontPosture.ITALIC, 22));
+		label_game_name4.setAlignment(Pos.CENTER);
 		label_game_name4.setTranslateX(c4_x);
-		label_game_name4.setTranslateY(c4_y - 60);
+		label_game_name4.setTranslateY(c4_y + 40);
 		label_game_name4.setText(name4);
 
 		stackpane_game_root.getChildren().addAll(stackpane_game_backgroundblood, stackpane_game_backgroundsky,
