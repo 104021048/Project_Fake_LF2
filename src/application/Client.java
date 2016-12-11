@@ -35,7 +35,8 @@ public class Client extends Application {
 			label_room_headpicture3, label_room_headpicture4, label_room_name1, label_room_name2, label_room_name3,
 			label_room_name4, label_room_systemmessage, label_game_backgroundblood, label_game_backgroundsky,
 			label_game_backgroundground, label_game_headpicture, label_game_character1, label_game_character2,
-			label_game_character3, label_game_character4;
+			label_game_character3, label_game_character4, label_game_name1, label_game_name2, label_game_name3,
+			label_game_name4;
 	public Button button_login_connect, button_login_exit, button_room_character1, button_room_character2,
 			button_room_character3, button_room_character4, button_room_character5, button_room_ready;
 	public ImageView image_login_logo, image_room_player_1, image_room_player_2, image_room_player_3,
@@ -183,23 +184,18 @@ public class Client extends Application {
 	public void room_setupListener(Stage primaryStage) {
 		button_room_character1.setOnAction(e -> {
 			clientCenter.selecteRole(1);
-			System.out.println("button_room_character1");
 		});
 		button_room_character2.setOnAction(e -> {
 			clientCenter.selecteRole(2);
-			System.out.println("button_room_character2");
 		});
 		button_room_character3.setOnAction(e -> {
 			clientCenter.selecteRole(3);
-			System.out.println("button_room_character3");
 		});
 		button_room_character4.setOnAction(e -> {
 			clientCenter.selecteRole(4);
-			System.out.println("button_room_character4");
 		});
 		button_room_character5.setOnAction(e -> {
 			clientCenter.selecteRole(5);
-			System.out.println("button_room_character5");
 		});
 		button_room_ready.setOnAction(e -> {
 			clientCenter.lockRole(primaryStage);
@@ -240,6 +236,10 @@ public class Client extends Application {
 		label_game_character2 = new Label();
 		label_game_character3 = new Label();
 		label_game_character4 = new Label();
+		label_game_name1 = new Label();
+		label_game_name2 = new Label();
+		label_game_name3 = new Label();
+		label_game_name4 = new Label();
 		progressbar_game_blood = new ProgressBar(1);
 		progressbar_game_characterblood1 = new ProgressBar(1);
 		progressbar_game_characterblood2 = new ProgressBar(1);
@@ -248,7 +248,8 @@ public class Client extends Application {
 	}
 
 	public void game_setupUI(double c1_x, double c1_y, double c2_x, double c2_y, double c3_x, double c3_y, double c4_x,
-			double c4_y, String c1_png, String c2_png, String c3_png, String c4_png, String my_png) {
+			double c4_y, String c1_png, String c2_png, String c3_png, String c4_png, String my_png, String name1,
+			String name2, String name3, String name4) {
 		label_game_headpicture.setPrefSize(150, 100);
 		// label_headpicture.setStyle("-fx-background-color: #33CCFF");
 		label_game_headpicture.setTranslateX(-330);
@@ -288,6 +289,10 @@ public class Client extends Application {
 		progressbar_game_characterblood1.setPrefSize(100, 1);
 		progressbar_game_characterblood1.setTranslateX(c1_x);
 		progressbar_game_characterblood1.setTranslateY(c1_y - 30);
+		label_game_name1.setPrefSize(100, 30);
+		label_game_name1.setTranslateX(c1_x);
+		label_game_name1.setTranslateY(c1_y - 60);
+		label_game_name1.setText(name1);
 
 		label_game_character2.setPrefSize(50, 50);
 		label_game_character2.setTranslateX(c2_x);
@@ -298,6 +303,10 @@ public class Client extends Application {
 		progressbar_game_characterblood2.setPrefSize(100, 1);
 		progressbar_game_characterblood2.setTranslateX(c2_x);
 		progressbar_game_characterblood2.setTranslateY(c2_y - 30);
+		label_game_name2.setPrefSize(100, 30);
+		label_game_name2.setTranslateX(c2_x);
+		label_game_name2.setTranslateY(c2_y - 60);
+		label_game_name2.setText(name2);
 
 		label_game_character3.setPrefSize(50, 50);
 		label_game_character3.setTranslateX(c3_x);
@@ -308,6 +317,10 @@ public class Client extends Application {
 		progressbar_game_characterblood3.setPrefSize(100, 1);
 		progressbar_game_characterblood3.setTranslateX(c3_x);
 		progressbar_game_characterblood3.setTranslateY(c3_y - 30);
+		label_game_name3.setPrefSize(100, 30);
+		label_game_name3.setTranslateX(c3_x);
+		label_game_name3.setTranslateY(c3_y - 60);
+		label_game_name3.setText(name3);
 
 		label_game_character4.setPrefSize(50, 50);
 		label_game_character4.setTranslateX(c4_x);
@@ -318,16 +331,24 @@ public class Client extends Application {
 		progressbar_game_characterblood4.setPrefSize(100, 1);
 		progressbar_game_characterblood4.setTranslateX(c4_x);
 		progressbar_game_characterblood4.setTranslateY(c4_y - 30);
+		label_game_name4.setPrefSize(100, 30);
+		label_game_name4.setTranslateX(c4_x);
+		label_game_name4.setTranslateY(c4_y - 60);
+		label_game_name4.setText(name4);
 
 		stackpane_game_root.getChildren().addAll(stackpane_game_backgroundblood, stackpane_game_backgroundsky,
 				stackpane_game_backgroundground);
 		stackpane_game_backgroundblood.getChildren().addAll(label_game_backgroundblood, label_game_headpicture,
 				label_game_backgroundsky, label_game_backgroundground);
 		stackpane_game_backgroundblood.getChildren().addAll(progressbar_game_blood);
-		stackpane_game_backgroundground.getChildren().addAll(label_game_character1, progressbar_game_characterblood1);
-		stackpane_game_backgroundground.getChildren().addAll(label_game_character2, progressbar_game_characterblood2);
-		stackpane_game_backgroundground.getChildren().addAll(label_game_character3, progressbar_game_characterblood3);
-		stackpane_game_backgroundground.getChildren().addAll(label_game_character4, progressbar_game_characterblood4);
+		stackpane_game_backgroundground.getChildren().addAll(label_game_character1, progressbar_game_characterblood1,
+				label_game_name1);
+		stackpane_game_backgroundground.getChildren().addAll(label_game_character2, progressbar_game_characterblood2,
+				label_game_name2);
+		stackpane_game_backgroundground.getChildren().addAll(label_game_character3, progressbar_game_characterblood3,
+				label_game_name3);
+		stackpane_game_backgroundground.getChildren().addAll(label_game_character4, progressbar_game_characterblood4,
+				label_game_name4);
 
 		scene_game = new Scene(stackpane_game_root, sence_width, sence_height);
 		scene_game.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

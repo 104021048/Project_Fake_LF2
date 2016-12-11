@@ -35,8 +35,8 @@ public class ServerCenter implements Runnable {
 	Map<Integer, Integer> tchoose = new HashMap<>();
 	Map<Integer, String> tname = new HashMap<>();
 	// 視窗大小
-	private int sizex = 800;
-	private int sizey = 600;
+	private int sizex = 1024;
+	private int sizey = 768;
 	// 遊戲開始了?
 	boolean started = false;
 	// setLive:連上線的tid
@@ -112,6 +112,7 @@ public class ServerCenter implements Runnable {
 						// 如果大家都鎖定了
 						System.out.println("鎖定已滿遊戲準備開始");
 						// go1 告訴自己準備要開始
+						tellOthers();
 						inst6();
 						tellAll();
 						// initial傳遞 自己算出來自己tid的亂數位置給別人
@@ -430,10 +431,10 @@ public class ServerCenter implements Runnable {
 	// 計算亂數起始位置
 	public void randomPosition() {
 		Random r1 = new Random();
-		int x = r1.nextInt(sizex);
-		int y = r1.nextInt(164/2);
-		X = (double) x - sizex / 2;
-		Y = (double) y +220;
+		int x = r1.nextInt(1024);
+		int y = r1.nextInt(320);
+		X = (double) x - 1024 / 2;
+		Y = (double) y +64;
 	}
 
 	// 把所有有紀錄的choose讀入
