@@ -203,6 +203,7 @@ public class Client extends Application {
 		});
 		button_room_ready.setOnAction(e -> {
 			clientCenter.lockRole(primaryStage);
+			this.setDisable();
 		});
 	}
 
@@ -218,6 +219,9 @@ public class Client extends Application {
 
 			}
 		});
+	}
+	public void setDisable(){
+		button_room_ready.setDisable(true);
 	}
 	// game
 
@@ -312,7 +316,7 @@ public class Client extends Application {
 		progressbar_game_characterblood4.setStyle("-fx-accent: red");
 		progressbar_game_characterblood4.setPrefSize(100, 1);
 		progressbar_game_characterblood4.setTranslateX(c4_x);
-		progressbar_game_characterblood4.setTranslateY(c4_x - 30);
+		progressbar_game_characterblood4.setTranslateY(c4_y - 30);
 
 		stackpane_game_root.getChildren().addAll(stackpane_game_backgroundblood, stackpane_game_backgroundsky,
 				stackpane_game_backgroundground);
