@@ -373,7 +373,7 @@ public class ClientCenter implements Runnable {
 
 			case "go1":
 				// Âê©wµe­±
-				
+
 				break;
 
 			case "go2":
@@ -797,7 +797,24 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void setGameView() {
-		String c1_png = "", c2_png = "", c3_png = "", c4_png = "";
+		String c1_png = "", c2_png = "", c3_png = "", c4_png = "", my_png = "";
+		switch (role) {
+		case 1:
+			my_png = "role_1.png";
+			break;
+		case 2:
+			my_png = "role_2.png";
+			break;
+		case 3:
+			my_png = "role_3.png";
+			break;
+		case 4:
+			my_png = "role_4.png";
+			break;
+		case 5:
+			my_png = "role_5.png";
+			break;
+		}
 		switch (role_data[0]) {
 		case 1:
 			c1_png = "img_game_role1.png";
@@ -810,6 +827,9 @@ public class ClientCenter implements Runnable {
 			break;
 		case 4:
 			c1_png = "img_game_role4.png";
+			break;
+		case 5:
+			c1_png = "img_game_role5.png";
 			break;
 		default:
 			c1_png = "img_game_role1.png";
@@ -828,6 +848,9 @@ public class ClientCenter implements Runnable {
 		case 4:
 			c2_png = "img_game_role4.png";
 			break;
+		case 5:
+			c2_png = "img_game_role5.png";
+			break;
 		default:
 			c2_png = "img_game_role1.png";
 			break;
@@ -844,6 +867,9 @@ public class ClientCenter implements Runnable {
 			break;
 		case 4:
 			c3_png = "img_game_role4.png";
+			break;
+		case 5:
+			c3_png = "img_game_role5.png";
 			break;
 		default:
 			c3_png = "img_game_role1.png";
@@ -862,12 +888,15 @@ public class ClientCenter implements Runnable {
 		case 4:
 			c4_png = "img_game_role4.png";
 			break;
+		case 5:
+			c4_png = "img_game_role5.png";
+			break;
 		default:
 			c4_png = "img_game_role1.png";
 			break;
 		}
 		client.game_setupUI(position[0][0], position[0][1], position[1][0], position[1][1], position[2][0],
-				position[2][1], position[3][0], position[3][1], c1_png, c2_png, c3_png, c4_png);
+				position[2][1], position[3][0], position[3][1], c1_png, c2_png, c3_png, c4_png, my_png);
 	}
 	// endregion
 

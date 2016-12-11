@@ -220,7 +220,8 @@ public class Client extends Application {
 			}
 		});
 	}
-	public void setDisable(){
+
+	public void setDisable() {
 		button_room_ready.setDisable(true);
 	}
 	// game
@@ -247,12 +248,12 @@ public class Client extends Application {
 	}
 
 	public void game_setupUI(double c1_x, double c1_y, double c2_x, double c2_y, double c3_x, double c3_y, double c4_x,
-			double c4_y, String c1_png, String c2_png, String c3_png, String c4_png) {
-		label_game_headpicture.setPrefSize(100, 100);
+			double c4_y, String c1_png, String c2_png, String c3_png, String c4_png, String my_png) {
+		label_game_headpicture.setPrefSize(150, 100);
 		// label_headpicture.setStyle("-fx-background-color: #33CCFF");
 		label_game_headpicture.setTranslateX(-330);
 		label_game_headpicture.setTranslateY(-285);
-		ImageView imageview_headpicture = new ImageView("role_2.png");
+		ImageView imageview_headpicture = new ImageView(my_png);
 		label_game_headpicture.setGraphic(imageview_headpicture);
 		label_game_backgroundblood.setPrefSize(sence_width, sence_height / 12 * 3);
 		label_game_backgroundblood.setStyle("-fx-background-color: #000000");

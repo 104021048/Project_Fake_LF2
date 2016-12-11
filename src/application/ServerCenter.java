@@ -431,9 +431,9 @@ public class ServerCenter implements Runnable {
 	public void randomPosition() {
 		Random r1 = new Random();
 		int x = r1.nextInt(sizex);
-		int y = r1.nextInt(sizey);
+		int y = r1.nextInt(164/2);
 		X = (double) x - sizex / 2;
-		Y = (double) y - sizey / 2;
+		Y = (double) y +220;
 	}
 
 	// 把所有有紀錄的choose讀入
