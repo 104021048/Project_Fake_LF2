@@ -110,6 +110,7 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name1.setText(myName);
 							name[0] = myName;
+							selecteRole(1);
 						} catch (Exception ex) {
 
 						}
@@ -120,6 +121,7 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name2.setText(myName);
 							name[1] = myName;
+							selecteRole(1);
 						} catch (Exception ex) {
 
 						}
@@ -130,6 +132,7 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name3.setText(myName);
 							name[2] = myName;
+							selecteRole(1);
 						} catch (Exception ex) {
 
 						}
@@ -140,6 +143,7 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name4.setText(myName);
 							name[3] = myName;
+							selecteRole(1);
 						} catch (Exception ex) {
 
 						}

@@ -108,22 +108,9 @@ public class ServerCenter implements Runnable {
 					decoder(message);
 					handle();
 
-					if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size() == 4) {
-						// 如果大家都鎖定了
-						System.out.println("鎖定已滿遊戲準備開始");
-						// go1 告訴自己準備要開始
-						tellOthers();
-						inst6();
-						tellAll();
-						// initial傳遞 自己算出來自己tid的亂數位置給別人
-						calculateAll();
-						// 開始倒數
-						doCountDown();
-						// 結束倒數
-						// 告訴自己遊戲開始
-						inst8();
-						tellAll();
-						started = true;
+					if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size()>1) {
+						gotofight();
+						
 					} else if (setLive.size() > 1 && setLive.size() - 1 == setDeath.size() && setDeath.size() >= 1) {
 						System.out.println("贏家出現");
 
@@ -163,6 +150,11 @@ public class ServerCenter implements Runnable {
 			ex.printStackTrace();
 			dcHandle();
 			System.out.println("Tid:" + myTid + "連接離開" + ex.toString());
+			if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size()>1) {
+				gotofight();
+				
+			}
+			
 		}
 	}
 
@@ -357,7 +349,7 @@ public class ServerCenter implements Runnable {
 			case "lock":
 				setLocked.add(Tid);
 				System.out.println("鎖定名單 for " + myTid + ":" + setLocked);
-				inst5(Tid, type);
+				inst5(myTid, type);
 				break;
 			}
 
@@ -397,6 +389,23 @@ public class ServerCenter implements Runnable {
 	// 特殊情況的處理 Special data dealing //
 	// --------------------------------------------------------------------//
 	// 計算出誰贏了
+	public void gotofight(){
+		// 如果大家都鎖定了
+		System.out.println("鎖定已滿遊戲準備開始");
+		// go1 告訴自己準備要開始
+		tellOthers();
+		inst6();
+		tellAll();
+		// initial傳遞 自己算出來自己tid的亂數位置給別人
+		calculateAll();
+		// 開始倒數
+		doCountDown();
+		// 結束倒數
+		// 告訴自己遊戲開始
+		inst8();
+		tellAll();
+		started = true;
+	}
 	public int whoWon() {
 		Iterator<Integer> it = setLocked.iterator();
 		int wtid = -1;
