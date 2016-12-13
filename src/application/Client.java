@@ -259,19 +259,16 @@ public class Client extends Application {
 	public void game_setupUI(double c1_x, double c1_y, double c2_x, double c2_y, double c3_x, double c3_y, double c4_x,
 			double c4_y, String c1_png, String c2_png, String c3_png, String c4_png, String my_png, String name1,
 			String name2, String name3, String name4) {
-		
-		this.c1_x=c1_x;
-		this.c1_y=c1_y;
-		this.c2_x=c2_x;
-		this.c2_y=c2_y;
-		this.c3_x=c3_x;
-		this.c3_y=c3_y;
-		this.c4_x=c4_x;
-		this.c4_y=c4_y;
-		
-		
-		
-		
+
+		this.c1_x = c1_x;
+		this.c1_y = c1_y;
+		this.c2_x = c2_x;
+		this.c2_y = c2_y;
+		this.c3_x = c3_x;
+		this.c3_y = c3_y;
+		this.c4_x = c4_x;
+		this.c4_y = c4_y;
+
 		label_game_headpicture.setPrefSize(150, 100);
 		// label_headpicture.setStyle("-fx-background-color: #33CCFF");
 		label_game_headpicture.setTranslateX(-330);
@@ -417,6 +414,22 @@ public class Client extends Application {
 
 		});
 	}
+
+	public void setLocation(Label role, Label name, ProgressBar blood, double X, double Y) {
+		Platform.runLater(() -> {
+			try {
+				role.setTranslateX(X);
+				role.setTranslateY(Y);
+				blood.setTranslateX(X);
+				blood.setTranslateY(Y - 40);
+				name.setTranslateX(X);
+				name.setTranslateY(Y + 40);
+			} catch (Exception ex) {
+
+			}
+		});
+	}
+
 	// endregion
 
 	// main
