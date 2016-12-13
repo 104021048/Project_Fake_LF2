@@ -8,6 +8,7 @@ import java.net.Socket;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -367,7 +370,34 @@ public class Client extends Application {
 	}
 
 	public void game_setupListener(Stage stage) {
+		scene_game.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
+			@Override
+			public void handle(KeyEvent e) {
+				if (e.getCode() != null) {
+					KeyCode k = e.getCode();
+					if (k == KeyCode.UP) {
+						/*
+						 * if (c_y > 70) { c_y--; }
+						 */
+					} else if (k == KeyCode.DOWN) {
+						/*
+						 * if (c_y < 350) { c_y++; }
+						 */
+					} else if (k == KeyCode.LEFT) {
+						/*
+						 * if (c_x > -512) { c_x--; }
+						 */
+					} else if (k == KeyCode.RIGHT) {
+						/*
+						 * if (c_x < 512) { c_x++; }
+						 */
+					}
+				}
+
+			}
+
+		});
 	}
 	// endregion
 
