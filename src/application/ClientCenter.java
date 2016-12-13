@@ -624,23 +624,28 @@ public class ClientCenter implements Runnable {
 				case 1:
 					switch (role) {
 					case 1:
-						select_role_method(client.image_room_player_1, "role_1.png", client.label_room_headpicture1,role);
+						select_role_method(client.image_room_player_1, "role_1.png", client.label_room_headpicture1,
+								role);
 						this.role = role;
 						break;
 					case 2:
-						select_role_method(client.image_room_player_1, "role_2.png", client.label_room_headpicture1,role);
+						select_role_method(client.image_room_player_1, "role_2.png", client.label_room_headpicture1,
+								role);
 						this.role = role;
 						break;
 					case 3:
-						select_role_method(client.image_room_player_1, "role_3.png", client.label_room_headpicture1,role);
+						select_role_method(client.image_room_player_1, "role_3.png", client.label_room_headpicture1,
+								role);
 						this.role = role;
 						break;
 					case 4:
-						select_role_method(client.image_room_player_1, "role_4.png", client.label_room_headpicture1,role);
+						select_role_method(client.image_room_player_1, "role_4.png", client.label_room_headpicture1,
+								role);
 						this.role = role;
 						break;
 					case 5:
-						select_role_method(client.image_room_player_1, "role_5.png", client.label_room_headpicture1,role);
+						select_role_method(client.image_room_player_1, "role_5.png", client.label_room_headpicture1,
+								role);
 						this.role = role;
 						break;
 					}
@@ -648,23 +653,28 @@ public class ClientCenter implements Runnable {
 				case 2:
 					switch (role) {
 					case 1:
-						select_role_method(client.image_room_player_2, "role_1.png", client.label_room_headpicture2,role);
+						select_role_method(client.image_room_player_2, "role_1.png", client.label_room_headpicture2,
+								role);
 						this.role = role;
 						break;
 					case 2:
-						select_role_method(client.image_room_player_2, "role_2.png", client.label_room_headpicture2,role);
+						select_role_method(client.image_room_player_2, "role_2.png", client.label_room_headpicture2,
+								role);
 						this.role = role;
 						break;
 					case 3:
-						select_role_method(client.image_room_player_2, "role_3.png", client.label_room_headpicture2,role);
+						select_role_method(client.image_room_player_2, "role_3.png", client.label_room_headpicture2,
+								role);
 						this.role = role;
 						break;
 					case 4:
-						select_role_method(client.image_room_player_2, "role_4.png", client.label_room_headpicture2,role);
+						select_role_method(client.image_room_player_2, "role_4.png", client.label_room_headpicture2,
+								role);
 						this.role = role;
 						break;
 					case 5:
-						select_role_method(client.image_room_player_2, "role_5.png", client.label_room_headpicture2,role);
+						select_role_method(client.image_room_player_2, "role_5.png", client.label_room_headpicture2,
+								role);
 						this.role = role;
 						break;
 					}
@@ -672,23 +682,28 @@ public class ClientCenter implements Runnable {
 				case 3:
 					switch (role) {
 					case 1:
-						select_role_method(client.image_room_player_3, "role_1.png", client.label_room_headpicture3,role);
+						select_role_method(client.image_room_player_3, "role_1.png", client.label_room_headpicture3,
+								role);
 						this.role = role;
 						break;
 					case 2:
-						select_role_method(client.image_room_player_3, "role_2.png", client.label_room_headpicture3,role);
+						select_role_method(client.image_room_player_3, "role_2.png", client.label_room_headpicture3,
+								role);
 						this.role = role;
 						break;
 					case 3:
-						select_role_method(client.image_room_player_3, "role_3.png", client.label_room_headpicture3,role);
+						select_role_method(client.image_room_player_3, "role_3.png", client.label_room_headpicture3,
+								role);
 						this.role = role;
 						break;
 					case 4:
-						select_role_method(client.image_room_player_3, "role_4.png", client.label_room_headpicture3,role);
+						select_role_method(client.image_room_player_3, "role_4.png", client.label_room_headpicture3,
+								role);
 						this.role = role;
 						break;
 					case 5:
-						select_role_method(client.image_room_player_3, "role_5.png", client.label_room_headpicture3,role);
+						select_role_method(client.image_room_player_3, "role_5.png", client.label_room_headpicture3,
+								role);
 						this.role = role;
 						break;
 					}
@@ -696,23 +711,28 @@ public class ClientCenter implements Runnable {
 				case 4:
 					switch (role) {
 					case 1:
-						select_role_method(client.image_room_player_4, "role_1.png", client.label_room_headpicture4,role);
+						select_role_method(client.image_room_player_4, "role_1.png", client.label_room_headpicture4,
+								role);
 						this.role = role;
 						break;
 					case 2:
-						select_role_method(client.image_room_player_4, "role_2.png", client.label_room_headpicture4,role);
+						select_role_method(client.image_room_player_4, "role_2.png", client.label_room_headpicture4,
+								role);
 						this.role = role;
 						break;
 					case 3:
-						select_role_method(client.image_room_player_4, "role_3.png", client.label_room_headpicture4,role);
+						select_role_method(client.image_room_player_4, "role_3.png", client.label_room_headpicture4,
+								role);
 						this.role = role;
 						break;
 					case 4:
-						select_role_method(client.image_room_player_4, "role_4.png", client.label_room_headpicture4,role);
+						select_role_method(client.image_room_player_4, "role_4.png", client.label_room_headpicture4,
+								role);
 						this.role = role;
 						break;
 					case 5:
-						select_role_method(client.image_room_player_4, "role_5.png", client.label_room_headpicture4,role);
+						select_role_method(client.image_room_player_4, "role_5.png", client.label_room_headpicture4,
+								role);
 						this.role = role;
 						break;
 					}
@@ -837,7 +857,7 @@ public class ClientCenter implements Runnable {
 	// method
 
 	// region
-	public void select_role_method(ImageView image, String png, Label label,int role) {
+	public void select_role_method(ImageView image, String png, Label label, int role) {
 		image = new ImageView(png);
 		label.setGraphic(image);
 		initSelect(role);
@@ -958,6 +978,33 @@ public class ClientCenter implements Runnable {
 		client.game_setupUI(position[0][0], position[0][1], position[1][0], position[1][1], position[2][0],
 				position[2][1], position[3][0], position[3][1], c1_png, c2_png, c3_png, c4_png, my_png, name[0],
 				name[1], name[2], name[3]);
+	}
+
+	public void attack2_method() {
+
+	}
+
+	public void win_method() {
+
+	}
+
+	public void death_method() {
+
+	}
+
+	public void moveup() {
+
+	}
+
+	public void movedown() {
+	}
+
+	public void moveleft() {
+
+	}
+
+	public void moveright() {
+
 	}
 	// endregion
 
