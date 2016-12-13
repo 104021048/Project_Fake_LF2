@@ -1111,6 +1111,7 @@ public class ClientCenter implements Runnable {
 					break;
 				}
 				setSpeed(role);
+				setHP(role);
 			} catch (Exception e) {
 
 			}
@@ -1212,7 +1213,86 @@ public class ClientCenter implements Runnable {
 			break;
 		}
 	}
-
+	public void setHP(int role) {
+		switch (myTid) {
+		case 1:
+			switch (role) {
+			case 1:
+				c1_hp = 10;
+				break;
+			case 2:
+				c1_hp = 8;
+				break;
+			case 3:
+				c1_hp = 6;
+				break;
+			case 4:
+				c1_hp = 4;
+				break;
+			case 5:
+				c1_hp = 2;
+				break;
+			}
+			break;
+		case 2:
+			switch (role) {
+			case 1:
+				c2_hp = 10;
+				break;
+			case 2:
+				c2_hp = 8;
+				break;
+			case 3:
+				c2_hp = 6;
+				break;
+			case 4:
+				c2_hp = 4;
+				break;
+			case 5:
+				c2_hp = 2;
+				break;
+			}
+			break;
+		case 3:
+			switch (role) {
+			case 1:
+				c3_hp = 10;
+				break;
+			case 2:
+				c3_hp = 8;
+				break;
+			case 3:
+				c3_hp = 6;
+				break;
+			case 4:
+				c3_hp = 4;
+				break;
+			case 5:
+				c3_hp = 2;
+				break;
+			}
+			break;
+		case 4:
+			switch (role) {
+			case 1:
+				c4_hp = 10;
+				break;
+			case 2:
+				c4_hp = 8;
+				break;
+			case 3:
+				c4_hp = 6;
+				break;
+			case 4:
+				c4_hp = 4;
+				break;
+			case 5:
+				c4_hp = 2;
+				break;
+			}
+			break;
+		}
+	}
 	public void select_role_method(ImageView image, String png, Label label, int role) {
 		image = new ImageView(png);
 		label.setGraphic(image);
