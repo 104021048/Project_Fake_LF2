@@ -34,6 +34,8 @@ public class ClientCenter implements Runnable {
 	private Stage stage;
 	private double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
 	private double c1_hp, c2_hp, c3_hp, c4_hp, c5_hp;
+	private double Start_X = 0, Start_Y = 0;
+	private int direction_atk = 1;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
@@ -1213,6 +1215,7 @@ public class ClientCenter implements Runnable {
 			break;
 		}
 	}
+
 	public void setHP(int role) {
 		switch (myTid) {
 		case 1:
@@ -1293,6 +1296,7 @@ public class ClientCenter implements Runnable {
 			break;
 		}
 	}
+
 	public void select_role_method(ImageView image, String png, Label label, int role) {
 		image = new ImageView(png);
 		label.setGraphic(image);
@@ -1418,6 +1422,34 @@ public class ClientCenter implements Runnable {
 
 	public void attack2_method() {
 
+		switch (myTid) {
+		case 1:
+			Start_X = client.c1_x;
+			Start_Y = client.c1_y;
+			break;
+		case 2:
+			Start_X = client.c2_x;
+			Start_Y = client.c2_y;
+			break;
+		case 3:
+			Start_X = client.c3_x;
+			Start_Y = client.c3_y;
+			break;
+		case 4:
+			Start_X = client.c4_x;
+			Start_Y = client.c4_y;
+			break;
+		}
+		try {
+
+			new Thread(new Runnable() {
+				public void run() {
+					new Attack2(Start_X, Start_Y, client.stackpane_game_backgroundground, direction_atk).start();
+				}
+			}).start();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 	public void win_method() {
@@ -1637,6 +1669,7 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		}
+		direction_atk = -1;
 	}
 
 	public void moveright() {
@@ -1706,6 +1739,7 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		}
+		direction_atk = 1;
 	}
 
 	// endregion

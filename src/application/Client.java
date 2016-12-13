@@ -397,6 +397,8 @@ public class Client extends Application {
 						clientCenter.moveleft();
 					} else if (k == KeyCode.RIGHT) {
 						clientCenter.moveright();
+					} else if (k == KeyCode.S) {
+						clientCenter.attack2_method();
 					}
 				}
 			}
