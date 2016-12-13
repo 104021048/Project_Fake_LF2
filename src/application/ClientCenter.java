@@ -1185,99 +1185,69 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_y - c1_speed > 76) {
 				client.c1_y -= c1_speed;
-				client.label_game_character1.setTranslateX(client.c1_x);
-				client.label_game_character1.setTranslateY(client.c1_y);
-				client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-				client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-				client.label_game_name1.setTranslateX(client.c1_x);
-				client.label_game_name1.setTranslateY(client.c1_y + 40);
-				initMoveUp();
-				writer.println(encoder());
-				writer.flush();
-
 			} else {
-				client.label_game_character1.setTranslateX(client.c1_x);
-				client.label_game_character1.setTranslateY(76);
-				client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-				client.progressbar_game_characterblood1.setTranslateY(76 - 40);
-				client.label_game_name1.setTranslateX(client.c1_x);
-				client.label_game_name1.setTranslateY(76 + 40);
-				writer.println("1#" + myTid + "#movedup#-1#-1#-1#-1#" + (client.c1_y - 76) + "#0#@");
-				writer.flush();
 				client.c1_y = 76;
 			}
+			client.label_game_character1.setTranslateX(client.c1_x);
+			client.label_game_character1.setTranslateY(client.c1_y);
+			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
+			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
+			client.label_game_name1.setTranslateX(client.c1_x);
+			client.label_game_name1.setTranslateY(client.c1_y + 40);
+			initMoveUp();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 2:
 			if (client.c2_y - c2_speed > 76) {
 				client.c2_y -= c2_speed;
-				client.label_game_character2.setTranslateX(client.c2_x);
-				client.label_game_character2.setTranslateY(client.c2_y);
-				client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-				client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-				client.label_game_name2.setTranslateX(client.c2_x);
-				client.label_game_name2.setTranslateY(client.c2_y + 40);
-				initMoveUp();
-				writer.println(encoder());
-				writer.flush();
 			} else {
-				client.label_game_character2.setTranslateX(client.c2_x);
-				client.label_game_character2.setTranslateY(76);
-				client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-				client.progressbar_game_characterblood2.setTranslateY(76 - 40);
-				client.label_game_name2.setTranslateX(client.c2_x);
-				client.label_game_name2.setTranslateY(76 + 40);
-				writer.println("1#" + myTid + "#movedup#-1#-1#-1#-1#" + (client.c2_y - 76) + "#0#@");
-				writer.flush();
 				client.c2_y = 76;
+
 			}
+			client.label_game_character2.setTranslateX(client.c2_x);
+			client.label_game_character2.setTranslateY(client.c2_y);
+			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
+			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
+			client.label_game_name2.setTranslateX(client.c2_x);
+			client.label_game_name2.setTranslateY(client.c2_y + 40);
+			initMoveUp();
+			writer.println(encoder());
+			writer.flush();
+
 			break;
 		case 3:
 			if (client.c3_y - c3_speed > 76) {
 				client.c3_y -= c3_speed;
-				client.label_game_character3.setTranslateX(client.c3_x);
-				client.label_game_character3.setTranslateY(client.c3_y);
-				client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-				client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-				client.label_game_name3.setTranslateX(client.c3_x);
-				client.label_game_name3.setTranslateY(client.c3_y + 40);
-				initMoveUp();
-				writer.println(encoder());
-				writer.flush();
 			} else {
-				client.label_game_character3.setTranslateX(client.c3_x);
-				client.label_game_character3.setTranslateY(76);
-				client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-				client.progressbar_game_characterblood3.setTranslateY(76 - 40);
-				client.label_game_name3.setTranslateX(client.c3_x);
-				client.label_game_name3.setTranslateY(76 + 40);
-				writer.println("1#" + myTid + "#movedup#-1#-1#-1#-1#" + (client.c3_y - 76) + "#0#@");
-				writer.flush();
 				client.c3_y = 76;
 			}
+			client.label_game_character3.setTranslateX(client.c3_x);
+			client.label_game_character3.setTranslateY(client.c3_y);
+			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
+			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
+			client.label_game_name3.setTranslateX(client.c3_x);
+			client.label_game_name3.setTranslateY(client.c3_y + 40);
+			initMoveUp();
+			writer.println(encoder());
+			writer.flush();
+
 			break;
 		case 4:
 			if (client.c4_y - c4_speed > 76) {
 				client.c4_y -= c4_speed;
-				client.label_game_character4.setTranslateX(client.c4_x);
-				client.label_game_character4.setTranslateY(client.c4_y);
-				client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-				client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-				client.label_game_name4.setTranslateX(client.c4_x);
-				client.label_game_name4.setTranslateY(client.c4_y + 40);
-				initMoveUp();
-				writer.println(encoder());
-				writer.flush();
 			} else {
-				client.label_game_character4.setTranslateX(client.c4_x);
-				client.label_game_character4.setTranslateY(76);
-				client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-				client.progressbar_game_characterblood4.setTranslateY(76 - 40);
-				client.label_game_name4.setTranslateX(client.c4_x);
-				client.label_game_name4.setTranslateY(76 + 40);
-				writer.println("1#" + myTid + "#movedup#-1#-1#-1#-1#" + (client.c4_y - 76) + "#0#@");
-				writer.flush();
 				client.c4_y = 76;
 			}
+			client.label_game_character4.setTranslateX(client.c4_x);
+			client.label_game_character4.setTranslateY(client.c4_y);
+			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
+			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
+			client.label_game_name4.setTranslateX(client.c4_x);
+			client.label_game_name4.setTranslateY(client.c4_y + 40);
+			initMoveUp();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		}
 
@@ -1288,50 +1258,66 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_y + c1_speed < 362) {
 				client.c1_y += c1_speed;
-				client.label_game_character1.setTranslateX(client.c1_x);
-				client.label_game_character1.setTranslateY(client.c1_y);
-				client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-				client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-				client.label_game_name1.setTranslateX(client.c1_x);
-				client.label_game_name1.setTranslateY(client.c1_y + 40);
-				// writer.println("1#1#movedown#-1#-1#-1#-1#-1#0#@");
+			} else {
+				client.c1_y = 362;
 			}
+			client.label_game_character1.setTranslateX(client.c1_x);
+			client.label_game_character1.setTranslateY(client.c1_y);
+			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
+			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
+			client.label_game_name1.setTranslateX(client.c1_x);
+			client.label_game_name1.setTranslateY(client.c1_y + 40);
+			initMoveDown();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 2:
 			if (client.c2_y + c2_speed < 362) {
 				client.c2_y += c2_speed;
-				client.label_game_character2.setTranslateX(client.c2_x);
-				client.label_game_character2.setTranslateY(client.c2_y);
-				client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-				client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-				client.label_game_name2.setTranslateX(client.c2_x);
-				client.label_game_name2.setTranslateY(client.c2_y + 40);
-				// writer.println("2#2#movedown#-2#-2#-2#-2#-2#0#@");
+			} else {
+				client.c2_y = 362;
 			}
+			client.label_game_character2.setTranslateX(client.c2_x);
+			client.label_game_character2.setTranslateY(client.c2_y);
+			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
+			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
+			client.label_game_name2.setTranslateX(client.c2_x);
+			client.label_game_name2.setTranslateY(client.c2_y + 40);
+			initMoveDown();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 3:
 			if (client.c3_y + c3_speed < 362) {
 				client.c3_y += c3_speed;
-				client.label_game_character3.setTranslateX(client.c3_x);
-				client.label_game_character3.setTranslateY(client.c3_y);
-				client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-				client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-				client.label_game_name3.setTranslateX(client.c3_x);
-				client.label_game_name3.setTranslateY(client.c3_y + 40);
-				// writer.println("3#3#movedown#-3#-3#-3#-3#-3#0#@");
+			} else {
+				client.c3_y = 362;
 			}
+			client.label_game_character3.setTranslateX(client.c3_x);
+			client.label_game_character3.setTranslateY(client.c3_y);
+			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
+			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
+			client.label_game_name3.setTranslateX(client.c3_x);
+			client.label_game_name3.setTranslateY(client.c3_y + 40);
+			initMoveDown();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 4:
 			if (client.c4_y + c4_speed < 362) {
 				client.c4_y += c4_speed;
-				client.label_game_character4.setTranslateX(client.c4_x);
-				client.label_game_character4.setTranslateY(client.c4_y);
-				client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-				client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-				client.label_game_name4.setTranslateX(client.c4_x);
-				client.label_game_name4.setTranslateY(client.c4_y + 40);
-				// writer.println("4#4#movedown#-4#-4#-4#-4#-4#0#@");
+			} else {
+				client.c4_y = 362;
 			}
+			client.label_game_character4.setTranslateX(client.c4_x);
+			client.label_game_character4.setTranslateY(client.c4_y);
+			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
+			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
+			client.label_game_name4.setTranslateX(client.c4_x);
+			client.label_game_name4.setTranslateY(client.c4_y + 40);
+			initMoveDown();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		}
 	}
@@ -1341,82 +1327,66 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_x - c1_speed > -492) {
 				client.c1_x -= c1_speed;
-				client.label_game_character1.setTranslateX(client.c1_x);
-				client.label_game_character1.setTranslateY(client.c1_y);
-				client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-				client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-				client.label_game_name1.setTranslateX(client.c1_x);
-				client.label_game_name1.setTranslateY(client.c1_y + 40);
-				// writer.println("1#1#moveup#-1#-1#-1#-1#-1#0#@");
 			} else {
-				client.label_game_character1.setTranslateX(-492);
-				client.label_game_character1.setTranslateY(client.c1_y);
-				client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-				client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-				client.label_game_name1.setTranslateX(-492);
-				client.label_game_name1.setTranslateY(client.c1_y + 40);
-				// writer.println("1#1#moveup#-1#-1#-1#-1#-1#0#@");
+				client.c1_x = -492;
 			}
+			client.label_game_character1.setTranslateX(client.c1_x);
+			client.label_game_character1.setTranslateY(client.c1_y);
+			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
+			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
+			client.label_game_name1.setTranslateX(client.c1_x);
+			client.label_game_name1.setTranslateY(client.c1_y + 40);
+			initMoveLeft();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 2:
 			if (client.c2_x - c2_speed > -492) {
 				client.c2_x -= c2_speed;
-				client.label_game_character2.setTranslateX(client.c2_x);
-				client.label_game_character2.setTranslateY(client.c2_y);
-				client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-				client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-				client.label_game_name2.setTranslateX(client.c2_x);
-				client.label_game_name2.setTranslateY(client.c2_y + 40);
-				// writer.println("2#2#moveup#-2#-2#-2#-2#-2#0#@");
 			} else {
-				client.label_game_character2.setTranslateX(-492);
-				client.label_game_character2.setTranslateY(client.c2_y);
-				client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-				client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-				client.label_game_name2.setTranslateX(-492);
-				client.label_game_name2.setTranslateY(client.c2_y + 40);
-				// writer.println("2#2#moveup#-2#-2#-2#-2#-2#0#@");
+				client.c2_x = -492;
 			}
+			client.label_game_character2.setTranslateX(client.c2_x);
+			client.label_game_character2.setTranslateY(client.c2_y);
+			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
+			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
+			client.label_game_name2.setTranslateX(client.c2_x);
+			client.label_game_name2.setTranslateY(client.c2_y + 40);
+			initMoveLeft();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 3:
 			if (client.c3_x - c3_speed > -492) {
 				client.c3_x -= c3_speed;
-				client.label_game_character3.setTranslateX(client.c3_x);
-				client.label_game_character3.setTranslateY(client.c3_y);
-				client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-				client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-				client.label_game_name3.setTranslateX(client.c3_x);
-				client.label_game_name3.setTranslateY(client.c3_y + 40);
-				// writer.println("3#3#moveup#-3#-3#-3#-3#-3#0#@");
 			} else {
-				client.label_game_character3.setTranslateX(-492);
-				client.label_game_character3.setTranslateY(client.c3_y);
-				client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-				client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-				client.label_game_name3.setTranslateX(-492);
-				client.label_game_name3.setTranslateY(client.c3_y + 40);
-				// writer.println("3#3#moveup#-3#-3#-3#-3#-3#0#@");
+				client.c3_x = -492;
 			}
+			client.label_game_character3.setTranslateX(client.c3_x);
+			client.label_game_character3.setTranslateY(client.c3_y);
+			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
+			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
+			client.label_game_name3.setTranslateX(client.c3_x);
+			client.label_game_name3.setTranslateY(client.c3_y + 40);
+			initMoveLeft();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 4:
 			if (client.c4_x - c4_speed > -492) {
 				client.c4_x -= c4_speed;
-				client.label_game_character4.setTranslateX(client.c4_x);
-				client.label_game_character4.setTranslateY(client.c4_y);
-				client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-				client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-				client.label_game_name4.setTranslateX(client.c4_x);
-				client.label_game_name4.setTranslateY(client.c4_y + 40);
-				// writer.println("4#4#moveup#-4#-4#-4#-4#-4#0#@");
 			} else {
-				client.label_game_character4.setTranslateX(-492);
-				client.label_game_character4.setTranslateY(client.c4_y);
-				client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-				client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-				client.label_game_name4.setTranslateX(-492);
-				client.label_game_name4.setTranslateY(client.c4_y + 40);
-				// writer.println("4#4#moveup#-4#-4#-4#-4#-4#0#@");
+				client.c4_x = -492;
 			}
+			client.label_game_character4.setTranslateX(client.c4_x);
+			client.label_game_character4.setTranslateY(client.c4_y);
+			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
+			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
+			client.label_game_name4.setTranslateX(client.c4_x);
+			client.label_game_name4.setTranslateY(client.c4_y + 40);
+			initMoveLeft();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		}
 	}
@@ -1426,82 +1396,66 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_x + c1_speed < 492) {
 				client.c1_x += c1_speed;
-				client.label_game_character1.setTranslateX(client.c1_x);
-				client.label_game_character1.setTranslateY(client.c1_y);
-				client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-				client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-				client.label_game_name1.setTranslateX(client.c1_x);
-				client.label_game_name1.setTranslateY(client.c1_y + 40);
-				// writer.println("2#2#moveup#-2#-2#-2#-2#-2#0#@");
 			} else {
-				client.label_game_character1.setTranslateX(492);
-				client.label_game_character1.setTranslateY(client.c1_y);
-				client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-				client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-				client.label_game_name1.setTranslateX(492);
-				client.label_game_name1.setTranslateY(client.c1_y + 40);
-				// writer.println("2#2#moveup#-2#-2#-2#-2#-2#0#@");
+				client.c1_x = 492;
 			}
+			client.label_game_character1.setTranslateX(client.c1_x);
+			client.label_game_character1.setTranslateY(client.c1_y);
+			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
+			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
+			client.label_game_name1.setTranslateX(client.c1_x);
+			client.label_game_name1.setTranslateY(client.c1_y + 40);
+			initMoveRight();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 2:
 			if (client.c2_x + c2_speed < 492) {
 				client.c2_x += c2_speed;
-				client.label_game_character2.setTranslateX(client.c2_x);
-				client.label_game_character2.setTranslateY(client.c2_y);
-				client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-				client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-				client.label_game_name2.setTranslateX(client.c2_x);
-				client.label_game_name2.setTranslateY(client.c2_y + 40);
-				// writer.println("2#2#moveup#-2#-2#-2#-2#-2#0#@");
 			} else {
-				client.label_game_character2.setTranslateX(492);
-				client.label_game_character2.setTranslateY(client.c2_y);
-				client.progressbar_game_characterblood2.setTranslateX(512);
-				client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-				client.label_game_name2.setTranslateX(492);
-				client.label_game_name2.setTranslateY(client.c2_y + 40);
-				// writer.println("2#2#moveup#-2#-2#-2#-2#-2#0#@");
+				client.c2_x = 492;
 			}
+			client.label_game_character2.setTranslateX(client.c2_x);
+			client.label_game_character2.setTranslateY(client.c2_y);
+			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
+			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
+			client.label_game_name2.setTranslateX(client.c2_x);
+			client.label_game_name2.setTranslateY(client.c2_y + 40);
+			initMoveRight();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 3:
 			if (client.c3_x + c3_speed < 492) {
 				client.c3_x += c3_speed;
-				client.label_game_character3.setTranslateX(client.c3_x);
-				client.label_game_character3.setTranslateY(client.c3_y);
-				client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-				client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-				client.label_game_name3.setTranslateX(client.c3_x);
-				client.label_game_name3.setTranslateY(client.c3_y + 40);
-				// writer.println("3#3#moveup#-3#-3#-3#-3#-3#0#@");
 			} else {
-				client.label_game_character3.setTranslateX(492);
-				client.label_game_character3.setTranslateY(client.c3_y);
-				client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-				client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-				client.label_game_name3.setTranslateX(492);
-				client.label_game_name3.setTranslateY(client.c3_y + 40);
-				// writer.println("3#3#moveup#-3#-3#-3#-3#-3#0#@");
+				client.c3_x = 492;
 			}
+			client.label_game_character3.setTranslateX(client.c3_x);
+			client.label_game_character3.setTranslateY(client.c3_y);
+			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
+			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
+			client.label_game_name3.setTranslateX(client.c3_x);
+			client.label_game_name3.setTranslateY(client.c3_y + 40);
+			initMoveRight();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		case 4:
 			if (client.c4_x + c4_speed < 492) {
 				client.c4_x += c4_speed;
-				client.label_game_character4.setTranslateX(client.c4_x);
-				client.label_game_character4.setTranslateY(client.c4_y);
-				client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-				client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-				client.label_game_name4.setTranslateX(client.c4_x);
-				client.label_game_name4.setTranslateY(client.c4_y + 40);
-				// writer.println("4#4#moveup#-4#-4#-4#-4#-4#0#@");
 			} else {
-				client.label_game_character4.setTranslateX(492);
-				client.label_game_character4.setTranslateY(client.c4_y);
-				client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-				client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-				client.label_game_name4.setTranslateX(492);
-				client.label_game_name4.setTranslateY(client.c4_y + 40);
-				// writer.println("4#4#moveup#-4#-4#-4#-4#-4#0#@");
+				client.c4_x = 492;
 			}
+			client.label_game_character4.setTranslateX(client.c4_x);
+			client.label_game_character4.setTranslateY(client.c4_y);
+			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
+			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
+			client.label_game_name4.setTranslateX(client.c4_x);
+			client.label_game_name4.setTranslateY(client.c4_y + 40);
+			initMoveRight();
+			writer.println(encoder());
+			writer.flush();
 			break;
 		}
 	}
@@ -1632,25 +1586,9 @@ public class ClientCenter implements Runnable {
 		source = -1;
 		dest = -1;
 		type = -1;
-		switch (role) {
-		case 1:
-			X = c1_speed;
-			break;
-		case 2:
-			X = c2_speed;
-			break;
-		case 3:
-			X = c3_speed;
-			break;
-		case 4:
-			X = c4_speed;
-			break;
-		case 5:
-			X = c5_speed;
-			break;
-		}
+		X = -1;
 		Y = -1;
-		direction = -1;
+		direction = 0;
 		Stype = "@";
 	}
 
@@ -1661,25 +1599,9 @@ public class ClientCenter implements Runnable {
 		source = -1;
 		dest = -1;
 		type = -1;
-		switch (role) {
-		case 1:
-			X = c1_speed;
-			break;
-		case 2:
-			X = c2_speed;
-			break;
-		case 3:
-			X = c3_speed;
-			break;
-		case 4:
-			X = c4_speed;
-			break;
-		case 5:
-			X = c5_speed;
-			break;
-		}
+		X = -1;
 		Y = -1;
-		direction = 1;
+		direction = 0;
 		Stype = "@";
 	}
 	// endregion
