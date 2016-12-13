@@ -748,7 +748,7 @@ public class ServerCenter implements Runnable {
 	public void instUp(int moveid) {
 		state = 1;
 		Tid = -1;
-		function = "moveup";
+		function = "movedup";
 		source = -1;
 		dest = moveid;
 		type = -1;
@@ -761,7 +761,7 @@ public class ServerCenter implements Runnable {
 	public void instDown(int moveid) {
 		state = 1;
 		Tid = -1;
-		function = "movedown";
+		function = "moveddown";
 		source = -1;
 		dest = moveid;
 		type = -1;
@@ -774,7 +774,7 @@ public class ServerCenter implements Runnable {
 	public void instLeft(int moveid) {
 		state = 1;
 		Tid = -1;
-		function = "moveleft";
+		function = "movedleft";
 		source = -1;
 		dest = moveid;
 		type = -1;
@@ -787,7 +787,7 @@ public class ServerCenter implements Runnable {
 	public void instRight(int moveid) {
 		state = 1;
 		Tid = -1;
-		function = "moveright";
+		function = "movedright";
 		source = -1;
 		dest = moveid;
 		type = -1;
