@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.event.KeyAdapter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,8 +52,8 @@ public class Client extends Application {
 	public String name;
 	public ProgressBar progressbar_game_blood, progressbar_game_characterblood1, progressbar_game_characterblood2,
 			progressbar_game_characterblood3, progressbar_game_characterblood4;
-
 	public double c1_x, c1_y, c2_x, c2_y, c3_x, c3_y, c4_x, c4_y;
+	public EventHandler<KeyEvent> keyevent_game;
 
 	// login
 
@@ -383,36 +384,24 @@ public class Client extends Application {
 	}
 
 	public void game_setupListener(Stage stage) {
-		scene_game.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
+		keyevent_game = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
 				if (e.getCode() != null) {
 					KeyCode k = e.getCode();
 					if (k == KeyCode.UP) {
 						clientCenter.moveup();
-
 					} else if (k == KeyCode.DOWN) {
 						clientCenter.movedown();
-						/*
-						 * if (c_y < 359) { c_y++; }
-						 */
 					} else if (k == KeyCode.LEFT) {
 						clientCenter.moveleft();
-						/*
-						 * if (c_x > -512) { c_x--; }
-						 */
 					} else if (k == KeyCode.RIGHT) {
 						clientCenter.moveright();
-						/*
-						 * if (c_x < 512) { c_x++; }
-						 */
 					}
 				}
-
 			}
-
-		});
+		};
+		scene_game.setOnKeyPressed(keyevent_game);
 	}
 
 	public void setLocation(Label role, Label name, ProgressBar blood, double X, double Y) {
@@ -430,6 +419,18 @@ public class Client extends Application {
 		});
 	}
 
+	public void toRoom(Stage primaryStage) {
+		Platform.runLater(() -> {
+			try {
+				room_init();
+				room_setupUI();
+				room_setupListener(primaryStage);
+				primaryStage.setScene(scene_room);
+			} catch (Exception ex) {
+
+			}
+		});
+	}
 	// endregion
 
 	// main

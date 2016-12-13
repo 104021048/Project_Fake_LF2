@@ -33,6 +33,7 @@ public class ClientCenter implements Runnable {
 	private Client client;
 	private Stage stage;
 	private double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
+	private double c1_hp, c2_hp, c3_hp, c4_hp, c5_hp;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
@@ -877,46 +878,14 @@ public class ClientCenter implements Runnable {
 		} else if (state == 2) {
 			switch (function) {
 			case "win":
-				switch (type) {
-				// Ä²µoTid
-				// TODO:
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				}
+				client.keyevent_game = null;
+				client.scene_game.setOnKeyPressed(client.keyevent_game);
 				break;
 			case "back1":
-				switch (type) {
-				// Ä²µoTid
-				// TODO:
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				}
 				break;
 			case "back2":
-				switch (type) {
-				// Ä²µoTid
-				// TODO:
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				}
+				refreshInst();
+				client.toRoom(stage);
 				break;
 			}
 		}
