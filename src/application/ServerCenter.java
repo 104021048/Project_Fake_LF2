@@ -369,16 +369,16 @@ public class ServerCenter implements Runnable {
 				inst12(Tid);
 				break;
 			case "moveup":
-				instUp(Tid);
+				instUp(myTid);
 				break;
 			case "movedown":
-				instDown(Tid);
+				instDown(myTid);
 				break;
 			case "moveleft":
-				instLeft(Tid);
+				instLeft(myTid);
 				break;
 			case "moveright":
-				instRight(Tid);
+				instRight(myTid);
 				break;
 			}
 

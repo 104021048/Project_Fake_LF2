@@ -519,7 +519,7 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "movedup":
-				switch (type) {
+				switch (dest) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往上
 				case 1:
@@ -609,7 +609,7 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "moveddown":
-				switch (type) {
+				switch (dest) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往下
 				case 1:
@@ -699,7 +699,7 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "movedleft":
-				switch (type) {
+				switch (dest) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往左
 				case 1:
@@ -789,7 +789,7 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "movedright":
-				switch (type) {
+				switch (dest) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往右
 				case 1:
@@ -1842,7 +1842,7 @@ public class ClientCenter implements Runnable {
 	public void initMoveUp() {
 		state = 1;
 		myTid = myTid;
-		function = "movedup";
+		function = "moveup";
 		source = -1;
 		dest = -1;
 		type = -1;
