@@ -177,6 +177,7 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name2.setText(Stype);
 							name[1] = Stype;
+							System.out.println("name[1]: " + name[1]);
 						} catch (Exception ex) {
 
 						}
@@ -187,6 +188,7 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name3.setText(Stype);
 							name[2] = Stype;
+							System.out.println("name[2]: " + name[2]);
 						} catch (Exception ex) {
 
 						}
@@ -198,7 +200,7 @@ public class ClientCenter implements Runnable {
 
 							client.label_room_name4.setText(Stype);
 							name[3] = Stype;
-
+							System.out.println("name[3]: " + name[3]);
 						} catch (Exception ex) {
 
 						}
@@ -1129,7 +1131,6 @@ public class ClientCenter implements Runnable {
 		Platform.runLater(() -> {
 			label.setGraphic(image);
 		});
-		System.out.println("LockRole_finish");
 	}
 
 	// endregion
@@ -1795,17 +1796,17 @@ public class ClientCenter implements Runnable {
 		Stype = ta[9];
 		if (function.equals("connect"))
 			myTid = Integer.parseInt(ta[5]);
-		System.out.println("state: " + state);
-		System.out.println("Tid: " + Tid);
-		System.out.println("function: " + function);
-		System.out.println("source: " + source);
-		System.out.println("dest: " + dest);
-		System.out.println("type: " + type);
-		System.out.println("X: " + X);
-		System.out.println("Y: " + Y);
-		System.out.println("direction: " + direction);
-		System.out.println("Stype: " + Stype);
-		System.out.println("myTid: " + myTid);
+		// System.out.println("state: " + state);
+		// System.out.println("Tid: " + Tid);
+		// System.out.println("function: " + function);
+		// System.out.println("source: " + source);
+		// System.out.println("dest: " + dest);
+		// System.out.println("type: " + type);
+		// System.out.println("X: " + X);
+		// System.out.println("Y: " + Y);
+		// System.out.println("direction: " + direction);
+		// System.out.println("Stype: " + Stype);
+		// System.out.println("myTid: " + myTid);
 	}
 	// endregion
 
@@ -1819,7 +1820,6 @@ public class ClientCenter implements Runnable {
 		source = -1;
 		dest = -1;
 		type = role;
-		System.out.println("initSelect-role: " + role);
 		X = -1.0;
 		Y = -1.0;
 		direction = 0;
