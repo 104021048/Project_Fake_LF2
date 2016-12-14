@@ -525,88 +525,23 @@ public class ClientCenter implements Runnable {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往上
 				case 1:
-					switch (role_data[0]) {
-					case 1:
-						client.c1_y -= c1_speed;
-						break;
-					case 2:
-						client.c1_y -= c2_speed;
-						break;
-					case 3:
-						client.c1_y -= c3_speed;
-						break;
-					case 4:
-						client.c1_y -= c4_speed;
-						break;
-					case 5:
-						client.c1_y -= c5_speed;
-						break;
-					}
+
 					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, client.c1_x, client.c1_y);
+							client.progressbar_game_characterblood1, X, Y);
 					break;
 				case 2:
-					switch (role_data[1]) {
-					case 1:
-						client.c2_y -= c1_speed;
-						break;
-					case 2:
-						client.c2_y -= c2_speed;
-						break;
-					case 3:
-						client.c2_y -= c3_speed;
-						break;
-					case 4:
-						client.c2_y -= c4_speed;
-						break;
-					case 5:
-						client.c2_y -= c5_speed;
-						break;
-					}
+
 					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, client.c2_x, client.c2_y);
+							client.progressbar_game_characterblood2, X, Y);
 					break;
 				case 3:
-					switch (role_data[2]) {
-					case 1:
-						client.c3_y -= c1_speed;
-						break;
-					case 2:
-						client.c3_y -= c2_speed;
-						break;
-					case 3:
-						client.c3_y -= c3_speed;
-						break;
-					case 4:
-						client.c3_y -= c4_speed;
-						break;
-					case 5:
-						client.c3_y -= c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, client.c3_x, client.c3_y);
+							client.progressbar_game_characterblood3, X, Y);
 					break;
 				case 4:
-					switch (role_data[3]) {
-					case 1:
-						client.c4_y -= c1_speed;
-						break;
-					case 2:
-						client.c4_y -= c2_speed;
-						break;
-					case 3:
-						client.c4_y -= c3_speed;
-						break;
-					case 4:
-						client.c4_y -= c4_speed;
-						break;
-					case 5:
-						client.c4_y -= c5_speed;
-						break;
-					}
+
 					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, client.c4_x, client.c4_y);
+							client.progressbar_game_characterblood4, X, Y);
 					break;
 				}
 				break;
@@ -615,88 +550,20 @@ public class ClientCenter implements Runnable {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往下
 				case 1:
-					switch (role_data[0]) {
-					case 1:
-						client.c1_y += c1_speed;
-						break;
-					case 2:
-						client.c1_y += c2_speed;
-						break;
-					case 3:
-						client.c1_y += c3_speed;
-						break;
-					case 4:
-						client.c1_y += c4_speed;
-						break;
-					case 5:
-						client.c1_y += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, client.c1_x, client.c1_y);
+							client.progressbar_game_characterblood1, X, Y);
 					break;
 				case 2:
-					switch (role_data[1]) {
-					case 1:
-						client.c2_y += c1_speed;
-						break;
-					case 2:
-						client.c2_y += c2_speed;
-						break;
-					case 3:
-						client.c2_y += c3_speed;
-						break;
-					case 4:
-						client.c2_y += c4_speed;
-						break;
-					case 5:
-						client.c2_y += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, client.c2_x, client.c2_y);
+							client.progressbar_game_characterblood2, X, Y);
 					break;
 				case 3:
-					switch (role_data[2]) {
-					case 1:
-						client.c3_y += c1_speed;
-						break;
-					case 2:
-						client.c3_y += c2_speed;
-						break;
-					case 3:
-						client.c3_y += c3_speed;
-						break;
-					case 4:
-						client.c3_y += c4_speed;
-						break;
-					case 5:
-						client.c3_y += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, client.c3_x, client.c3_y);
+							client.progressbar_game_characterblood3, X, Y);
 					break;
 				case 4:
-					switch (role_data[3]) {
-					case 1:
-						client.c4_y += c1_speed;
-						break;
-					case 2:
-						client.c4_y += c2_speed;
-						break;
-					case 3:
-						client.c4_y += c3_speed;
-						break;
-					case 4:
-						client.c4_y += c4_speed;
-						break;
-					case 5:
-						client.c4_y += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, client.c4_x, client.c4_y);
+							client.progressbar_game_characterblood4, X, Y);
 					break;
 				}
 				break;
@@ -705,88 +572,20 @@ public class ClientCenter implements Runnable {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往左
 				case 1:
-					switch (role_data[0]) {
-					case 1:
-						client.c1_x -= c1_speed;
-						break;
-					case 2:
-						client.c1_x -= c2_speed;
-						break;
-					case 3:
-						client.c1_x -= c3_speed;
-						break;
-					case 4:
-						client.c1_x -= c4_speed;
-						break;
-					case 5:
-						client.c1_x -= c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, client.c1_x, client.c1_y);
+							client.progressbar_game_characterblood1, X, Y);
 					break;
 				case 2:
-					switch (role_data[1]) {
-					case 1:
-						client.c2_x -= c1_speed;
-						break;
-					case 2:
-						client.c2_x -= c2_speed;
-						break;
-					case 3:
-						client.c2_x -= c3_speed;
-						break;
-					case 4:
-						client.c2_x -= c4_speed;
-						break;
-					case 5:
-						client.c2_x -= c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, client.c2_x, client.c2_y);
+							client.progressbar_game_characterblood2, X, Y);
 					break;
 				case 3:
-					switch (role_data[2]) {
-					case 1:
-						client.c3_x -= c1_speed;
-						break;
-					case 2:
-						client.c3_x -= c2_speed;
-						break;
-					case 3:
-						client.c3_x -= c3_speed;
-						break;
-					case 4:
-						client.c3_x -= c4_speed;
-						break;
-					case 5:
-						client.c3_x -= c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, client.c3_x, client.c3_y);
+							client.progressbar_game_characterblood3, X, Y);
 					break;
 				case 4:
-					switch (role_data[3]) {
-					case 1:
-						client.c4_x -= c1_speed;
-						break;
-					case 2:
-						client.c4_x -= c2_speed;
-						break;
-					case 3:
-						client.c4_x -= c3_speed;
-						break;
-					case 4:
-						client.c4_x -= c4_speed;
-						break;
-					case 5:
-						client.c4_x -= c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, client.c4_x, client.c4_y);
+							client.progressbar_game_characterblood4, X, Y);
 					break;
 				}
 				break;
@@ -795,88 +594,20 @@ public class ClientCenter implements Runnable {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰往右
 				case 1:
-					switch (role_data[0]) {
-					case 1:
-						client.c1_x += c1_speed;
-						break;
-					case 2:
-						client.c1_x += c2_speed;
-						break;
-					case 3:
-						client.c1_x += c3_speed;
-						break;
-					case 4:
-						client.c1_x += c4_speed;
-						break;
-					case 5:
-						client.c1_x += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, client.c1_x, client.c1_y);
+							client.progressbar_game_characterblood1, X, Y);
 					break;
 				case 2:
-					switch (role_data[1]) {
-					case 1:
-						client.c2_x += c1_speed;
-						break;
-					case 2:
-						client.c2_x += c2_speed;
-						break;
-					case 3:
-						client.c2_x += c3_speed;
-						break;
-					case 4:
-						client.c2_x += c4_speed;
-						break;
-					case 5:
-						client.c2_x += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, client.c2_x, client.c2_y);
+							client.progressbar_game_characterblood2, X, Y);
 					break;
 				case 3:
-					switch (role_data[2]) {
-					case 1:
-						client.c3_x += c1_speed;
-						break;
-					case 2:
-						client.c3_x += c2_speed;
-						break;
-					case 3:
-						client.c3_x += c3_speed;
-						break;
-					case 4:
-						client.c3_x += c4_speed;
-						break;
-					case 5:
-						client.c3_x += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, client.c3_x, client.c3_y);
+							client.progressbar_game_characterblood3, X, Y);
 					break;
 				case 4:
-					switch (role_data[3]) {
-					case 1:
-						client.c4_x += c1_speed;
-						break;
-					case 2:
-						client.c4_x += c2_speed;
-						break;
-					case 3:
-						client.c4_x += c3_speed;
-						break;
-					case 4:
-						client.c4_x += c4_speed;
-						break;
-					case 5:
-						client.c4_x += c5_speed;
-						break;
-					}
 					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, client.c4_x, client.c4_y);
+							client.progressbar_game_characterblood4, X, Y);
 					break;
 				}
 				break;
@@ -1479,7 +1210,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
 			client.label_game_name1.setTranslateX(client.c1_x);
 			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveUp();
+			initMoveUp(client.c1_x, client.c1_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1496,7 +1227,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
 			client.label_game_name2.setTranslateX(client.c2_x);
 			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveUp();
+			initMoveUp(client.c2_x, client.c2_y);
 			writer.println(encoder());
 			writer.flush();
 
@@ -1513,7 +1244,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
 			client.label_game_name3.setTranslateX(client.c3_x);
 			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveUp();
+			initMoveUp(client.c3_x, client.c3_y);
 			writer.println(encoder());
 			writer.flush();
 
@@ -1530,7 +1261,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
 			client.label_game_name4.setTranslateX(client.c4_x);
 			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveUp();
+			initMoveUp(client.c4_x, client.c4_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1552,7 +1283,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
 			client.label_game_name1.setTranslateX(client.c1_x);
 			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveDown();
+			initMoveDown(client.c1_x, client.c1_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1568,7 +1299,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
 			client.label_game_name2.setTranslateX(client.c2_x);
 			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveDown();
+			initMoveDown(client.c2_x, client.c2_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1584,7 +1315,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
 			client.label_game_name3.setTranslateX(client.c3_x);
 			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveDown();
+			initMoveDown(client.c3_x, client.c3_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1600,7 +1331,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
 			client.label_game_name4.setTranslateX(client.c4_x);
 			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveDown();
+			initMoveDown(client.c4_x, client.c4_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1621,7 +1352,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
 			client.label_game_name1.setTranslateX(client.c1_x);
 			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveLeft();
+			initMoveLeft(client.c1_x, client.c1_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1637,7 +1368,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
 			client.label_game_name2.setTranslateX(client.c2_x);
 			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveLeft();
+			initMoveLeft(client.c2_x, client.c2_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1653,7 +1384,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
 			client.label_game_name3.setTranslateX(client.c3_x);
 			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveLeft();
+			initMoveLeft(client.c3_x, client.c3_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1669,7 +1400,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
 			client.label_game_name4.setTranslateX(client.c4_x);
 			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveLeft();
+			initMoveLeft(client.c4_x, client.c4_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1691,7 +1422,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
 			client.label_game_name1.setTranslateX(client.c1_x);
 			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveRight();
+			initMoveRight(client.c1_x, client.c1_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1707,7 +1438,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
 			client.label_game_name2.setTranslateX(client.c2_x);
 			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveRight();
+			initMoveRight(client.c2_x, client.c2_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1723,7 +1454,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
 			client.label_game_name3.setTranslateX(client.c3_x);
 			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveRight();
+			initMoveRight(client.c3_x, client.c3_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1739,7 +1470,7 @@ public class ClientCenter implements Runnable {
 			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
 			client.label_game_name4.setTranslateX(client.c4_x);
 			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveRight();
+			initMoveRight(client.c4_x, client.c4_y);
 			writer.println(encoder());
 			writer.flush();
 			break;
@@ -1796,17 +1527,17 @@ public class ClientCenter implements Runnable {
 		Stype = ta[9];
 		if (function.equals("connect"))
 			myTid = Integer.parseInt(ta[5]);
-		// System.out.println("state: " + state);
-		// System.out.println("Tid: " + Tid);
-		// System.out.println("function: " + function);
-		// System.out.println("source: " + source);
-		// System.out.println("dest: " + dest);
-		// System.out.println("type: " + type);
-		// System.out.println("X: " + X);
-		// System.out.println("Y: " + Y);
-		// System.out.println("direction: " + direction);
-		// System.out.println("Stype: " + Stype);
-		// System.out.println("myTid: " + myTid);
+		System.out.println("state: " + state);
+		System.out.println("Tid: " + Tid);
+		System.out.println("function: " + function);
+		System.out.println("source: " + source);
+		System.out.println("dest: " + dest);
+		System.out.println("type: " + type);
+		System.out.println("X: " + X);
+		System.out.println("Y: " + Y);
+		System.out.println("direction: " + direction);
+		System.out.println("Stype: " + Stype);
+		System.out.println("myTid: " + myTid);
 	}
 	// endregion
 
@@ -1839,54 +1570,54 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initMoveUp() {
+	public void initMoveUp(double x, double y) {
 		state = 1;
 		myTid = myTid;
 		function = "moveup";
 		source = -1;
 		dest = -1;
 		type = -1;
-		X = -1;
-		Y = -1;
+		X = x;
+		Y = y;
 		direction = 0;
 		Stype = "@";
 	}
 
-	public void initMoveDown() {
+	public void initMoveDown(double x, double y) {
 		state = 1;
 		myTid = myTid;
 		function = "movedown";
 		source = -1;
 		dest = -1;
 		type = -1;
-		X = -1;
-		Y = -1;
+		X = x;
+		Y = y;
 		direction = 0;
 		Stype = "@";
 	}
 
-	public void initMoveLeft() {
+	public void initMoveLeft(double x, double y) {
 		state = 1;
 		myTid = myTid;
 		function = "moveleft";
 		source = -1;
 		dest = -1;
 		type = -1;
-		X = -1;
-		Y = -1;
+		X = x;
+		Y = y;
 		direction = 0;
 		Stype = "@";
 	}
 
-	public void initMoveRight() {
+	public void initMoveRight(double x, double y) {
 		state = 1;
 		myTid = myTid;
 		function = "moveright";
 		source = -1;
 		dest = -1;
 		type = -1;
-		X = -1;
-		Y = -1;
+		X = x;
+		Y = y;
 		direction = 0;
 		Stype = "@";
 	}

@@ -108,9 +108,9 @@ public class ServerCenter implements Runnable {
 					decoder(message);
 					handle();
 
-					if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size()>1) {
+					if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size() > 1) {
 						gotofight();
-						
+
 					} else if (setLive.size() > 1 && setLive.size() - 1 == setDeath.size() && setDeath.size() >= 1) {
 						System.out.println("贏家出現");
 
@@ -150,11 +150,11 @@ public class ServerCenter implements Runnable {
 			ex.printStackTrace();
 			dcHandle();
 			System.out.println("Tid:" + myTid + "連接離開" + ex.toString());
-			if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size()>1) {
+			if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size() > 1) {
 				gotofight();
-				
+
 			}
-			
+
 		}
 	}
 
@@ -389,7 +389,7 @@ public class ServerCenter implements Runnable {
 	// 特殊情況的處理 Special data dealing //
 	// --------------------------------------------------------------------//
 	// 計算出誰贏了
-	public void gotofight(){
+	public void gotofight() {
 		// 如果大家都鎖定了
 		System.out.println("鎖定已滿遊戲準備開始");
 		// go1 告訴自己準備要開始
@@ -406,6 +406,7 @@ public class ServerCenter implements Runnable {
 		tellAll();
 		started = true;
 	}
+
 	public int whoWon() {
 		Iterator<Integer> it = setLocked.iterator();
 		int wtid = -1;
@@ -443,7 +444,7 @@ public class ServerCenter implements Runnable {
 		int x = r1.nextInt(1024);
 		int y = r1.nextInt(320);
 		X = (double) x - 1024 / 2;
-		Y = (double) y +64;
+		Y = (double) y + 64;
 	}
 
 	// 把所有有紀錄的choose讀入
@@ -587,7 +588,7 @@ public class ServerCenter implements Runnable {
 		X = -1;
 		Y = -1;
 		direction = 0;
-		Stype = "@";
+		Stype = myName;
 	}
 
 	public void inst5(int who, int which) {

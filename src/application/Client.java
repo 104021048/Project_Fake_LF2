@@ -416,7 +416,7 @@ public class Client extends Application {
 				name.setTranslateX(X);
 				name.setTranslateY(Y + 40);
 			} catch (Exception ex) {
-
+				System.out.println(ex.toString());
 			}
 		});
 	}
