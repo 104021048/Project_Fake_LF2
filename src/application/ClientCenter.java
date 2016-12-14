@@ -15,31 +15,33 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
-	private int state;
-	private int Tid, myTid;
-	private String function;
-	private int source;
-	private int dest;
-	private int type;
-	private int role, role_data[] = new int[4];
-	private double X, Y, position[][] = new double[4][2];
-	private int direction;
-	private String Stype, myName;
-	private Socket sock;
-	private BufferedReader reader;
-	private PrintStream writer;
-	private String ta[], name[] = new String[4];
-	private Stage primaryStage;
-	private Client client;
-	private Stage stage;
-	private double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
-	private double c1_hp, c2_hp, c3_hp, c4_hp, c5_hp;
-	private double Start_X = 0, Start_Y = 0;
-	private int direction_atk = 1;
+	public int state;
+	public int Tid, myTid;
+	public String function;
+	public int source;
+	public int dest;
+	public int type;
+	public int role, role_data[] = new int[4];
+	public double X, Y, position[][] = new double[4][2];
+	public int direction;
+	public String Stype, myName;
+	public Socket sock;
+	public BufferedReader reader;
+	public PrintStream writer;
+	public String ta[], name[] = new String[4];
+	public Stage primaryStage;
+	public Client client;
+	public ClientCenter clientCenter;
+	public Stage stage;
+	public double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
+	public double c1_hp, c2_hp, c3_hp, c4_hp, c5_hp;
+	public double Start_X = 0, Start_Y = 0;
+	public int direction_atk = 1;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
 			EstablishConnection(ip, 8888);
+			this.clientCenter = this;
 			this.client = client;
 			myName = name;
 		} catch (Exception ex) {
@@ -47,7 +49,7 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	private void EstablishConnection(String ip, int port) {
+	public void EstablishConnection(String ip, int port) {
 		try {
 			// 請求建立連線
 			sock = new Socket(ip, port);
@@ -1441,12 +1443,14 @@ public class ClientCenter implements Runnable {
 			break;
 		}
 		try {
-
 			new Thread(new Runnable() {
 				public void run() {
-					new Attack2(Start_X, Start_Y, client.stackpane_game_backgroundground, direction_atk).start();
+					new Attack2(client, clientCenter, Start_X, Start_Y, client.stackpane_game_backgroundground,
+							direction_atk).start();
 				}
 			}).start();
+			initAttack2();
+			writer.println(encoder());
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -1891,6 +1895,19 @@ public class ClientCenter implements Runnable {
 	// refresh
 
 	// region
+	public void initAttack2() {
+		state = 1;
+		myTid = myTid;
+		function = "atk2";
+		source = -1;
+		dest = -1;
+		type = -1;
+		X = Start_X;
+		Y = Start_Y;
+		direction = direction_atk;
+		Stype = "@";
+	}
+
 	public void refreshInst() {
 
 		state = -1;

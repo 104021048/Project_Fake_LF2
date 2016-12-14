@@ -8,9 +8,14 @@ public class Attack2 extends Thread {
 	public Label ammo;
 	public double startx, starty;
 	public boolean boom = false;
+	public Client client;
+	public ClientCenter clientCenter;
+	private int atk_range = 20;
 
-	public Attack2(double x, double y, StackPane sp, int direction) {
+	public Attack2(Client client, ClientCenter clientCenter, double x, double y, StackPane sp, int direction) {
 		// TODO Auto-generated constructor stub
+		this.client = client;
+		this.clientCenter = clientCenter;
 		startx = x;
 		starty = y;
 		ammo = new Label("a");
@@ -43,9 +48,12 @@ public class Attack2 extends Thread {
 	public void MoveRight() {
 		if (!boom) {
 			ammo.setTranslateX(ammo.getTranslateX() + 50);
-			/*
-			 * if (ammo.getTranslateX() == 300) { boom = true; }
-			 */
+			if (ammo.getTranslateX() >= client.c1_x - atk_range && ammo.getTranslateX() <= client.c1_x + atk_range) {
+				boom = true;
+				this.ammo.setDisable(true);
+				clientCenter.writer.println(clientCenter.myTid);
+			}
+
 		} else {
 
 		}
