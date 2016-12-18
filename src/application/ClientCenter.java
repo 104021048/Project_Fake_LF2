@@ -17,11 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
-<<<<<<< HEAD
 	private static Map<Integer, Attack2> bulletlist = new HashMap<Integer, Attack2>();
-=======
-	private static HashMap<Integer, Attack2> bulletlist;
->>>>>>> origin/master
 	private int bulletcounter;
 	public int state;
 	public int Tid, myTid;
@@ -456,18 +452,34 @@ public class ClientCenter implements Runnable {
 				case 1:
 					position[0][0] = X;
 					position[0][1] = Y;
+					if(dest==myTid){
+					Start_X = X;
+					Start_Y = Y;
+					}
 					break;
 				case 2:
 					position[1][0] = X;
 					position[1][1] = Y;
+					if(dest==myTid){
+						Start_X = X;
+						Start_Y = Y;
+						}
 					break;
 				case 3:
 					position[2][0] = X;
 					position[2][1] = Y;
+					if(dest==myTid){
+						Start_X = X;
+						Start_Y = Y;
+						}
 					break;
 				case 4:
 					position[3][0] = X;
 					position[3][1] = Y;
+					if(dest==myTid){
+						Start_X = X;
+						Start_Y = Y;
+						}
 					break;
 				}
 				break;
@@ -1156,25 +1168,18 @@ public class ClientCenter implements Runnable {
 	public void attack2_method() {
 		int Offset_bullet = myTid * 10000;
 		bulletcounter++;
-<<<<<<< HEAD
 		initAttack2(Offset_bullet + bulletcounter);
 		writer.println(encoder());
 		writer.flush();
-		Attack2 attack2 = new Attack2(client, this.clientCenter, Start_X, Start_Y,
+		Attack2 attack2 = new Attack2(client, this.clientCenter, X, Y,
 				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, bulletlist);
 		bulletlist.put(Offset_bullet + bulletcounter, attack2);
-		System.out.println(Start_X + "," + Start_Y);
+		System.out.println(X + "," + Y);
 		attack2 = null;
 		System.gc();
 		if (bulletcounter == 9999) {
 			bulletcounter = 0;
 		}
-=======
-		Attack2 Attack2 = null;
-		bulletlist.put(Offset_bullet + bulletcounter, new Attack2(client, this.clientCenter, Start_X, Start_Y,
-				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter));
-		System.out.println(Start_X + "," + Start_Y);
->>>>>>> origin/master
 	}
 
 	public void win_method() {
