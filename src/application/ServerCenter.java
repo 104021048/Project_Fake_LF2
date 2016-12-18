@@ -380,6 +380,9 @@ public class ServerCenter implements Runnable {
 			case "moveright":
 				instRight(myTid);
 				break;
+			case "bulletdeath":
+				bulletdeath(type);
+				break;
 			}
 
 		}
@@ -668,8 +671,8 @@ public class ServerCenter implements Runnable {
 		Tid = -1;
 		function = "atk2";
 		source = -1;
-		dest = atk2tid;
-		type = -1;
+		dest = -1;
+		type = atk2tid;
 		X = x;
 		Y = y;
 		direction = dir;
@@ -753,8 +756,6 @@ public class ServerCenter implements Runnable {
 		source = -1;
 		dest = moveid;
 		type = -1;
-		X = -1;
-		Y = -1;
 		direction = 0;
 		Stype = "@";
 	}
@@ -766,8 +767,6 @@ public class ServerCenter implements Runnable {
 		source = -1;
 		dest = moveid;
 		type = -1;
-		X = -1;
-		Y = -1;
 		direction = 0;
 		Stype = "@";
 	}
@@ -779,8 +778,6 @@ public class ServerCenter implements Runnable {
 		source = -1;
 		dest = moveid;
 		type = -1;
-		X = -1;
-		Y = -1;
 		direction = -1;
 		Stype = "@";
 	}
@@ -792,8 +789,17 @@ public class ServerCenter implements Runnable {
 		source = -1;
 		dest = moveid;
 		type = -1;
-		X = -1;
-		Y = -1;
+		direction = 1;
+		Stype = "@";
+
+	}
+	public void bulletdeath(int bulletid) {
+		state = 1;
+		Tid = -1;
+		function = "bulletdeath";
+		source = -1;
+		dest = -1;
+		type = bulletid;
 		direction = 1;
 		Stype = "@";
 

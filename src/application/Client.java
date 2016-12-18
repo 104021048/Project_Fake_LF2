@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -63,7 +64,7 @@ public class Client extends Application {
 		gridpane_login_root = new GridPane();
 		gridpane_login_root.setPadding(new Insets(25, 25, 25, 25));
 		image_login_logo = new ImageView("logo.png");
-		textfield_login_ip = new TextField("127.0.0.1");
+		textfield_login_ip = new TextField("120.108.111.156");
 		textfield_login_name = new TextField();
 		label_login_ip = new Label("IP: ");
 		label_login_name = new Label("Name: ");
@@ -381,6 +382,10 @@ public class Client extends Application {
 		scene_game = new Scene(stackpane_game_root, sence_width, sence_height);
 		scene_game.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
+	}
+
+	public StackPane return_game_backgroundground() {
+		return stackpane_game_backgroundground;
 	}
 
 	public void game_setupListener(Stage stage) {

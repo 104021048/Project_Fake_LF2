@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
@@ -12,9 +13,12 @@ import java.util.Vector;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
+	private static Map<Integer, Attack2> bulletlist = new HashMap<Integer, Attack2>();
+	private int bulletcounter;
 	public int state;
 	public int Tid, myTid;
 	public String function;
@@ -35,7 +39,7 @@ public class ClientCenter implements Runnable {
 	public Stage stage;
 	public double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
 	public double c1_hp, c2_hp, c3_hp, c4_hp, c5_hp;
-	public double Start_X = 0, Start_Y = 0;
+	public double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
 	public int direction_atk = 1;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
@@ -44,6 +48,7 @@ public class ClientCenter implements Runnable {
 			this.clientCenter = this;
 			this.client = client;
 			myName = name;
+			bulletcounter = 0;
 		} catch (Exception ex) {
 			System.out.println("連接失敗 in ClientCenter");
 		}
@@ -467,19 +472,9 @@ public class ClientCenter implements Runnable {
 		} else if (state == 1) {
 			switch (function) {
 			case "atk2":
-				switch (type) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰發動攻擊
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				}
-				break;
+
+				bulletlist.put(type, new Attack2(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
+						direction, type, bulletlist));
 			case "atked":
 				switch (type) {
 				// 觸發Tid
@@ -1155,36 +1150,19 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void attack2_method() {
-
-		switch (myTid) {
-		case 1:
-			Start_X = client.c1_x;
-			Start_Y = client.c1_y;
-			break;
-		case 2:
-			Start_X = client.c2_x;
-			Start_Y = client.c2_y;
-			break;
-		case 3:
-			Start_X = client.c3_x;
-			Start_Y = client.c3_y;
-			break;
-		case 4:
-			Start_X = client.c4_x;
-			Start_Y = client.c4_y;
-			break;
-		}
-		try {
-			new Thread(new Runnable() {
-				public void run() {
-					new Attack2(client, clientCenter, Start_X, Start_Y, client.stackpane_game_backgroundground,
-							direction_atk).start();
-				}
-			}).start();
-			initAttack2();
-			writer.println(encoder());
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		int Offset_bullet = myTid * 10000;
+		bulletcounter++;
+		initAttack2(Offset_bullet + bulletcounter);
+		writer.println(encoder());
+		writer.flush();
+		Attack2 attack2 = new Attack2(client, this.clientCenter, Start_X, Start_Y,
+				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, bulletlist);
+		bulletlist.put(Offset_bullet + bulletcounter, attack2);
+		System.out.println(Start_X + "," + Start_Y);
+		attack2 = null;
+		System.gc();
+		if (bulletcounter == 9999) {
+			bulletcounter = 0;
 		}
 	}
 
@@ -1201,8 +1179,10 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_y - c1_speed > 76) {
 				client.c1_y -= c1_speed;
+				Start_Y = client.c1_y;
 			} else {
 				client.c1_y = 76;
+				Start_Y = client.c1_y;
 			}
 			client.label_game_character1.setTranslateX(client.c1_x);
 			client.label_game_character1.setTranslateY(client.c1_y);
@@ -1217,9 +1197,10 @@ public class ClientCenter implements Runnable {
 		case 2:
 			if (client.c2_y - c2_speed > 76) {
 				client.c2_y -= c2_speed;
+				Start_Y = client.c2_y;
 			} else {
 				client.c2_y = 76;
-
+				Start_Y = client.c2_y;
 			}
 			client.label_game_character2.setTranslateX(client.c2_x);
 			client.label_game_character2.setTranslateY(client.c2_y);
@@ -1235,8 +1216,10 @@ public class ClientCenter implements Runnable {
 		case 3:
 			if (client.c3_y - c3_speed > 76) {
 				client.c3_y -= c3_speed;
+				Start_Y = client.c3_y;
 			} else {
 				client.c3_y = 76;
+				Start_Y = client.c3_y;
 			}
 			client.label_game_character3.setTranslateX(client.c3_x);
 			client.label_game_character3.setTranslateY(client.c3_y);
@@ -1252,8 +1235,10 @@ public class ClientCenter implements Runnable {
 		case 4:
 			if (client.c4_y - c4_speed > 76) {
 				client.c4_y -= c4_speed;
+				Start_Y = client.c4_y;
 			} else {
 				client.c4_y = 76;
+				Start_Y = client.c4_y;
 			}
 			client.label_game_character4.setTranslateX(client.c4_x);
 			client.label_game_character4.setTranslateY(client.c4_y);
@@ -1274,8 +1259,10 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_y + c1_speed < 362) {
 				client.c1_y += c1_speed;
+				Start_Y = client.c1_y;
 			} else {
 				client.c1_y = 362;
+				Start_Y = client.c1_y;
 			}
 			client.label_game_character1.setTranslateX(client.c1_x);
 			client.label_game_character1.setTranslateY(client.c1_y);
@@ -1290,8 +1277,10 @@ public class ClientCenter implements Runnable {
 		case 2:
 			if (client.c2_y + c2_speed < 362) {
 				client.c2_y += c2_speed;
+				Start_Y = client.c2_y;
 			} else {
 				client.c2_y = 362;
+				Start_Y = client.c2_y;
 			}
 			client.label_game_character2.setTranslateX(client.c2_x);
 			client.label_game_character2.setTranslateY(client.c2_y);
@@ -1306,8 +1295,10 @@ public class ClientCenter implements Runnable {
 		case 3:
 			if (client.c3_y + c3_speed < 362) {
 				client.c3_y += c3_speed;
+				Start_Y = client.c3_y;
 			} else {
 				client.c3_y = 362;
+				Start_Y = client.c3_y;
 			}
 			client.label_game_character3.setTranslateX(client.c3_x);
 			client.label_game_character3.setTranslateY(client.c3_y);
@@ -1322,8 +1313,10 @@ public class ClientCenter implements Runnable {
 		case 4:
 			if (client.c4_y + c4_speed < 362) {
 				client.c4_y += c4_speed;
+				Start_Y = client.c4_y;
 			} else {
 				client.c4_y = 362;
+				Start_Y = client.c4_y;
 			}
 			client.label_game_character4.setTranslateX(client.c4_x);
 			client.label_game_character4.setTranslateY(client.c4_y);
@@ -1343,8 +1336,10 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_x - c1_speed > -492) {
 				client.c1_x -= c1_speed;
+				Start_X = client.c1_x;
 			} else {
 				client.c1_x = -492;
+				Start_X = client.c1_x;
 			}
 			client.label_game_character1.setTranslateX(client.c1_x);
 			client.label_game_character1.setTranslateY(client.c1_y);
@@ -1359,8 +1354,10 @@ public class ClientCenter implements Runnable {
 		case 2:
 			if (client.c2_x - c2_speed > -492) {
 				client.c2_x -= c2_speed;
+				Start_X = client.c2_x;
 			} else {
 				client.c2_x = -492;
+				Start_X = client.c2_x;
 			}
 			client.label_game_character2.setTranslateX(client.c2_x);
 			client.label_game_character2.setTranslateY(client.c2_y);
@@ -1375,8 +1372,10 @@ public class ClientCenter implements Runnable {
 		case 3:
 			if (client.c3_x - c3_speed > -492) {
 				client.c3_x -= c3_speed;
+				Start_X = client.c3_x;
 			} else {
 				client.c3_x = -492;
+				Start_X = client.c3_x;
 			}
 			client.label_game_character3.setTranslateX(client.c3_x);
 			client.label_game_character3.setTranslateY(client.c3_y);
@@ -1391,8 +1390,10 @@ public class ClientCenter implements Runnable {
 		case 4:
 			if (client.c4_x - c4_speed > -492) {
 				client.c4_x -= c4_speed;
+				Start_X = client.c4_x;
 			} else {
 				client.c4_x = -492;
+				Start_X = client.c4_x;
 			}
 			client.label_game_character4.setTranslateX(client.c4_x);
 			client.label_game_character4.setTranslateY(client.c4_y);
@@ -1413,8 +1414,10 @@ public class ClientCenter implements Runnable {
 		case 1:
 			if (client.c1_x + c1_speed < 492) {
 				client.c1_x += c1_speed;
+				Start_X = client.c1_x;
 			} else {
 				client.c1_x = 492;
+				Start_X = client.c1_x;
 			}
 			client.label_game_character1.setTranslateX(client.c1_x);
 			client.label_game_character1.setTranslateY(client.c1_y);
@@ -1429,8 +1432,10 @@ public class ClientCenter implements Runnable {
 		case 2:
 			if (client.c2_x + c2_speed < 492) {
 				client.c2_x += c2_speed;
+				Start_X = client.c2_x;
 			} else {
 				client.c2_x = 492;
+				Start_X = client.c2_x;
 			}
 			client.label_game_character2.setTranslateX(client.c2_x);
 			client.label_game_character2.setTranslateY(client.c2_y);
@@ -1445,8 +1450,10 @@ public class ClientCenter implements Runnable {
 		case 3:
 			if (client.c3_x + c3_speed < 492) {
 				client.c3_x += c3_speed;
+				Start_X = client.c3_x;
 			} else {
 				client.c3_x = 492;
+				Start_X = client.c3_x;
 			}
 			client.label_game_character3.setTranslateX(client.c3_x);
 			client.label_game_character3.setTranslateY(client.c3_y);
@@ -1461,8 +1468,10 @@ public class ClientCenter implements Runnable {
 		case 4:
 			if (client.c4_x + c4_speed < 492) {
 				client.c4_x += c4_speed;
+				Start_X = client.c4_x;
 			} else {
 				client.c4_x = 492;
+				Start_X = client.c4_x;
 			}
 			client.label_game_character4.setTranslateX(client.c4_x);
 			client.label_game_character4.setTranslateY(client.c4_y);
@@ -1626,13 +1635,13 @@ public class ClientCenter implements Runnable {
 	// refresh
 
 	// region
-	public void initAttack2() {
+	public void initAttack2(int bulletNumber) {
 		state = 1;
 		myTid = myTid;
 		function = "atk2";
 		source = -1;
 		dest = -1;
-		type = -1;
+		type = bulletNumber;
 		X = Start_X;
 		Y = Start_Y;
 		direction = direction_atk;

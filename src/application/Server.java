@@ -14,9 +14,10 @@ public class Server {
 	static Set<Integer> Death = new HashSet<Integer>();
 	static Map<Integer, Integer> tchoose = new HashMap<>();
 	static Map<Integer, String> tname = new HashMap<>();
-	
+
 	// region
 	public static void main(String args[]) {
+		System.out.println("Server is ON...");
 		output = new Vector<PrintStream>();
 		try {
 			ServerSocket serverSock = new ServerSocket(8888);
