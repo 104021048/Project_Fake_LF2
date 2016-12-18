@@ -103,7 +103,7 @@ public class Attack2 {
 					bulletlist.remove(bulletID);
 					// TODO: boom?
 					if (boom == true) {
-
+						clientCenter.atked_method(imv.getTranslateX() , imv.getTranslateY());
 					}
 				}
 			});
@@ -146,19 +146,11 @@ public class Attack2 {
 			System.out.println("collision1" + clientCenterStart_X);
 			System.out.println("collision1" + x);
 			boom = true;
-			clientCenter.atked_method(x , y);
-			sp.getChildren().remove(imv);
-			System.out.println(bulletID + " death");
-			bulletlist.remove(bulletID);
 		} else if (x>clientCenterStart_X && x - 12.5 <= clientCenterStart_X + 25 && direction == -1
 				&& Math.abs(clientCenterStart_Y - y) <= 37.5) {
 			System.out.println("collision2" + clientCenterStart_X);
 			System.out.println("collision2" + x);
 			boom = true;
-			clientCenter.atked_method(x , y);
-			sp.getChildren().remove(imv);
-			System.out.println(bulletID + " death");
-			bulletlist.remove(bulletID);
 		} else {
 			System.out.println("collision else");
 			boom = false;
