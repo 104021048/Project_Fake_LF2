@@ -17,7 +17,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
+<<<<<<< HEAD
 	private static Map<Integer, Attack2> bulletlist = new HashMap<Integer, Attack2>();
+=======
+	private static HashMap<Integer, Attack2> bulletlist;
+>>>>>>> origin/master
 	private int bulletcounter;
 	public int state;
 	public int Tid, myTid;
@@ -1152,6 +1156,7 @@ public class ClientCenter implements Runnable {
 	public void attack2_method() {
 		int Offset_bullet = myTid * 10000;
 		bulletcounter++;
+<<<<<<< HEAD
 		initAttack2(Offset_bullet + bulletcounter);
 		writer.println(encoder());
 		writer.flush();
@@ -1164,6 +1169,12 @@ public class ClientCenter implements Runnable {
 		if (bulletcounter == 9999) {
 			bulletcounter = 0;
 		}
+=======
+		Attack2 Attack2 = null;
+		bulletlist.put(Offset_bullet + bulletcounter, new Attack2(client, this.clientCenter, Start_X, Start_Y,
+				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter));
+		System.out.println(Start_X + "," + Start_Y);
+>>>>>>> origin/master
 	}
 
 	public void win_method() {
