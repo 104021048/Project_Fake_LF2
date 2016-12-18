@@ -43,7 +43,7 @@ public class Attack2 {
 	private Map<Integer, Attack2> bulletlist;
 	private double clientCenterStart_X, clientCenterStart_Y;
 
-	public Attack2(Client client, ClientCenter clientCenter, double x, double y, StackPane sp, int direction,
+	public Attack2(Client client, ClientCenter clientCenter, int myTid ,double x, double y, StackPane sp, int direction,
 			int bulletID, Map<Integer, Attack2> bulletlist) {
 		this.client = client;
 		this.clientCenter = clientCenter;
@@ -146,6 +146,8 @@ public class Attack2 {
 			System.out.println("collision1" + clientCenterStart_X);
 			System.out.println("collision1" + x);
 			boom = true;
+			clientCenter.atked_method(x , y);
+			
 		} else if (x>clientCenterStart_X && x - 12.5 <= clientCenterStart_X + 25 && direction == -1
 				&& Math.abs(clientCenterStart_Y - y) <= 37.5) {
 			System.out.println("collision2" + clientCenterStart_X);

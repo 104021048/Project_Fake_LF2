@@ -384,6 +384,58 @@ public class Client extends Application {
 
 	}
 
+	public void game_setMyHP(int hp) {
+		Platform.runLater(() -> {
+			try {
+				progressbar_game_blood = new ProgressBar(hp);
+			} catch (Exception ex) {
+
+			}
+		});
+	}
+
+	public void game_setOtherHP(int Tid, int role, int hp) {
+		Platform.runLater(() -> {
+			try {
+				double newHp = 99999;
+				switch (role) {
+				case 1:
+					newHp = hp / 1000;
+					break;
+				case 2:
+					newHp = hp / 900;
+					break;
+				case 3:
+					newHp = hp / 800;
+					break;
+				case 4:
+					newHp = hp / 700;
+					break;
+				case 5:
+					newHp = hp / 600;
+					break;
+				}
+				switch (Tid) {
+				case 1:
+					progressbar_game_characterblood1 = new ProgressBar(newHp);
+					break;
+				case 2:
+					progressbar_game_characterblood2 = new ProgressBar(newHp);
+					break;
+				case 3:
+					progressbar_game_characterblood3 = new ProgressBar(newHp);
+					break;
+				case 4:
+					progressbar_game_characterblood4 = new ProgressBar(newHp);
+					break;
+				}
+			} catch (Exception ex) {
+
+			}
+		});
+
+	}
+
 	public StackPane return_game_backgroundground() {
 		return stackpane_game_backgroundground;
 	}

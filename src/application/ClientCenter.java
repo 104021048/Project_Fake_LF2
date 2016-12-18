@@ -38,7 +38,7 @@ public class ClientCenter implements Runnable {
 	public ClientCenter clientCenter;
 	public Stage stage;
 	public double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
-	public double c1_hp, c2_hp, c3_hp, c4_hp, c5_hp;
+	public int c1_hp, c2_hp, c3_hp, c4_hp, c5_hp, my_hp;
 	public double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
 	public int direction_atk = 1;
 
@@ -452,34 +452,34 @@ public class ClientCenter implements Runnable {
 				case 1:
 					position[0][0] = X;
 					position[0][1] = Y;
-					if(dest==myTid){
-					Start_X = X;
-					Start_Y = Y;
+					if (dest == myTid) {
+						Start_X = X;
+						Start_Y = Y;
 					}
 					break;
 				case 2:
 					position[1][0] = X;
 					position[1][1] = Y;
-					if(dest==myTid){
+					if (dest == myTid) {
 						Start_X = X;
 						Start_Y = Y;
-						}
+					}
 					break;
 				case 3:
 					position[2][0] = X;
 					position[2][1] = Y;
-					if(dest==myTid){
+					if (dest == myTid) {
 						Start_X = X;
 						Start_Y = Y;
-						}
+					}
 					break;
 				case 4:
 					position[3][0] = X;
 					position[3][1] = Y;
-					if(dest==myTid){
+					if (dest == myTid) {
 						Start_X = X;
 						Start_Y = Y;
-						}
+					}
 					break;
 				}
 				break;
@@ -489,19 +489,23 @@ public class ClientCenter implements Runnable {
 			switch (function) {
 			case "atk2":
 
-				bulletlist.put(type, new Attack2(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
-						direction, type, bulletlist));
+				bulletlist.put(type, new Attack2(client, this.clientCenter, dest, X, Y,
+						client.return_game_backgroundground(), direction, type, bulletlist));
 			case "atked":
 				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰被攻擊
 				case 1:
+					client.game_setOtherHP(type,role_data[0],c1_hp);
 					break;
 				case 2:
+					client.game_setOtherHP(type,role_data[1],c2_hp);
 					break;
 				case 3:
+					client.game_setOtherHP(type,role_data[2],c3_hp);
 					break;
 				case 4:
+					client.game_setOtherHP(type,role_data[3],c4_hp);
 					break;
 				}
 				break;
@@ -966,78 +970,82 @@ public class ClientCenter implements Runnable {
 		case 1:
 			switch (role) {
 			case 1:
-				c1_hp = 10;
+				c1_hp = 1000;
 				break;
 			case 2:
-				c1_hp = 8;
+				c1_hp = 900;
 				break;
 			case 3:
-				c1_hp = 6;
+				c1_hp = 800;
 				break;
 			case 4:
-				c1_hp = 4;
+				c1_hp = 700;
 				break;
 			case 5:
-				c1_hp = 2;
+				c1_hp = 600;
 				break;
 			}
+			my_hp = c1_hp;
 			break;
 		case 2:
 			switch (role) {
 			case 1:
-				c2_hp = 10;
+				c2_hp = 1000;
 				break;
 			case 2:
-				c2_hp = 8;
+				c2_hp = 900;
 				break;
 			case 3:
-				c2_hp = 6;
+				c2_hp = 800;
 				break;
 			case 4:
-				c2_hp = 4;
+				c2_hp = 700;
 				break;
 			case 5:
-				c2_hp = 2;
+				c2_hp = 600;
 				break;
 			}
+			my_hp = c2_hp;
 			break;
 		case 3:
 			switch (role) {
 			case 1:
-				c3_hp = 10;
+				c3_hp = 1000;
 				break;
 			case 2:
-				c3_hp = 8;
+				c3_hp = 900;
 				break;
 			case 3:
-				c3_hp = 6;
+				c3_hp = 800;
 				break;
 			case 4:
-				c3_hp = 4;
+				c3_hp = 700;
 				break;
 			case 5:
-				c3_hp = 2;
+				c3_hp = 600;
 				break;
 			}
+			my_hp = c3_hp;
 			break;
 		case 4:
 			switch (role) {
 			case 1:
-				c4_hp = 10;
+				c4_hp = 1000;
 				break;
 			case 2:
-				c4_hp = 8;
+				c4_hp = 900;
 				break;
 			case 3:
-				c4_hp = 6;
+				c4_hp = 800;
 				break;
 			case 4:
-				c4_hp = 4;
+				c4_hp = 700;
 				break;
 			case 5:
-				c4_hp = 2;
+				c4_hp = 600;
 				break;
 			}
+			my_hp = c4_hp;
 			break;
 		}
 	}
@@ -1171,8 +1179,8 @@ public class ClientCenter implements Runnable {
 		initAttack2(Offset_bullet + bulletcounter);
 		writer.println(encoder());
 		writer.flush();
-		Attack2 attack2 = new Attack2(client, this.clientCenter, X, Y,
-				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, bulletlist);
+		Attack2 attack2 = new Attack2(client, this.clientCenter, myTid, X, Y, client.return_game_backgroundground(),
+				direction_atk, Offset_bullet + bulletcounter, bulletlist);
 		bulletlist.put(Offset_bullet + bulletcounter, attack2);
 		System.out.println(X + "," + Y);
 		attack2 = null;
@@ -1180,6 +1188,14 @@ public class ClientCenter implements Runnable {
 		if (bulletcounter == 9999) {
 			bulletcounter = 0;
 		}
+	}
+
+	public void atked_method(double x, double y) {
+		my_hp -= 50;
+		initAtked();
+		writer.println(encoder());
+		writer.flush();
+		client.game_setMyHP(my_hp);
 	}
 
 	public void win_method() {
@@ -1646,11 +1662,7 @@ public class ClientCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
-	// endregion
 
-	// refresh
-
-	// region
 	public void initAttack2(int bulletNumber) {
 		state = 1;
 		myTid = myTid;
@@ -1664,6 +1676,23 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
+	public void initAtked() {
+		state = 2;
+		myTid = myTid;
+		function = "atked";
+		source = -1;
+		dest = -1;
+		type = my_hp;
+		X = Start_X;
+		Y = Start_Y;
+		direction = 0;
+		Stype = "@";
+	}
+	// endregion
+
+	// refresh
+
+	// region
 	public void refreshInst() {
 
 		state = -1;
