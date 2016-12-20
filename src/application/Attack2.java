@@ -42,6 +42,7 @@ public class Attack2 {
 	private StackPane sp;
 	private Map<Integer, Attack2> bulletlist;
 	private double clientCenterStart_X, clientCenterStart_Y;
+	private boolean toldDeath=false;
 
 	public Attack2(Client client, ClientCenter clientCenter, int myTid ,double x, double y, StackPane sp, int direction,
 			int bulletID, Map<Integer, Attack2> bulletlist) {
@@ -71,7 +72,10 @@ public class Attack2 {
 			public void handle(ActionEvent event) {
 				// 偵測collision
 				collision(imv.getTranslateX(), imv.getTranslateY());
-				if (imv.getTranslateX() > (sizex * -1) && imv.getTranslateX() < sizex && !boom) {
+				if(toldDeath){
+					System.out.println("toldDeath");
+				}
+				else if (imv.getTranslateX() > (sizex * -1) && imv.getTranslateX() < sizex && !boom) {
 					// 在橫向邊界之內而且未爆炸
 					switch (direction) {
 					case 1:
@@ -102,8 +106,8 @@ public class Attack2 {
 					System.out.println(bulletID + " death");
 					bulletlist.remove(bulletID);
 					// TODO: boom?
-					if (boom == true) {
-						clientCenter.atked_method(imv.getTranslateX() , imv.getTranslateY());
+					if (boom == true &&!toldDeath) {
+						clientCenter.atked_method(imv.getTranslateX() , imv.getTranslateY(), bulletID);
 					}
 				}
 			});
@@ -143,25 +147,28 @@ public class Attack2 {
 		// 這邊的參數xy是子彈的位置，因為時變，Client位置需要呼叫
 		// Client儲存自己的位置來跟子彈進行判斷
 		if (x<clientCenterStart_X &&x + 12.5 >= clientCenterStart_X - 25 && direction == 1 && Math.abs(clientCenterStart_Y - y) <= 37.5) {
-			System.out.println("collision1" + clientCenterStart_X);
-			System.out.println("collision1" + x);
 			boom = true;
 		} else if (x>clientCenterStart_X && x - 12.5 <= clientCenterStart_X + 25 && direction == -1
 				&& Math.abs(clientCenterStart_Y - y) <= 37.5) {
-			System.out.println("collision2" + clientCenterStart_X);
-			System.out.println("collision2" + x);
 			boom = true;
 		} else {
-			System.out.println("collision else");
 			boom = false;
 		}
 
 	}
 
-	public void bulletDeath() {
-		// 讓ClientCenter調用子彈死亡
-		// 加速讓動畫播完
-
+	public void bulletDeath(double bulletdeathX, double bulletdeathY) {
+		Platform.runLater(() -> {
+			try {
+				imv.setTranslateX(bulletdeathX);
+			} catch (Exception ex) {
+				System.out.println(ex.toString());
+			}
+		});
+		System.out.println("bulletDeath");
+		boom = true;
+		toldDeath=true;
 		timeline.setRate(100);
+
 	}
 }

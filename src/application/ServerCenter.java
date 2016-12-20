@@ -672,7 +672,7 @@ public class ServerCenter implements Runnable {
 		function = "atk2";
 		source = -1;
 		dest = -1;
-		type = atk2tid;
+		type = type;
 		X = x;
 		Y = y;
 		direction = dir;
