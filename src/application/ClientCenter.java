@@ -500,20 +500,20 @@ public class ClientCenter implements Runnable {
 						direction, type, bulletlist));
 				break;
 			case "atked":
-				switch (type) {
+				switch (dest) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰被攻擊
 				case 1:
-					client.game_setOtherHP(type, role_data[0], c1_hp);
+					client.game_setOtherHP(dest, role_data[0], client.progressbar_game_characterblood1);
 					break;
 				case 2:
-					client.game_setOtherHP(type, role_data[1], c2_hp);
+					client.game_setOtherHP(dest, role_data[1], client.progressbar_game_characterblood2);
 					break;
 				case 3:
-					client.game_setOtherHP(type, role_data[2], c3_hp);
+					client.game_setOtherHP(dest, role_data[2], client.progressbar_game_characterblood3);
 					break;
 				case 4:
-					client.game_setOtherHP(type, role_data[3], c4_hp);
+					client.game_setOtherHP(dest, role_data[3], client.progressbar_game_characterblood4);
 					break;
 				}
 				break;
@@ -532,14 +532,14 @@ public class ClientCenter implements Runnable {
 					client.progressbar_game_characterblood2.setDisable(true);
 					break;
 				case 3:
-					client.label_game_character1.setDisable(true);
-					client.label_game_name1.setDisable(true);
-					client.progressbar_game_characterblood1.setDisable(true);
+					client.label_game_character3.setDisable(true);
+					client.label_game_name3.setDisable(true);
+					client.progressbar_game_characterblood3.setDisable(true);
 					break;
 				case 4:
-					client.label_game_character1.setDisable(true);
-					client.label_game_name1.setDisable(true);
-					client.progressbar_game_characterblood1.setDisable(true);
+					client.label_game_character4.setDisable(true);
+					client.label_game_name4.setDisable(true);
+					client.progressbar_game_characterblood4.setDisable(true);
 					break;
 				}
 				break;
@@ -1208,8 +1208,8 @@ public class ClientCenter implements Runnable {
 		initAttack2(Offset_bullet + bulletcounter);
 		writer.println(encoder());
 		writer.flush();
-		Attack2 attack2 = new Attack2(client, this.clientCenter, Start_X, Start_Y, client.return_game_backgroundground(),
-				direction_atk, Offset_bullet + bulletcounter, bulletlist);
+		Attack2 attack2 = new Attack2(client, this.clientCenter, Start_X, Start_Y,
+				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, bulletlist);
 		bulletlist.put(Offset_bullet + bulletcounter, attack2);
 		attack2 = null;
 		System.gc();
@@ -1217,97 +1217,205 @@ public class ClientCenter implements Runnable {
 			bulletcounter = 0;
 		}
 	}
+
 	public void atked_method(double x, double y) {
-		my_hp -= 50;
 		initAtked();
 		writer.println(encoder());
 		writer.flush();
-		switch(myTid){
+		int role_count = 0;
+		switch (myTid) {
 		case 1:
-			switch(role_data[0]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[0]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		case 2:
-			switch(role_data[1]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[1]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		case 3:
-			switch(role_data[2]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[2]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		case 4:
-			switch(role_data[3]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[3]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		}
-		client.game_setMyHP(my_hp_after);
+		switch (myTid) {
+		case 1:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood1);
+			break;
+		case 2:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood2);
+			break;
+		case 3:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood3);
+			break;
+		case 4:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood4);
+			break;
+		}
 	}
 
 	public void atk2ed_method(double x, double y, int bulletID) {
 		bulletdeath(bulletID, x, y);
-		my_hp -= 50;
 		initAtk2ed();
 		writer.println(encoder());
 		writer.flush();
-		switch(myTid){
+		int role_count = 0;
+		switch (myTid) {
 		case 1:
-			switch(role_data[0]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[0]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		case 2:
-			switch(role_data[1]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[1]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		case 3:
-			switch(role_data[2]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[2]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		case 4:
-			switch(role_data[3]){
-			case 1:my_hp_after = my_hp/1000;
-			case 2:my_hp_after = my_hp/900;
-			case 3:my_hp_after = my_hp/800;
-			case 4:my_hp_after = my_hp/700;
-			case 5:my_hp_after = my_hp/600;
+			switch (role_data[3]) {
+			case 1:
+				role_count = 1;
+				break;
+			case 2:
+				role_count = 2;
+				break;
+			case 3:
+				role_count = 3;
+				break;
+			case 4:
+				role_count = 4;
+				break;
+			case 5:
+				role_count = 5;
+				break;
 			}
 			break;
 		}
-		client.game_setMyHP(my_hp_after);
+		switch (myTid) {
+		case 1:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood1);
+			break;
+		case 2:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood2);
+			break;
+		case 3:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood3);
+			break;
+		case 4:
+			client.game_setMyHP(role_count, client.progressbar_game_characterblood4);
+			break;
+		}
+
 	}
 
 	public void win_method() {
@@ -1315,7 +1423,33 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void death_method() {
-
+		switch (myTid) {
+		// 觸發Tid
+		// TODO: 依照Tid設定誰死亡
+		case 1:
+			client.label_game_character1.setDisable(true);
+			client.label_game_name1.setDisable(true);
+			client.progressbar_game_characterblood1.setDisable(true);
+			break;
+		case 2:
+			client.label_game_character2.setDisable(true);
+			client.label_game_name2.setDisable(true);
+			client.progressbar_game_characterblood2.setDisable(true);
+			break;
+		case 3:
+			client.label_game_character3.setDisable(true);
+			client.label_game_name3.setDisable(true);
+			client.progressbar_game_characterblood3.setDisable(true);
+			break;
+		case 4:
+			client.label_game_character4.setDisable(true);
+			client.label_game_name4.setDisable(true);
+			client.progressbar_game_characterblood4.setDisable(true);
+			break;
+		}
+		initDeath();
+		writer.println(encoder());
+		writer.flush();
 	}
 
 	public void moveup() {
@@ -1800,8 +1934,9 @@ public class ClientCenter implements Runnable {
 		direction = direction_atk;
 		Stype = "@";
 	}
+
 	public void initAtked() {
-		state = 2;
+		state = 1;
 		myTid = myTid;
 		function = "atked";
 		source = -1;
@@ -1814,7 +1949,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void initAtk2ed() {
-		state = 2;
+		state = 1;
 		myTid = myTid;
 		function = "atked";
 		source = -1;
@@ -1836,6 +1971,19 @@ public class ClientCenter implements Runnable {
 		type = bulletID;
 		X = bulletX;
 		Y = bulletY;
+		direction = 0;
+		Stype = "@";
+	}
+	
+	public void initDeath(){
+		state = 1;
+		myTid = myTid;
+		function = "death";
+		source = -1;
+		dest = -1;
+		type = -1;
+		X = -1;
+		Y = -1;
 		direction = 0;
 		Stype = "@";
 	}

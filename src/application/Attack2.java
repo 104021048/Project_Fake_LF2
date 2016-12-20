@@ -73,7 +73,7 @@ public class Attack2 {
 				// 偵測collision
 				collision(imv.getTranslateX(), imv.getTranslateY());
 				if(toldDeath){
-					System.out.println("toldDeath");
+					//System.out.println("toldDeath");
 				}
 				else if (imv.getTranslateX() > (sizex * -1) && imv.getTranslateX() < sizex && !boom) {
 					// 在橫向邊界之內而且未爆炸
