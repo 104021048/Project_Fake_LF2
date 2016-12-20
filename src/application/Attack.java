@@ -136,6 +136,5 @@ public class Attack {
 		// 讓ClientCenter調用子彈死亡
 		// 加速讓動畫播完
 
-		timeline.setRate(100);
 	}
 }

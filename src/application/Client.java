@@ -64,7 +64,7 @@ public class Client extends Application {
 		gridpane_login_root = new GridPane();
 		gridpane_login_root.setPadding(new Insets(25, 25, 25, 25));
 		image_login_logo = new ImageView("logo.png");
-		textfield_login_ip = new TextField("120.108.111.156");
+		textfield_login_ip = new TextField("127.0.0.1");
 		textfield_login_name = new TextField();
 		label_login_ip = new Label("IP: ");
 		label_login_name = new Label("Name: ");
