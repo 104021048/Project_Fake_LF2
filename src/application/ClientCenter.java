@@ -491,13 +491,17 @@ public class ClientCenter implements Runnable {
 		} else if (state == 1) {
 			switch (function) {
 			case "bulletdeath":
-
 				bulletlist.get(type).bulletDeath(X, Y);
 				bulletlist.remove(type);
+				break;
+			case "atk":
+				attacklist.put(type, new Attack(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
+						direction, type, attacklist));
 				break;
 			case "atk2":
 				bulletlist.put(type, new Attack2(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
 						direction, type, bulletlist));
+				break;
 			case "atked":
 				switch (type) {
 				// Ä²µoTid
@@ -1187,18 +1191,27 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void attack_method() {
-		Attack attack = new Attack(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
+		bulletcounter++;
+		initAttack(Offset_bullet + bulletcounter);
+		writer.println(encoder());
+		writer.flush();
+		Attack attack = new Attack(client, this.clientCenter, Start_X, Start_Y, client.return_game_backgroundground(),
 				direction_atk, Offset_bullet + bulletcounter, attacklist);
+		attacklist.put(Offset_bullet + bulletcounter, attack);
+		attack = null;
+		System.gc();
+		if (bulletcounter == 9999) {
+			bulletcounter = 0;
+		}
 
 	}
 
 	public void attack2_method() {
 		bulletcounter++;
 		initAttack2(Offset_bullet + bulletcounter);
-		System.out.println("initAttack2: " + (Offset_bullet + bulletcounter));
 		writer.println(encoder());
 		writer.flush();
-		Attack2 attack2 = new Attack2(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
+		Attack2 attack2 = new Attack2(client, this.clientCenter, Start_X, Start_Y, client.return_game_backgroundground(),
 				direction_atk, Offset_bullet + bulletcounter, bulletlist);
 		bulletlist.put(Offset_bullet + bulletcounter, attack2);
 		System.out.println(X + "," + Y);
@@ -1208,11 +1221,18 @@ public class ClientCenter implements Runnable {
 			bulletcounter = 0;
 		}
 	}
-
-	public void atked_method(double x, double y, int bulletID) {
-		bulletdeath(bulletID, x, y);
+	public void atked_method(double x, double y) {
 		my_hp -= 50;
 		initAtked();
+		writer.println(encoder());
+		writer.flush();
+		client.game_setMyHP(my_hp);
+	}
+
+	public void atk2ed_method(double x, double y, int bulletID) {
+		bulletdeath(bulletID, x, y);
+		my_hp -= 50;
+		initAtk2ed();
 		writer.println(encoder());
 		writer.flush();
 		client.game_setMyHP(my_hp);
@@ -1683,6 +1703,19 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
+	public void initAttack(int bulletNumber) {
+		state = 1;
+		myTid = myTid;
+		function = "atk";
+		source = -1;
+		dest = -1;
+		type = bulletNumber;
+		X = Start_X;
+		Y = Start_Y;
+		direction = direction_atk;
+		Stype = "@";
+	}
+
 	public void initAttack2(int bulletNumber) {
 		state = 1;
 		myTid = myTid;
@@ -1695,8 +1728,20 @@ public class ClientCenter implements Runnable {
 		direction = direction_atk;
 		Stype = "@";
 	}
-
 	public void initAtked() {
+		state = 2;
+		myTid = myTid;
+		function = "atked";
+		source = -1;
+		dest = -1;
+		type = my_hp;
+		X = Start_X;
+		Y = Start_Y;
+		direction = 0;
+		Stype = "@";
+	}
+
+	public void initAtk2ed() {
 		state = 2;
 		myTid = myTid;
 		function = "atked";

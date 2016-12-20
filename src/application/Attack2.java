@@ -107,7 +107,7 @@ public class Attack2 {
 					bulletlist.remove(bulletID);
 					// TODO: boom?
 					if (boom == true &&!toldDeath) {
-						clientCenter.atked_method(imv.getTranslateX() , imv.getTranslateY(), bulletID);
+						clientCenter.atk2ed_method(imv.getTranslateX() , imv.getTranslateY(), bulletID);
 					}
 				}
 			});

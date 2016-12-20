@@ -84,7 +84,7 @@ public class Attack {
 					Attacklist.remove(bulletID);
 					// TODO: boom?
 					if (hit == true) {
-
+						clientCenter.atked_method(imv.getTranslateX() , imv.getTranslateY());
 					}
 		});
 
@@ -117,16 +117,11 @@ public class Attack {
 		// Client儲存自己的位置來跟子彈進行判斷
 		if (x < clientCenterStart_X && x + atk_size >= clientCenterStart_X - role_size && direction == 1
 				&& Math.abs(clientCenterStart_Y - y) <= role_size+atk_size) {
-			System.out.println("collision1" + clientCenterStart_X);
-			System.out.println("collision1" + x);
 			hit = true;
 		} else if (x > clientCenterStart_X && x - atk_size <= clientCenterStart_X + role_size && direction == -1
 				&& Math.abs(clientCenterStart_Y - y) <= role_size+atk_size) {
-			System.out.println("collision2" + clientCenterStart_X);
-			System.out.println("collision2" + x);
 			hit = true;
 		} else {
-			System.out.println("collision else");
 			hit = false;
 		}
 
