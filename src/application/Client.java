@@ -389,7 +389,7 @@ public class Client extends Application {
 
 	}
 
-	public void game_setMyHP(int hp) {
+	public void game_setMyHP(double hp) {
 		Platform.runLater(() -> {
 			try {
 				progressbar_game_blood = new ProgressBar(hp);

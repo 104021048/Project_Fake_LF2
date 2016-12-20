@@ -39,6 +39,7 @@ public class ClientCenter implements Runnable {
 	public Client client;
 	public ClientCenter clientCenter;
 	public Stage stage;
+	public double my_hp_after;
 	public double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
 	public int c1_hp, c2_hp, c3_hp, c4_hp, c5_hp, my_hp;
 	public double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
@@ -174,7 +175,6 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name1.setText(Stype);
 							name[0] = Stype;
-							System.out.println("name[0]: " + name[0]);
 						} catch (Exception ex) {
 
 						}
@@ -185,7 +185,6 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name2.setText(Stype);
 							name[1] = Stype;
-							System.out.println("name[1]: " + name[1]);
 						} catch (Exception ex) {
 
 						}
@@ -196,7 +195,6 @@ public class ClientCenter implements Runnable {
 						try {
 							client.label_room_name3.setText(Stype);
 							name[2] = Stype;
-							System.out.println("name[2]: " + name[2]);
 						} catch (Exception ex) {
 
 						}
@@ -208,7 +206,6 @@ public class ClientCenter implements Runnable {
 
 							client.label_room_name4.setText(Stype);
 							name[3] = Stype;
-							System.out.println("name[3]: " + name[3]);
 						} catch (Exception ex) {
 
 						}
@@ -1214,7 +1211,6 @@ public class ClientCenter implements Runnable {
 		Attack2 attack2 = new Attack2(client, this.clientCenter, Start_X, Start_Y, client.return_game_backgroundground(),
 				direction_atk, Offset_bullet + bulletcounter, bulletlist);
 		bulletlist.put(Offset_bullet + bulletcounter, attack2);
-		System.out.println(X + "," + Y);
 		attack2 = null;
 		System.gc();
 		if (bulletcounter == 9999) {
@@ -1226,7 +1222,45 @@ public class ClientCenter implements Runnable {
 		initAtked();
 		writer.println(encoder());
 		writer.flush();
-		client.game_setMyHP(my_hp);
+		switch(myTid){
+		case 1:
+			switch(role_data[0]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		case 2:
+			switch(role_data[1]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		case 3:
+			switch(role_data[2]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		case 4:
+			switch(role_data[3]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		}
+		client.game_setMyHP(my_hp_after);
 	}
 
 	public void atk2ed_method(double x, double y, int bulletID) {
@@ -1235,7 +1269,45 @@ public class ClientCenter implements Runnable {
 		initAtk2ed();
 		writer.println(encoder());
 		writer.flush();
-		client.game_setMyHP(my_hp);
+		switch(myTid){
+		case 1:
+			switch(role_data[0]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		case 2:
+			switch(role_data[1]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		case 3:
+			switch(role_data[2]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		case 4:
+			switch(role_data[3]){
+			case 1:my_hp_after = my_hp/1000;
+			case 2:my_hp_after = my_hp/900;
+			case 3:my_hp_after = my_hp/800;
+			case 4:my_hp_after = my_hp/700;
+			case 5:my_hp_after = my_hp/600;
+			}
+			break;
+		}
+		client.game_setMyHP(my_hp_after);
 	}
 
 	public void win_method() {
