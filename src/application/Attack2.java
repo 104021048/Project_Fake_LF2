@@ -44,7 +44,7 @@ public class Attack2 {
 	private double clientCenterStart_X, clientCenterStart_Y;
 	private boolean toldDeath=false;
 
-	public Attack2(Client client, ClientCenter clientCenter, int myTid ,double x, double y, StackPane sp, int direction,
+	public Attack2(Client client, ClientCenter clientCenter,double x, double y, StackPane sp, int direction,
 			int bulletID, Map<Integer, Attack2> bulletlist) {
 		this.client = client;
 		this.clientCenter = clientCenter;

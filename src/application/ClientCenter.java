@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
 	private static Map<Integer, Attack2> bulletlist = new HashMap<Integer, Attack2>();
+	private static Map<Integer, Attack> attacklist = new HashMap<Integer, Attack>();
 	private int bulletcounter;
+	private int Offset_bullet;
 	public int state;
 	public int Tid, myTid;
 	public String function;
@@ -89,6 +91,7 @@ public class ClientCenter implements Runnable {
 					if (Tid == -1) {
 						writer.println(("0#" + myTid + "#connect#-1#-1#-1#-1.0#-1.0#0#" + myName));
 						writer.flush();
+						Offset_bullet = myTid * 10000;
 					}
 				}
 
@@ -488,28 +491,28 @@ public class ClientCenter implements Runnable {
 		} else if (state == 1) {
 			switch (function) {
 			case "bulletdeath":
-				
+
 				bulletlist.get(type).bulletDeath(X, Y);
 				bulletlist.remove(type);
 				break;
 			case "atk2":
-				bulletlist.put(type, new Attack2(client, this.clientCenter, dest, X, Y,
-						client.return_game_backgroundground(), direction, type, bulletlist));
+				bulletlist.put(type, new Attack2(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
+						direction, type, bulletlist));
 			case "atked":
 				switch (type) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰被攻擊
 				case 1:
-					client.game_setOtherHP(type,role_data[0],c1_hp);
+					client.game_setOtherHP(type, role_data[0], c1_hp);
 					break;
 				case 2:
-					client.game_setOtherHP(type,role_data[1],c2_hp);
+					client.game_setOtherHP(type, role_data[1], c2_hp);
 					break;
 				case 3:
-					client.game_setOtherHP(type,role_data[2],c3_hp);
+					client.game_setOtherHP(type, role_data[2], c3_hp);
 					break;
 				case 4:
-					client.game_setOtherHP(type,role_data[3],c4_hp);
+					client.game_setOtherHP(type, role_data[3], c4_hp);
 					break;
 				}
 				break;
@@ -1176,21 +1179,26 @@ public class ClientCenter implements Runnable {
 				position[2][1], position[3][0], position[3][1], c1_png, c2_png, c3_png, c4_png, my_png, name[0],
 				name[1], name[2], name[3]);
 	}
-	
+
 	public void bulletdeath(int bulletID, double bulletx, double bullety) {
 		initbulletdeath(bulletID, bulletx, bullety);
 		writer.println(encoder());
 		writer.flush();
 	}
 
+	public void attack_method() {
+		Attack attack = new Attack(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
+				direction_atk, Offset_bullet + bulletcounter, attacklist);
+
+	}
+
 	public void attack2_method() {
-		int Offset_bullet = myTid * 10000;
 		bulletcounter++;
 		initAttack2(Offset_bullet + bulletcounter);
-		System.out.println("initAttack2: "+(Offset_bullet + bulletcounter));
+		System.out.println("initAttack2: " + (Offset_bullet + bulletcounter));
 		writer.println(encoder());
 		writer.flush();
-		Attack2 attack2 = new Attack2(client, this.clientCenter, myTid, X, Y, client.return_game_backgroundground(),
+		Attack2 attack2 = new Attack2(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
 				direction_atk, Offset_bullet + bulletcounter, bulletlist);
 		bulletlist.put(Offset_bullet + bulletcounter, attack2);
 		System.out.println(X + "," + Y);
@@ -1201,8 +1209,8 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public void atked_method(double x, double y , int bulletID) {
-		bulletdeath(bulletID,x,y);
+	public void atked_method(double x, double y, int bulletID) {
+		bulletdeath(bulletID, x, y);
 		my_hp -= 50;
 		initAtked();
 		writer.println(encoder());
@@ -1700,8 +1708,7 @@ public class ClientCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
-	
-	
+
 	public void initbulletdeath(int bulletID, double bulletX, double bulletY) {
 
 		state = 1;
