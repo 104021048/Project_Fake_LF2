@@ -229,6 +229,11 @@ public class Client extends Application {
 	}
 
 	public void setDisable() {
+		button_room_character1.setDisable(true);
+		button_room_character2.setDisable(true);
+		button_room_character3.setDisable(true);
+		button_room_character4.setDisable(true);
+		button_room_character5.setDisable(true);
 		button_room_ready.setDisable(true);
 	}
 	// game
