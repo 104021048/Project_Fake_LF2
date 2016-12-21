@@ -15,27 +15,27 @@ import javafx.util.Duration;
 
 
 
-public class Attack2 {
+public class Attack3 {
 	public double startx, starty;
 	public boolean hit = false;
 	public Client client;
 	public ClientCenter clientCenter;
 	ImageView imv;
-	Image imageArray[] = new Image[30];
+	Image imageArray[] = new Image[35];
 	Timeline timeline;
 	int direction;
 	int count = 0;
-	int frame=25;
+	int frame=30;
 	private double sizex = 500;
 	private int bulletID = 0;
 	private StackPane sp;
-	private Map<Integer, Attack2> Attacklist;
+	private Map<Integer, Attack3> Attacklist;
 	private double clientCenterStart_X, clientCenterStart_Y;
 	private double role_size=25;
 	private double atk_size=25;
 
-	public Attack2(Client client, ClientCenter clientCenter, double x, double y, StackPane sp, int direction,
-			int bulletID, Map<Integer, Attack2> Attacklist) {
+	public Attack3(Client client, ClientCenter clientCenter, double x, double y, StackPane sp, int direction,
+			int bulletID, Map<Integer, Attack3> Attacklist) {
 		this.client = client;
 		this.clientCenter = clientCenter;
 		startx = x;
@@ -48,7 +48,7 @@ public class Attack2 {
 		clientCenterStart_Y = clientCenter.Start_Y;
 		timeline = new Timeline();
 		for (int i = 0; i < frame; i++) {
-			imageArray[i] = new Image("atk2/atk" + Integer.toString(i + 1) + ".png");
+			imageArray[i] = new Image("atk3/atk" + Integer.toString(i + 1) + ".png");
 		}
 		setGraph(sp, direction);
 		Atk();

@@ -1878,6 +1878,15 @@ public class Client extends Application {
 			}
 		});
 	}
+
+	public void refreshHpCount() {
+		c1Hp_count = 0;
+		c2Hp_count = 0;
+		c3Hp_count = 0;
+		c4Hp_count = 0;
+		myHp_count = 0;
+	}
+
 	// endregion
 
 	// main
