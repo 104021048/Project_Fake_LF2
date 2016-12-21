@@ -518,7 +518,7 @@ public class ClientCenter implements Runnable {
 				}
 				break;
 			case "death":
-				switch (type) {
+				switch (dest) {
 				// 觸發Tid
 				// TODO: 依照Tid設定誰死亡
 				case 1:
@@ -646,6 +646,7 @@ public class ClientCenter implements Runnable {
 			case "back2":
 				refreshInst();
 				client.toRoom(stage);
+				client.refreshHpCount();
 				break;
 			}
 		}
@@ -1974,8 +1975,8 @@ public class ClientCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
-	
-	public void initDeath(){
+
+	public void initDeath() {
 		state = 1;
 		myTid = myTid;
 		function = "death";

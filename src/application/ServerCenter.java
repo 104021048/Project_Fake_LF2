@@ -113,7 +113,7 @@ public class ServerCenter implements Runnable {
 
 					} else if (setLive.size() > 1 && setLive.size() - 1 == setDeath.size() && setDeath.size() >= 1) {
 						System.out.println("贏家出現");
-
+						tellOthers();
 						// 如果贏家出現了
 						// win 告訴自己誰贏了
 						inst13(whoWon());
