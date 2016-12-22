@@ -21,7 +21,7 @@ public class Role_Capoo_1 {
 
 		setImage();
 		setLabel();
-		setHp();
+		setHp(1000);
 		setSpeed();
 	}
 
@@ -53,8 +53,8 @@ public class Role_Capoo_1 {
 		return label_room_headpicture;
 	}
 
-	private void setHp() {
-		hp = 1000;
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 
 	public int getHP() {

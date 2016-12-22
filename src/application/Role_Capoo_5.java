@@ -11,7 +11,7 @@ public class Role_Capoo_5 {
 	private Label label_room_headpicture;
 	private int hp, speed;
 	private double x, y;
-	private String my_png="role_5.png";
+	private String my_png = "role_5.png";
 
 	public Role_Capoo_5(Client client, ClientCenter clientCenter, ImageView img_room, Label label_room_headpicture) {
 		this.client = client;
@@ -21,7 +21,7 @@ public class Role_Capoo_5 {
 
 		setImage();
 		setLabel();
-		setHp();
+		setHp(600);
 		setSpeed();
 	}
 
@@ -53,8 +53,8 @@ public class Role_Capoo_5 {
 		return label_room_headpicture;
 	}
 
-	private void setHp() {
-		hp = 600;
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 
 	public int getHP() {
@@ -86,7 +86,7 @@ public class Role_Capoo_5 {
 	}
 
 	private void setGameMyImage() {
-		
+
 	}
 
 	public String getGameMyImage() {

@@ -17,11 +17,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
-	private static Map<Integer, Attack5> bulletlist = new HashMap<Integer, Attack5>();
 	private static Map<Integer, Attack> attacklist = new HashMap<Integer, Attack>();
 	private static Map<Integer, Attack2> attack2list = new HashMap<Integer, Attack2>();
 	private static Map<Integer, Attack3> attack3list = new HashMap<Integer, Attack3>();
 	private static Map<Integer, Attack4> attack4list = new HashMap<Integer, Attack4>();
+	private static Map<Integer, Attack5> bulletlist = new HashMap<Integer, Attack5>();
 	private int bulletcounter;
 	private int Offset_bullet;
 	public int state;
@@ -42,7 +42,6 @@ public class ClientCenter implements Runnable {
 	public Client client;
 	public ClientCenter clientCenter;
 	public Stage stage;
-	public double my_hp_after;
 	public double my_speed;
 	public int my_hp;
 	public double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
@@ -53,6 +52,7 @@ public class ClientCenter implements Runnable {
 	private Role_Capoo_4 my_Capoo_4 = null;
 	private Role_Capoo_5 my_Capoo_5 = null;
 	private String c1_png = "", c2_png = "", c3_png = "", c4_png = "", my_png = "";
+	private int tmp = 0;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
@@ -249,202 +249,48 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void atked_method(double x, double y) {
+		my_hp -= 50;
+		switch (myTid) {
+		case 1:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood1);
+			break;
+		case 2:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood2);
+			break;
+		case 3:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood3);
+			break;
+		case 4:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood4);
+			break;
+		}
 		initAtked();
 		writer.println(encoder());
 		writer.flush();
-		int role_count = 0;
-		switch (myTid) {
-		case 1:
-			switch (role_data[0]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		case 2:
-			switch (role_data[1]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		case 3:
-			switch (role_data[2]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		case 4:
-			switch (role_data[3]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		}
-		switch (myTid) {
-		case 1:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood1);
-			break;
-		case 2:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood2);
-			break;
-		case 3:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood3);
-			break;
-		case 4:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood4);
-			break;
-		}
+
 	}
 
 	public void atk2ed_method(double x, double y, int bulletID) {
 		bulletdeath(bulletID, x, y);
+		my_hp -= 50;
+		switch (myTid) {
+		case 1:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood1);
+			break;
+		case 2:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood2);
+			break;
+		case 3:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood3);
+			break;
+		case 4:
+			client.game_setMyHP(my_role, type, client.progressbar_game_characterblood4);
+			break;
+		}
+
 		initAtk2ed();
 		writer.println(encoder());
 		writer.flush();
-		int role_count = 0;
-		switch (myTid) {
-		case 1:
-			switch (role_data[0]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		case 2:
-			switch (role_data[1]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		case 3:
-			switch (role_data[2]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		case 4:
-			switch (role_data[3]) {
-			case 1:
-				role_count = 1;
-				break;
-			case 2:
-				role_count = 2;
-				break;
-			case 3:
-				role_count = 3;
-				break;
-			case 4:
-				role_count = 4;
-				break;
-			case 5:
-				role_count = 5;
-				break;
-			}
-			break;
-		}
-		switch (myTid) {
-		case 1:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood1);
-			break;
-		case 2:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood2);
-			break;
-		case 3:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood3);
-			break;
-		case 4:
-			client.game_setMyHP(role_count, client.progressbar_game_characterblood4);
-			break;
-		}
 
 	}
 
@@ -803,6 +649,7 @@ public class ClientCenter implements Runnable {
 			Label label_room_headpicture) {
 		my_Capoo_1 = new Role_Capoo_1(client, clientCenter, img_room, label_room_headpicture);
 		my_hp = my_Capoo_1.getHP();
+		client.myHp_max = my_Capoo_1.getHP();
 		my_speed = my_Capoo_1.getSpeed();
 	}
 
@@ -810,6 +657,7 @@ public class ClientCenter implements Runnable {
 			Label label_room_headpicture) {
 		my_Capoo_2 = new Role_Capoo_2(client, clientCenter, img_room, label_room_headpicture);
 		my_hp = my_Capoo_2.getHP();
+		client.myHp_max = my_Capoo_2.getHP();
 		my_speed = my_Capoo_2.getSpeed();
 	}
 
@@ -817,6 +665,7 @@ public class ClientCenter implements Runnable {
 			Label label_room_headpicture) {
 		my_Capoo_3 = new Role_Capoo_3(client, clientCenter, img_room, label_room_headpicture);
 		my_hp = my_Capoo_3.getHP();
+		client.myHp_max = my_Capoo_3.getHP();
 		my_speed = my_Capoo_3.getSpeed();
 	}
 
@@ -824,6 +673,7 @@ public class ClientCenter implements Runnable {
 			Label label_room_headpicture) {
 		my_Capoo_4 = new Role_Capoo_4(client, clientCenter, img_room, label_room_headpicture);
 		my_hp = my_Capoo_4.getHP();
+		client.myHp_max = my_Capoo_4.getHP();
 		my_speed = my_Capoo_4.getSpeed();
 	}
 
@@ -831,6 +681,7 @@ public class ClientCenter implements Runnable {
 			Label label_room_headpicture) {
 		my_Capoo_5 = new Role_Capoo_5(client, clientCenter, img_room, label_room_headpicture);
 		my_hp = my_Capoo_5.getHP();
+		client.myHp_max = my_Capoo_5.getHP();
 		my_speed = my_Capoo_5.getSpeed();
 	}
 
@@ -912,10 +763,11 @@ public class ClientCenter implements Runnable {
 		case "back2":
 			refreshInst();
 			client.toRoom(stage);
-			client.refreshHpCount();
 			break;
 		}
 	}
+	// endregion
+
 	// endregion
 	// Switch To Connect
 	// region
@@ -1114,18 +966,23 @@ public class ClientCenter implements Runnable {
 			switch (type) {
 			case 1:
 				selectedRole("role_1.png", client.label_room_headpicture1);
+				client.c1Hp_max = 1000;
 				break;
 			case 2:
 				selectedRole("role_2.png", client.label_room_headpicture1);
+				client.c1Hp_max = 900;
 				break;
 			case 3:
 				selectedRole("role_3.png", client.label_room_headpicture1);
+				client.c1Hp_max = 800;
 				break;
 			case 4:
 				selectedRole("role_4.png", client.label_room_headpicture1);
+				client.c1Hp_max = 700;
 				break;
 			case 5:
 				selectedRole("role_5.png", client.label_room_headpicture1);
+				client.c1Hp_max = 600;
 				break;
 			}
 		});
@@ -1136,18 +993,23 @@ public class ClientCenter implements Runnable {
 			switch (type) {
 			case 1:
 				selectedRole("role_1.png", client.label_room_headpicture2);
+				client.c2Hp_max = 1000;
 				break;
 			case 2:
 				selectedRole("role_2.png", client.label_room_headpicture2);
+				client.c2Hp_max = 900;
 				break;
 			case 3:
 				selectedRole("role_3.png", client.label_room_headpicture2);
+				client.c2Hp_max = 800;
 				break;
 			case 4:
 				selectedRole("role_4.png", client.label_room_headpicture2);
+				client.c2Hp_max = 700;
 				break;
 			case 5:
 				selectedRole("role_5.png", client.label_room_headpicture2);
+				client.c2Hp_max = 600;
 				break;
 			}
 		});
@@ -1158,18 +1020,23 @@ public class ClientCenter implements Runnable {
 			switch (type) {
 			case 1:
 				selectedRole("role_1.png", client.label_room_headpicture2);
+				client.c3Hp_max = 1000;
 				break;
 			case 2:
 				selectedRole("role_2.png", client.label_room_headpicture2);
+				client.c3Hp_max = 900;
 				break;
 			case 3:
 				selectedRole("role_3.png", client.label_room_headpicture2);
+				client.c3Hp_max = 800;
 				break;
 			case 4:
 				selectedRole("role_4.png", client.label_room_headpicture2);
+				client.c3Hp_max = 700;
 				break;
 			case 5:
 				selectedRole("role_5.png", client.label_room_headpicture2);
+				client.c3Hp_max = 600;
 				break;
 			}
 		});
@@ -1180,18 +1047,23 @@ public class ClientCenter implements Runnable {
 			switch (type) {
 			case 1:
 				selectedRole("role_1.png", client.label_room_headpicture1);
+				client.c4Hp_max = 1000;
 				break;
 			case 2:
 				selectedRole("role_2.png", client.label_room_headpicture1);
+				client.c4Hp_max = 900;
 				break;
 			case 3:
 				selectedRole("role_3.png", client.label_room_headpicture1);
+				client.c4Hp_max = 800;
 				break;
 			case 4:
 				selectedRole("role_4.png", client.label_room_headpicture1);
+				client.c4Hp_max = 700;
 				break;
 			case 5:
 				selectedRole("role_5.png", client.label_room_headpicture1);
+				client.c4Hp_max = 600;
 				break;
 			}
 		});
@@ -1409,6 +1281,8 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
+
+	// endregion
 	// Switch To initial
 	// region
 
@@ -1452,6 +1326,8 @@ public class ClientCenter implements Runnable {
 			ex.printStackTrace();
 		}
 	}
+
+	// endregion
 
 	// endregion
 	// Switch To Move
@@ -1558,6 +1434,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
+	// endregion
 	// Switch To Atk
 	// region
 
@@ -1662,22 +1539,24 @@ public class ClientCenter implements Runnable {
 		try {
 			switch (dest) {
 			case 1:
-				client.game_setOtherHP(dest, role_data[0], client.progressbar_game_characterblood1);
+				client.game_setOtherHP(dest, type, client.progressbar_game_characterblood1);
 				break;
 			case 2:
-				client.game_setOtherHP(dest, role_data[1], client.progressbar_game_characterblood2);
+				client.game_setOtherHP(dest, type, client.progressbar_game_characterblood2);
 				break;
 			case 3:
-				client.game_setOtherHP(dest, role_data[2], client.progressbar_game_characterblood3);
+				client.game_setOtherHP(dest, type, client.progressbar_game_characterblood3);
 				break;
 			case 4:
-				client.game_setOtherHP(dest, role_data[3], client.progressbar_game_characterblood4);
+				client.game_setOtherHP(dest, type, client.progressbar_game_characterblood4);
 				break;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
+
+	// endregion
 
 	// endregion
 	// Switch To Death
@@ -1713,6 +1592,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
+	// endregion
 	// Switch MyRole To Get Value
 	// region
 
@@ -1735,12 +1615,59 @@ public class ClientCenter implements Runnable {
 				my_png = my_Capoo_5.getGameMyImage();
 				break;
 			}
-			System.out.println("my_png: " + my_png);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
+	public int switch_myRole_to_get_HP() {
+		try {
+			switch (my_role) {
+			case 1:
+				tmp = my_Capoo_1.getHP();
+				break;
+			case 2:
+				tmp = my_Capoo_2.getHP();
+				break;
+			case 3:
+				tmp = my_Capoo_3.getHP();
+				break;
+			case 4:
+				tmp = my_Capoo_4.getHP();
+				break;
+			case 5:
+				tmp = my_Capoo_5.getHP();
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public void switch_myRole_to_set_HP(int hp) {
+		try {
+			switch (my_role) {
+			case 1:
+				my_Capoo_1.setHp(hp);
+				break;
+			case 2:
+				my_Capoo_2.setHp(hp);
+				break;
+			case 3:
+				my_Capoo_3.setHp(hp);
+				break;
+			case 4:
+				my_Capoo_4.setHp(hp);
+				break;
+			case 5:
+				my_Capoo_5.setHp(hp);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	// endregion
 	// Switch RoleData To Set Other Image
 	// region
@@ -1847,6 +1774,8 @@ public class ClientCenter implements Runnable {
 			break;
 		}
 	}
+	// endregion
+
 	// endregion
 	// coder
 	// region
@@ -2086,6 +2015,8 @@ public class ClientCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
+
+	// endregion
 
 	// endregion
 }
