@@ -30,7 +30,7 @@ public class ClientCenter implements Runnable {
 	public int source;
 	public int dest;
 	public int type;
-	public int role, myrole, role_data[] = new int[4];
+	public int role, my_role, role_data[] = new int[4];
 	public double X, Y, position[][] = new double[4][2];
 	public int direction;
 	public String Stype, myName;
@@ -43,10 +43,16 @@ public class ClientCenter implements Runnable {
 	public ClientCenter clientCenter;
 	public Stage stage;
 	public double my_hp_after;
-	public double c1_speed, c2_speed, c3_speed, c4_speed, c5_speed;
-	public int c1_hp, c2_hp, c3_hp, c4_hp, c5_hp, my_hp;
+	public double my_speed;
+	public int my_hp;
 	public double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
 	public int direction_atk = 1;
+	private Role_Capoo_1 my_Capoo_1 = null;
+	private Role_Capoo_2 my_Capoo_2 = null;
+	private Role_Capoo_3 my_Capoo_3 = null;
+	private Role_Capoo_4 my_Capoo_4 = null;
+	private Role_Capoo_5 my_Capoo_5 = null;
+	private String c1_png = "", c2_png = "", c3_png = "", c4_png = "", my_png = "";
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
@@ -107,766 +113,23 @@ public class ClientCenter implements Runnable {
 	}
 
 	// Event Handler
-
 	// region
-
-	// selectRole -> select_role_method -> Write to Server
-	// selectedRole -> SetImage
-	// lockRole -> lock_role_method -> Write to Server
-
 	public void handle() {
-
 		if (state == 0) {
-			// state 0
-			switch (function) {
-			case "connect":
-				switch (myTid) {
-				// 觸發Tid
-				// TODO: 依照Tid設定房間內的角色.名字排序
-				case 1:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name1.setText(myName);
-							name[0] = myName;
-							selecteRole(1);
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				case 2:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name2.setText(myName);
-							name[1] = myName;
-							selecteRole(1);
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				case 3:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name3.setText(myName);
-							name[2] = myName;
-							selecteRole(1);
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				case 4:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name4.setText(myName);
-							name[3] = myName;
-							selecteRole(1);
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				}
-				break;
-			case "connected":
-				switch (type) {
-				// 觸發Tid
-				// TODO:
-				case 1:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name1.setText(Stype);
-							name[0] = Stype;
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				case 2:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name2.setText(Stype);
-							name[1] = Stype;
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				case 3:
-					Platform.runLater(() -> {
-						try {
-							client.label_room_name3.setText(Stype);
-							name[2] = Stype;
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				case 4:
-					Platform.runLater(() -> {
-						try {
-
-							client.label_room_name4.setText(Stype);
-							name[3] = Stype;
-						} catch (Exception ex) {
-
-						}
-					});
-					break;
-				}
-				break;
-			case "disconnected":
-				switch (type) {
-				// 觸發Tid
-				// TODO: 依照Tid顯示誰斷線
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				}
-				break;
-			case "choosed":
-				switch (dest) {
-				case 1:
-					switch (type) {
-					case 1:
-						Platform.runLater(() -> {
-							selectedRole("role_1.png", client.label_room_headpicture1);
-						});
-						break;
-					case 2:
-						Platform.runLater(() -> {
-							selectedRole("role_2.png", client.label_room_headpicture1);
-						});
-						break;
-					case 3:
-						Platform.runLater(() -> {
-							selectedRole("role_3.png", client.label_room_headpicture1);
-						});
-						break;
-					case 4:
-						Platform.runLater(() -> {
-							selectedRole("role_4.png", client.label_room_headpicture1);
-						});
-						break;
-					case 5:
-						Platform.runLater(() -> {
-							selectedRole("role_5.png", client.label_room_headpicture1);
-						});
-						break;
-					}
-					break;
-				case 2:
-					switch (type) {
-					case 1:
-						Platform.runLater(() -> {
-							selectedRole("role_1.png", client.label_room_headpicture2);
-						});
-						break;
-					case 2:
-						Platform.runLater(() -> {
-							selectedRole("role_2.png", client.label_room_headpicture2);
-						});
-						break;
-					case 3:
-						Platform.runLater(() -> {
-							selectedRole("role_3.png", client.label_room_headpicture2);
-						});
-						break;
-					case 4:
-						Platform.runLater(() -> {
-							selectedRole("role_4.png", client.label_room_headpicture2);
-						});
-						break;
-					case 5:
-						Platform.runLater(() -> {
-							selectedRole("role_5.png", client.label_room_headpicture2);
-						});
-						break;
-					}
-					break;
-				case 3:
-					switch (type) {
-					case 1:
-						Platform.runLater(() -> {
-							selectedRole("role_1.png", client.label_room_headpicture3);
-						});
-						break;
-					case 2:
-						Platform.runLater(() -> {
-							selectedRole("role_2.png", client.label_room_headpicture3);
-						});
-						break;
-					case 3:
-						Platform.runLater(() -> {
-							selectedRole("role_3.png", client.label_room_headpicture3);
-						});
-						break;
-					case 4:
-						Platform.runLater(() -> {
-							selectedRole("role_4.png", client.label_room_headpicture3);
-						});
-						break;
-					case 5:
-						Platform.runLater(() -> {
-							selectedRole("role_5.png", client.label_room_headpicture3);
-						});
-						break;
-					}
-					break;
-				case 4:
-					switch (type) {
-					case 1:
-						Platform.runLater(() -> {
-							selectedRole("role_1.png", client.label_room_headpicture4);
-						});
-						break;
-					case 2:
-						Platform.runLater(() -> {
-							selectedRole("role_2.png", client.label_room_headpicture4);
-						});
-						break;
-					case 3:
-						Platform.runLater(() -> {
-							selectedRole("role_3.png", client.label_room_headpicture4);
-						});
-						break;
-					case 4:
-						Platform.runLater(() -> {
-							selectedRole("role_4.png", client.label_room_headpicture4);
-						});
-						break;
-					case 5:
-						Platform.runLater(() -> {
-							selectedRole("role_5.png", client.label_room_headpicture4);
-						});
-						break;
-					}
-					break;
-				}
-				break;
-			case "locked":
-				role_data[dest - 1] = type;
-				switch (dest) {
-				case 1:
-					switch (type) {
-					// 觸發Tid
-					// TODO: 依照Tid設定誰鎖定角色
-					case 1:
-						lockedRole("lock_role_1.png", client.label_room_headpicture1);
-						break;
-					case 2:
-						lockedRole("lock_role_2.png", client.label_room_headpicture1);
-						break;
-					case 3:
-						lockedRole("lock_role_3.png", client.label_room_headpicture1);
-						break;
-					case 4:
-						lockedRole("lock_role_4.png", client.label_room_headpicture1);
-						break;
-					case 5:
-						lockedRole("lock_role_5.png", client.label_room_headpicture1);
-						break;
-					}
-					break;
-				case 2:
-					switch (type) {
-					// 觸發Tid
-					// TODO: 依照Tid設定誰鎖定角色
-					case 1:
-						lockedRole("lock_role_1.png", client.label_room_headpicture2);
-						break;
-					case 2:
-						lockedRole("lock_role_2.png", client.label_room_headpicture2);
-						break;
-					case 3:
-						lockedRole("lock_role_3.png", client.label_room_headpicture2);
-						break;
-					case 4:
-						lockedRole("lock_role_4.png", client.label_room_headpicture2);
-						break;
-					case 5:
-						lockedRole("lock_role_5.png", client.label_room_headpicture2);
-						break;
-					}
-					break;
-				case 3:
-					switch (type) {
-					// 觸發Tid
-					// TODO: 依照Tid設定誰鎖定角色
-					case 1:
-						lockedRole("lock_role_1.png", client.label_room_headpicture3);
-						break;
-					case 2:
-						lockedRole("lock_role_2.png", client.label_room_headpicture3);
-						break;
-					case 3:
-						lockedRole("lock_role_3.png", client.label_room_headpicture3);
-						break;
-					case 4:
-						lockedRole("lock_role_4.png", client.label_room_headpicture3);
-						break;
-					case 5:
-						lockedRole("lock_role_5.png", client.label_room_headpicture3);
-						break;
-					}
-					break;
-				case 4:
-					switch (type) {
-					// 觸發Tid
-					// TODO: 依照Tid設定誰鎖定角色
-					case 1:
-						lockedRole("lock_role_1.png", client.label_room_headpicture4);
-						break;
-					case 2:
-						lockedRole("lock_role_2.png", client.label_room_headpicture4);
-						break;
-					case 3:
-						lockedRole("lock_role_3.png", client.label_room_headpicture4);
-						break;
-					case 4:
-						lockedRole("lock_role_4.png", client.label_room_headpicture4);
-						break;
-					case 5:
-						lockedRole("lock_role_5.png", client.label_room_headpicture4);
-						break;
-					}
-					break;
-				}
-
-			case "go1":
-				// 鎖定畫面
-
-				break;
-
-			case "go2":
-				client.toGame(stage);
-				break;
-
-			case "initial":
-				switch (dest) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰鎖定角色
-				case 1:
-					position[0][0] = X;
-					position[0][1] = Y;
-					if (dest == myTid) {
-						Start_X = X;
-						Start_Y = Y;
-					}
-					break;
-				case 2:
-					position[1][0] = X;
-					position[1][1] = Y;
-					if (dest == myTid) {
-						Start_X = X;
-						Start_Y = Y;
-					}
-					break;
-				case 3:
-					position[2][0] = X;
-					position[2][1] = Y;
-					if (dest == myTid) {
-						Start_X = X;
-						Start_Y = Y;
-					}
-					break;
-				case 4:
-					position[3][0] = X;
-					position[3][1] = Y;
-					if (dest == myTid) {
-						Start_X = X;
-						Start_Y = Y;
-					}
-					break;
-				}
-				break;
-			}
-
+			switch_function_to_case_state_0();
 		} else if (state == 1) {
-			switch (function) {
-			case "bulletdeath":
-				bulletlist.get(type).bulletDeath(X, Y);
-				bulletlist.remove(type);
-				break;
-			case "atk":
-				switch (dest) {
-				case 1:
-					switch (role_data[0]) {
-					case 1:
-						attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attacklist));
-						break;
-					case 2:
-						attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack2list));
-						break;
-					case 3:
-						attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack3list));
-						break;
-					case 4:
-						attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack4list));
-						break;
-					case 5:
-						break;
-					}
-					break;
-				case 2:
-					switch (role_data[1]) {
-					case 1:
-						attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attacklist));
-						break;
-					case 2:
-						attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack2list));
-						break;
-					case 3:
-						attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack3list));
-						break;
-					case 4:
-						attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack4list));
-						break;
-					case 5:
-						break;
-					}
-					break;
-				case 3:
-					switch (role_data[2]) {
-					case 1:
-						attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attacklist));
-						break;
-					case 2:
-						attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack2list));
-						break;
-					case 3:
-						attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack3list));
-						break;
-					case 4:
-						attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack4list));
-						break;
-					case 5:
-						break;
-					}
-					break;
-				case 4:
-					switch (role_data[3]) {
-					case 1:
-						attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attacklist));
-						break;
-					case 2:
-						attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack2list));
-						break;
-					case 3:
-						attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack3list));
-						break;
-					case 4:
-						attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-								client.return_game_backgroundground(), direction, type, attack4list));
-						break;
-					case 5:
-						break;
-					}
-					break;
-
-				}
-
-				break;
-			case "atk2":
-				bulletlist.put(type, new Attack5(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
-						direction, type, bulletlist));
-				break;
-			case "atked":
-				switch (dest) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰被攻擊
-				case 1:
-					client.game_setOtherHP(dest, role_data[0], client.progressbar_game_characterblood1);
-					break;
-				case 2:
-					client.game_setOtherHP(dest, role_data[1], client.progressbar_game_characterblood2);
-					break;
-				case 3:
-					client.game_setOtherHP(dest, role_data[2], client.progressbar_game_characterblood3);
-					break;
-				case 4:
-					client.game_setOtherHP(dest, role_data[3], client.progressbar_game_characterblood4);
-					break;
-				}
-				break;
-			case "death":
-				switch (dest) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰死亡
-				case 1:
-					client.label_game_character1.setDisable(true);
-					client.label_game_name1.setDisable(true);
-					client.progressbar_game_characterblood1.setDisable(true);
-					break;
-				case 2:
-					client.label_game_character2.setDisable(true);
-					client.label_game_name2.setDisable(true);
-					client.progressbar_game_characterblood2.setDisable(true);
-					break;
-				case 3:
-					client.label_game_character3.setDisable(true);
-					client.label_game_name3.setDisable(true);
-					client.progressbar_game_characterblood3.setDisable(true);
-					break;
-				case 4:
-					client.label_game_character4.setDisable(true);
-					client.label_game_name4.setDisable(true);
-					client.progressbar_game_characterblood4.setDisable(true);
-					break;
-				}
-				break;
-			case "movedup":
-				switch (dest) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰往上
-				case 1:
-
-					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, X, Y);
-					break;
-				case 2:
-
-					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, X, Y);
-					break;
-				case 3:
-					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, X, Y);
-					break;
-				case 4:
-
-					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, X, Y);
-					break;
-				}
-				break;
-			case "moveddown":
-				switch (dest) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰往下
-				case 1:
-					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, X, Y);
-					break;
-				case 2:
-					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, X, Y);
-					break;
-				case 3:
-					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, X, Y);
-					break;
-				case 4:
-					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, X, Y);
-					break;
-				}
-				break;
-			case "movedleft":
-				switch (dest) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰往左
-				case 1:
-					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, X, Y);
-					break;
-				case 2:
-					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, X, Y);
-					break;
-				case 3:
-					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, X, Y);
-					break;
-				case 4:
-					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, X, Y);
-					break;
-				}
-				break;
-			case "movedright":
-				switch (dest) {
-				// 觸發Tid
-				// TODO: 依照Tid設定誰往右
-				case 1:
-					client.setLocation(client.label_game_character1, client.label_game_name1,
-							client.progressbar_game_characterblood1, X, Y);
-					break;
-				case 2:
-					client.setLocation(client.label_game_character2, client.label_game_name2,
-							client.progressbar_game_characterblood2, X, Y);
-					break;
-				case 3:
-					client.setLocation(client.label_game_character3, client.label_game_name3,
-							client.progressbar_game_characterblood3, X, Y);
-					break;
-				case 4:
-					client.setLocation(client.label_game_character4, client.label_game_name4,
-							client.progressbar_game_characterblood4, X, Y);
-					break;
-				}
-				break;
-			}
+			switch_function_to_case_state_1();
 		} else if (state == 2) {
-			switch (function) {
-			case "win":
-				client.keyevent_game = null;
-				client.scene_game.setOnKeyPressed(client.keyevent_game);
-				break;
-			case "back1":
-				break;
-			case "back2":
-				refreshInst();
-				client.toRoom(stage);
-				client.refreshHpCount();
-				break;
-			}
+			switch_function_to_case_state_2();
 		}
 	}
 
 	public void selecteRole(int role) {
 		Platform.runLater(() -> {
 			try {
-				switch (myTid) {
-				case 1:
-					switch (role) {
-					case 1:
-						select_role_method(client.image_room_player_1, "role_1.png", client.label_room_headpicture1,
-								role);
-						this.role = role;
-						break;
-					case 2:
-						select_role_method(client.image_room_player_1, "role_2.png", client.label_room_headpicture1,
-								role);
-						this.role = role;
-						break;
-					case 3:
-						select_role_method(client.image_room_player_1, "role_3.png", client.label_room_headpicture1,
-								role);
-						this.role = role;
-						break;
-					case 4:
-						select_role_method(client.image_room_player_1, "role_4.png", client.label_room_headpicture1,
-								role);
-						this.role = role;
-						break;
-					case 5:
-						select_role_method(client.image_room_player_1, "role_5.png", client.label_room_headpicture1,
-								role);
-						this.role = role;
-						break;
-					}
-					break;
-				case 2:
-					switch (role) {
-					case 1:
-						select_role_method(client.image_room_player_2, "role_1.png", client.label_room_headpicture2,
-								role);
-						this.role = role;
-						break;
-					case 2:
-						select_role_method(client.image_room_player_2, "role_2.png", client.label_room_headpicture2,
-								role);
-						this.role = role;
-						break;
-					case 3:
-						select_role_method(client.image_room_player_2, "role_3.png", client.label_room_headpicture2,
-								role);
-						this.role = role;
-						break;
-					case 4:
-						select_role_method(client.image_room_player_2, "role_4.png", client.label_room_headpicture2,
-								role);
-						this.role = role;
-						break;
-					case 5:
-						select_role_method(client.image_room_player_2, "role_5.png", client.label_room_headpicture2,
-								role);
-						this.role = role;
-						break;
-					}
-					break;
-				case 3:
-					switch (role) {
-					case 1:
-						select_role_method(client.image_room_player_3, "role_1.png", client.label_room_headpicture3,
-								role);
-						this.role = role;
-						break;
-					case 2:
-						select_role_method(client.image_room_player_3, "role_2.png", client.label_room_headpicture3,
-								role);
-						this.role = role;
-						break;
-					case 3:
-						select_role_method(client.image_room_player_3, "role_3.png", client.label_room_headpicture3,
-								role);
-						this.role = role;
-						break;
-					case 4:
-						select_role_method(client.image_room_player_3, "role_4.png", client.label_room_headpicture3,
-								role);
-						this.role = role;
-						break;
-					case 5:
-						select_role_method(client.image_room_player_3, "role_5.png", client.label_room_headpicture3,
-								role);
-						this.role = role;
-						break;
-					}
-					break;
-				case 4:
-					switch (role) {
-					case 1:
-						select_role_method(client.image_room_player_4, "role_1.png", client.label_room_headpicture4,
-								role);
-						this.role = role;
-						break;
-					case 2:
-						select_role_method(client.image_room_player_4, "role_2.png", client.label_room_headpicture4,
-								role);
-						this.role = role;
-						break;
-					case 3:
-						select_role_method(client.image_room_player_4, "role_3.png", client.label_room_headpicture4,
-								role);
-						this.role = role;
-						break;
-					case 4:
-						select_role_method(client.image_room_player_4, "role_4.png", client.label_room_headpicture4,
-								role);
-						this.role = role;
-						break;
-					case 5:
-						select_role_method(client.image_room_player_4, "role_5.png", client.label_room_headpicture4,
-								role);
-						this.role = role;
-						break;
-					}
-					break;
-				}
-
+				this.role = role;
+				my_role = role;
+				switch_myTid_to_switch_role_to_select();
 			} catch (Exception ex) {
 				System.out.println("送出資料失敗");
 			}
@@ -874,11 +137,8 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void selectedRole(String png, Label label) {
-
 		ImageView image = new ImageView(png);
-
 		label.setGraphic(image);
-
 	}
 
 	public void lockRole(Stage primaryStage) {
@@ -886,398 +146,40 @@ public class ClientCenter implements Runnable {
 		Platform.runLater(() -> {
 			try {
 				role_data[myTid - 1] = role;
-				switch (myTid) {
-				case 1:
-					switch (role) {
-					case 1:
-						lock_role_method(client.image_room_player_1, "lock_role_1.png", client.label_room_headpicture1);
-						break;
-					case 2:
-						lock_role_method(client.image_room_player_1, "lock_role_2.png", client.label_room_headpicture1);
-						break;
-					case 3:
-						lock_role_method(client.image_room_player_1, "lock_role_3.png", client.label_room_headpicture1);
-						break;
-					case 4:
-						lock_role_method(client.image_room_player_1, "lock_role_4.png", client.label_room_headpicture1);
-						break;
-					case 5:
-						lock_role_method(client.image_room_player_1, "lock_role_5.png", client.label_room_headpicture1);
-						break;
-					}
-					break;
-				case 2:
-					switch (role) {
-					case 1:
-						lock_role_method(client.image_room_player_2, "lock_role_1.png", client.label_room_headpicture2);
-						break;
-					case 2:
-						lock_role_method(client.image_room_player_2, "lock_role_2.png", client.label_room_headpicture2);
-						break;
-					case 3:
-						lock_role_method(client.image_room_player_2, "lock_role_3.png", client.label_room_headpicture2);
-						break;
-					case 4:
-						lock_role_method(client.image_room_player_2, "lock_role_4.png", client.label_room_headpicture2);
-						break;
-					case 5:
-						lock_role_method(client.image_room_player_2, "lock_role_5.png", client.label_room_headpicture2);
-						break;
-					}
-					break;
-				case 3:
-					switch (role) {
-					case 1:
-						lock_role_method(client.image_room_player_3, "lock_role_1.png", client.label_room_headpicture3);
-						break;
-					case 2:
-						lock_role_method(client.image_room_player_3, "lock_role_2.png", client.label_room_headpicture3);
-						break;
-					case 3:
-						lock_role_method(client.image_room_player_3, "lock_role_3.png", client.label_room_headpicture3);
-						break;
-					case 4:
-						lock_role_method(client.image_room_player_3, "lock_role_4.png", client.label_room_headpicture3);
-						break;
-					case 5:
-						lock_role_method(client.image_room_player_3, "lock_role_5.png", client.label_room_headpicture3);
-						break;
-					}
-					break;
-				case 4:
-					switch (role) {
-					case 1:
-						lock_role_method(client.image_room_player_4, "lock_role_1.png", client.label_room_headpicture4);
-						break;
-					case 2:
-						lock_role_method(client.image_room_player_4, "lock_role_2.png", client.label_room_headpicture4);
-						break;
-					case 3:
-						lock_role_method(client.image_room_player_4, "lock_role_3.png", client.label_room_headpicture4);
-						break;
-					case 4:
-						lock_role_method(client.image_room_player_4, "lock_role_4.png", client.label_room_headpicture4);
-						break;
-					case 5:
-						lock_role_method(client.image_room_player_4, "lock_role_5.png", client.label_room_headpicture4);
-						break;
-					}
-					break;
-				}
-				setSpeed(role);
-				setHP(role);
+				switch_myTid_to_switch_role_to_lock();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		});
 	}
 
 	public void lockedRole(String png, Label label) {
-
 		ImageView image = new ImageView(png);
-
 		Platform.runLater(() -> {
 			label.setGraphic(image);
 		});
 	}
 
 	// endregion
-
 	// method
-
 	// region
-	public void setSpeed(int role) {
-		switch (myTid) {
-		case 1:
-			switch (role) {
-			case 1:
-				c1_speed = 2;
-				break;
-			case 2:
-				c1_speed = 4;
-				break;
-			case 3:
-				c1_speed = 6;
-				break;
-			case 4:
-				c1_speed = 8;
-				break;
-			case 5:
-				c1_speed = 10;
-				break;
-			}
-			break;
-		case 2:
-			switch (role) {
-			case 1:
-				c2_speed = 2;
-				break;
-			case 2:
-				c2_speed = 4;
-				break;
-			case 3:
-				c2_speed = 6;
-				break;
-			case 4:
-				c2_speed = 8;
-				break;
-			case 5:
-				c2_speed = 10;
-				break;
-			}
-			break;
-		case 3:
-			switch (role) {
-			case 1:
-				c3_speed = 2;
-				break;
-			case 2:
-				c3_speed = 4;
-				break;
-			case 3:
-				c3_speed = 6;
-				break;
-			case 4:
-				c3_speed = 8;
-				break;
-			case 5:
-				c3_speed = 10;
-				break;
-			}
-			break;
-		case 4:
-			switch (role) {
-			case 1:
-				c4_speed = 2;
-				break;
-			case 2:
-				c4_speed = 4;
-				break;
-			case 3:
-				c4_speed = 6;
-				break;
-			case 4:
-				c4_speed = 8;
-				break;
-			case 5:
-				c4_speed = 10;
-				break;
-			}
-			break;
-		}
-	}
-
-	public void setHP(int role) {
-		switch (myTid) {
-		case 1:
-			switch (role) {
-			case 1:
-				c1_hp = 1000;
-
-				break;
-			case 2:
-				c1_hp = 900;
-				break;
-			case 3:
-				c1_hp = 800;
-				break;
-			case 4:
-				c1_hp = 700;
-				break;
-			case 5:
-				c1_hp = 600;
-				break;
-			}
-			myrole = role;
-			my_hp = c1_hp;
-			break;
-		case 2:
-			switch (role) {
-			case 1:
-				c2_hp = 1000;
-				break;
-			case 2:
-				c2_hp = 900;
-				break;
-			case 3:
-				c2_hp = 800;
-				break;
-			case 4:
-				c2_hp = 700;
-				break;
-			case 5:
-				c2_hp = 600;
-				break;
-			}
-			myrole = role;
-			my_hp = c2_hp;
-			break;
-		case 3:
-			switch (role) {
-			case 1:
-				c3_hp = 1000;
-				break;
-			case 2:
-				c3_hp = 900;
-				break;
-			case 3:
-				c3_hp = 800;
-				break;
-			case 4:
-				c3_hp = 700;
-				break;
-			case 5:
-				c3_hp = 600;
-				break;
-			}
-			myrole = role;
-			my_hp = c3_hp;
-			break;
-		case 4:
-			switch (role) {
-			case 1:
-				c4_hp = 1000;
-				break;
-			case 2:
-				c4_hp = 900;
-				break;
-			case 3:
-				c4_hp = 800;
-				break;
-			case 4:
-				c4_hp = 700;
-				break;
-			case 5:
-				c4_hp = 600;
-				break;
-			}
-			myrole = role;
-			my_hp = c4_hp;
-			break;
-		}
-	}
 
 	public void select_role_method(ImageView image, String png, Label label, int role) {
 		image = new ImageView(png);
 		label.setGraphic(image);
-		initSelect(role);
-		writer.println(encoder());
-		writer.flush();
-		refreshInst();
-	}
-
-	public void lock_role_method(ImageView image, String png, Label label) {
-		image = new ImageView(png);
-		label.setGraphic(image);
-		initLock();
-		writer.println(encoder());
-		writer.flush();
-		refreshInst();
-
 	}
 
 	public void setGameView() {
-		String c1_png = "", c2_png = "", c3_png = "", c4_png = "", my_png = "";
-		switch (role) {
-		case 1:
-			my_png = "role_1.png";
-			break;
-		case 2:
-			my_png = "role_2.png";
-			break;
-		case 3:
-			my_png = "role_3.png";
-			break;
-		case 4:
-			my_png = "role_4.png";
-			break;
-		case 5:
-			my_png = "role_5.png";
-			break;
+
+		switch_myRole_to_get_GameMyImage();
+		switch_roledata_to_set_other_game_image();
+		try {
+			client.game_setupUI(position[0][0], position[0][1], position[1][0], position[1][1], position[2][0],
+					position[2][1], position[3][0], position[3][1], c1_png, c2_png, c3_png, c4_png, my_png, name[0],
+					name[1], name[2], name[3]);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-		switch (role_data[0]) {
-		case 1:
-			c1_png = "img_game_role1.png";
-			break;
-		case 2:
-			c1_png = "img_game_role2.png";
-			break;
-		case 3:
-			c1_png = "img_game_role3.png";
-			break;
-		case 4:
-			c1_png = "img_game_role4.png";
-			break;
-		case 5:
-			c1_png = "img_game_role5.png";
-			break;
-		default:
-			c1_png = "img_game_role1.png";
-			break;
-		}
-		switch (role_data[1]) {
-		case 1:
-			c2_png = "img_game_role1.png";
-			break;
-		case 2:
-			c2_png = "img_game_role2.png";
-			break;
-		case 3:
-			c2_png = "img_game_role3.png";
-			break;
-		case 4:
-			c2_png = "img_game_role4.png";
-			break;
-		case 5:
-			c2_png = "img_game_role5.png";
-			break;
-		default:
-			c2_png = "img_game_role1.png";
-			break;
-		}
-		switch (role_data[2]) {
-		case 1:
-			c3_png = "img_game_role1.png";
-			break;
-		case 2:
-			c3_png = "img_game_role2.png";
-			break;
-		case 3:
-			c3_png = "img_game_role3.png";
-			break;
-		case 4:
-			c3_png = "img_game_role4.png";
-			break;
-		case 5:
-			c3_png = "img_game_role5.png";
-			break;
-		default:
-			c3_png = "img_game_role1.png";
-			break;
-		}
-		switch (role_data[3]) {
-		case 1:
-			c4_png = "img_game_role1.png";
-			break;
-		case 2:
-			c4_png = "img_game_role2.png";
-			break;
-		case 3:
-			c4_png = "img_game_role3.png";
-			break;
-		case 4:
-			c4_png = "img_game_role4.png";
-			break;
-		case 5:
-			c4_png = "img_game_role5.png";
-			break;
-		default:
-			c4_png = "img_game_role1.png";
-			break;
-		}
-		client.game_setupUI(position[0][0], position[0][1], position[1][0], position[1][1], position[2][0],
-				position[2][1], position[3][0], position[3][1], c1_png, c2_png, c3_png, c4_png, my_png, name[0],
-				name[1], name[2], name[3]);
 	}
 
 	public void bulletdeath(int bulletID, double bulletx, double bullety) {
@@ -1291,7 +193,7 @@ public class ClientCenter implements Runnable {
 		initAttack(Offset_bullet + bulletcounter);
 		writer.println(encoder());
 		writer.flush();
-		switch (myrole) {
+		switch (my_role) {
 		case 1:
 			Attack attack = new Attack(client, this.clientCenter, Start_X, Start_Y,
 					client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, attacklist);
@@ -1317,6 +219,11 @@ public class ClientCenter implements Runnable {
 			attack4 = null;
 			break;
 		case 5:
+			Attack attack5 = new Attack(client, this.clientCenter, Start_X, Start_Y,
+					client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, attacklist);
+			attacklist.put(Offset_bullet + bulletcounter, attack5);
+			attack = null;
+			break;
 		}
 
 		System.gc();
@@ -1578,8 +485,8 @@ public class ClientCenter implements Runnable {
 	public void moveup() {
 		switch (myTid) {
 		case 1:
-			if (client.c1_y - c1_speed > 76) {
-				client.c1_y -= c1_speed;
+			if (client.c1_y - my_speed > 76) {
+				client.c1_y -= my_speed;
 				Start_Y = client.c1_y;
 			} else {
 				client.c1_y = 76;
@@ -1596,8 +503,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 2:
-			if (client.c2_y - c2_speed > 76) {
-				client.c2_y -= c2_speed;
+			if (client.c2_y - my_speed > 76) {
+				client.c2_y -= my_speed;
 				Start_Y = client.c2_y;
 			} else {
 				client.c2_y = 76;
@@ -1615,8 +522,8 @@ public class ClientCenter implements Runnable {
 
 			break;
 		case 3:
-			if (client.c3_y - c3_speed > 76) {
-				client.c3_y -= c3_speed;
+			if (client.c3_y - my_speed > 76) {
+				client.c3_y -= my_speed;
 				Start_Y = client.c3_y;
 			} else {
 				client.c3_y = 76;
@@ -1634,8 +541,8 @@ public class ClientCenter implements Runnable {
 
 			break;
 		case 4:
-			if (client.c4_y - c4_speed > 76) {
-				client.c4_y -= c4_speed;
+			if (client.c4_y - my_speed > 76) {
+				client.c4_y -= my_speed;
 				Start_Y = client.c4_y;
 			} else {
 				client.c4_y = 76;
@@ -1658,8 +565,8 @@ public class ClientCenter implements Runnable {
 	public void movedown() {
 		switch (myTid) {
 		case 1:
-			if (client.c1_y + c1_speed < 362) {
-				client.c1_y += c1_speed;
+			if (client.c1_y + my_speed < 362) {
+				client.c1_y += my_speed;
 				Start_Y = client.c1_y;
 			} else {
 				client.c1_y = 362;
@@ -1676,8 +583,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 2:
-			if (client.c2_y + c2_speed < 362) {
-				client.c2_y += c2_speed;
+			if (client.c2_y + my_speed < 362) {
+				client.c2_y += my_speed;
 				Start_Y = client.c2_y;
 			} else {
 				client.c2_y = 362;
@@ -1694,8 +601,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 3:
-			if (client.c3_y + c3_speed < 362) {
-				client.c3_y += c3_speed;
+			if (client.c3_y + my_speed < 362) {
+				client.c3_y += my_speed;
 				Start_Y = client.c3_y;
 			} else {
 				client.c3_y = 362;
@@ -1712,8 +619,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 4:
-			if (client.c4_y + c4_speed < 362) {
-				client.c4_y += c4_speed;
+			if (client.c4_y + my_speed < 362) {
+				client.c4_y += my_speed;
 				Start_Y = client.c4_y;
 			} else {
 				client.c4_y = 362;
@@ -1735,8 +642,8 @@ public class ClientCenter implements Runnable {
 	public void moveleft() {
 		switch (myTid) {
 		case 1:
-			if (client.c1_x - c1_speed > -492) {
-				client.c1_x -= c1_speed;
+			if (client.c1_x - my_speed > -492) {
+				client.c1_x -= my_speed;
 				Start_X = client.c1_x;
 			} else {
 				client.c1_x = -492;
@@ -1753,8 +660,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 2:
-			if (client.c2_x - c2_speed > -492) {
-				client.c2_x -= c2_speed;
+			if (client.c2_x - my_speed > -492) {
+				client.c2_x -= my_speed;
 				Start_X = client.c2_x;
 			} else {
 				client.c2_x = -492;
@@ -1771,8 +678,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 3:
-			if (client.c3_x - c3_speed > -492) {
-				client.c3_x -= c3_speed;
+			if (client.c3_x - my_speed > -492) {
+				client.c3_x -= my_speed;
 				Start_X = client.c3_x;
 			} else {
 				client.c3_x = -492;
@@ -1789,8 +696,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 4:
-			if (client.c4_x - c4_speed > -492) {
-				client.c4_x -= c4_speed;
+			if (client.c4_x - my_speed > -492) {
+				client.c4_x -= my_speed;
 				Start_X = client.c4_x;
 			} else {
 				client.c4_x = -492;
@@ -1813,8 +720,8 @@ public class ClientCenter implements Runnable {
 	public void moveright() {
 		switch (myTid) {
 		case 1:
-			if (client.c1_x + c1_speed < 492) {
-				client.c1_x += c1_speed;
+			if (client.c1_x + my_speed < 492) {
+				client.c1_x += my_speed;
 				Start_X = client.c1_x;
 			} else {
 				client.c1_x = 492;
@@ -1831,8 +738,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 2:
-			if (client.c2_x + c2_speed < 492) {
-				client.c2_x += c2_speed;
+			if (client.c2_x + my_speed < 492) {
+				client.c2_x += my_speed;
 				Start_X = client.c2_x;
 			} else {
 				client.c2_x = 492;
@@ -1849,8 +756,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 3:
-			if (client.c3_x + c3_speed < 492) {
-				client.c3_x += c3_speed;
+			if (client.c3_x + my_speed < 492) {
+				client.c3_x += my_speed;
 				Start_X = client.c3_x;
 			} else {
 				client.c3_x = 492;
@@ -1867,8 +774,8 @@ public class ClientCenter implements Runnable {
 			writer.flush();
 			break;
 		case 4:
-			if (client.c4_x + c4_speed < 492) {
-				client.c4_x += c4_speed;
+			if (client.c4_x + my_speed < 492) {
+				client.c4_x += my_speed;
 				Start_X = client.c4_x;
 			} else {
 				client.c4_x = 492;
@@ -1889,10 +796,1061 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
-
-	// coder
-
+	// New Role
 	// region
+
+	private void new_Role_1(Client client, ClientCenter clientCenter, ImageView img_room,
+			Label label_room_headpicture) {
+		my_Capoo_1 = new Role_Capoo_1(client, clientCenter, img_room, label_room_headpicture);
+		my_hp = my_Capoo_1.getHP();
+		my_speed = my_Capoo_1.getSpeed();
+	}
+
+	private void new_Role_2(Client client, ClientCenter clientCenter, ImageView img_room,
+			Label label_room_headpicture) {
+		my_Capoo_2 = new Role_Capoo_2(client, clientCenter, img_room, label_room_headpicture);
+		my_hp = my_Capoo_2.getHP();
+		my_speed = my_Capoo_2.getSpeed();
+	}
+
+	private void new_Role_3(Client client, ClientCenter clientCenter, ImageView img_room,
+			Label label_room_headpicture) {
+		my_Capoo_3 = new Role_Capoo_3(client, clientCenter, img_room, label_room_headpicture);
+		my_hp = my_Capoo_3.getHP();
+		my_speed = my_Capoo_3.getSpeed();
+	}
+
+	private void new_Role_4(Client client, ClientCenter clientCenter, ImageView img_room,
+			Label label_room_headpicture) {
+		my_Capoo_4 = new Role_Capoo_4(client, clientCenter, img_room, label_room_headpicture);
+		my_hp = my_Capoo_4.getHP();
+		my_speed = my_Capoo_4.getSpeed();
+	}
+
+	private void new_Role_5(Client client, ClientCenter clientCenter, ImageView img_room,
+			Label label_room_headpicture) {
+		my_Capoo_5 = new Role_Capoo_5(client, clientCenter, img_room, label_room_headpicture);
+		my_hp = my_Capoo_5.getHP();
+		my_speed = my_Capoo_5.getSpeed();
+	}
+
+	// endregion
+	// Switch Function To Case
+	// region
+
+	private void switch_function_to_case_state_0() {
+		switch (function) {
+		case "connect":
+			switch_myTid_to_connect();
+			break;
+		case "connected":
+			switch_type_to_connected();
+			break;
+		case "disconnected":
+			switch_type_to_disconnected();
+			break;
+		case "choosed":
+			switch_dest_to_switch_type_to_choosed();
+			break;
+		case "locked":
+			role_data[dest - 1] = type;
+			switch_dest_to_switch_type_to_locked();
+			break;
+		case "go1":
+			break;
+		case "initial":
+			switch_dest_to_initial();
+			break;
+		case "go2":
+			client.toGame(stage);
+			break;
+		}
+	}
+
+	private void switch_function_to_case_state_1() {
+		switch (function) {
+		case "bulletdeath":
+			bulletlist.get(type).bulletDeath(X, Y);
+			bulletlist.remove(type);
+			break;
+		case "atk":
+			switch_dest_to_other_atk();
+			break;
+		case "atk2":
+			bulletlist.put(type, new Attack5(client, this.clientCenter, X, Y, client.return_game_backgroundground(),
+					direction, type, bulletlist));
+			break;
+		case "atked":
+			switch_dest_to_other_atked();
+			break;
+		case "death":
+			switch_dest_to_other_death();
+			break;
+		case "movedup":
+			switch_dest_to_movedup();
+			break;
+		case "moveddown":
+			switch_dest_to_moveddown();
+			break;
+		case "movedleft":
+			switch_dest_to_movedleft();
+			break;
+		case "movedright":
+			switch_dest_to_movedright();
+			break;
+		}
+	}
+
+	private void switch_function_to_case_state_2() {
+		switch (function) {
+		case "win":
+			client.keyevent_game = null;
+			client.scene_game.setOnKeyPressed(client.keyevent_game);
+			break;
+		case "back1":
+			break;
+		case "back2":
+			refreshInst();
+			client.toRoom(stage);
+			client.refreshHpCount();
+			break;
+		}
+	}
+	// endregion
+	// Switch To Connect
+	// region
+
+	private void switch_myTid_to_connect() {
+		Platform.runLater(() -> {
+			try {
+				switch (myTid) {
+				case 1:
+					client.label_room_name1.setText(myName);
+					name[0] = myName;
+					break;
+				case 2:
+					client.label_room_name2.setText(myName);
+					name[1] = myName;
+					break;
+				case 3:
+					client.label_room_name3.setText(myName);
+					name[2] = myName;
+					break;
+				case 4:
+					client.label_room_name4.setText(myName);
+					name[3] = myName;
+					break;
+				}
+				selecteRole(1);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
+	}
+
+	private void switch_type_to_connected() {
+		Platform.runLater(() -> {
+			try {
+				switch (type) {
+				case 1:
+					client.label_room_name1.setText(Stype);
+					name[0] = Stype;
+					break;
+				case 2:
+					client.label_room_name2.setText(Stype);
+					name[1] = Stype;
+					break;
+				case 3:
+					client.label_room_name3.setText(Stype);
+					name[2] = Stype;
+					break;
+				case 4:
+					client.label_room_name4.setText(Stype);
+					name[3] = Stype;
+					break;
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
+	}
+
+	private void switch_type_to_disconnected() {
+
+	}
+
+	// endregion
+	// Switch To Select
+	// region
+
+	private void switch_myTid_to_switch_role_to_select() {
+		try {
+			switch (myTid) {
+			case 1:
+				switch_role_to_select_1();
+				break;
+			case 2:
+				switch_role_to_select_2();
+				break;
+			case 3:
+				switch_role_to_select_3();
+				break;
+			case 4:
+				switch_role_to_select_4();
+				break;
+			}
+			initSelect(role);
+			writer.println(encoder());
+			writer.flush();
+			refreshInst();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_role_to_select_1() {
+		switch (role) {
+		case 1:
+			select_role_method(client.image_room_player_1, "role_1.png", client.label_room_headpicture1, role);
+			break;
+		case 2:
+			select_role_method(client.image_room_player_1, "role_2.png", client.label_room_headpicture1, role);
+			break;
+		case 3:
+			select_role_method(client.image_room_player_1, "role_3.png", client.label_room_headpicture1, role);
+			break;
+		case 4:
+			select_role_method(client.image_room_player_1, "role_4.png", client.label_room_headpicture1, role);
+			break;
+		case 5:
+			select_role_method(client.image_room_player_1, "role_5.png", client.label_room_headpicture1, role);
+			break;
+		}
+	}
+
+	private void switch_role_to_select_2() {
+		switch (role) {
+		case 1:
+			select_role_method(client.image_room_player_2, "role_1.png", client.label_room_headpicture2, role);
+			break;
+		case 2:
+			select_role_method(client.image_room_player_2, "role_2.png", client.label_room_headpicture2, role);
+			break;
+		case 3:
+			select_role_method(client.image_room_player_2, "role_3.png", client.label_room_headpicture2, role);
+			break;
+		case 4:
+			select_role_method(client.image_room_player_2, "role_4.png", client.label_room_headpicture2, role);
+			break;
+		case 5:
+			select_role_method(client.image_room_player_2, "role_5.png", client.label_room_headpicture2, role);
+			break;
+		}
+	}
+
+	private void switch_role_to_select_3() {
+		switch (role) {
+		case 1:
+			select_role_method(client.image_room_player_3, "role_1.png", client.label_room_headpicture3, role);
+			break;
+		case 2:
+			select_role_method(client.image_room_player_3, "role_2.png", client.label_room_headpicture3, role);
+			break;
+		case 3:
+			select_role_method(client.image_room_player_3, "role_3.png", client.label_room_headpicture3, role);
+			break;
+		case 4:
+			select_role_method(client.image_room_player_3, "role_4.png", client.label_room_headpicture3, role);
+			break;
+		case 5:
+			select_role_method(client.image_room_player_3, "role_5.png", client.label_room_headpicture3, role);
+			break;
+		}
+	}
+
+	private void switch_role_to_select_4() {
+		switch (role) {
+		case 1:
+			select_role_method(client.image_room_player_4, "role_1.png", client.label_room_headpicture4, role);
+			break;
+		case 2:
+			select_role_method(client.image_room_player_4, "role_2.png", client.label_room_headpicture4, role);
+			break;
+		case 3:
+			select_role_method(client.image_room_player_4, "role_3.png", client.label_room_headpicture4, role);
+			break;
+		case 4:
+			select_role_method(client.image_room_player_4, "role_4.png", client.label_room_headpicture4, role);
+			break;
+		case 5:
+			select_role_method(client.image_room_player_4, "role_5.png", client.label_room_headpicture4, role);
+			break;
+		}
+	}
+
+	private void switch_dest_to_switch_type_to_choosed() {
+		try {
+			switch (dest) {
+			case 1:
+				switch_type_to_choosed_1();
+				break;
+			case 2:
+				switch_type_to_choosed_2();
+				break;
+			case 3:
+				switch_type_to_choosed_3();
+				break;
+			case 4:
+				switch_type_to_choosed_4();
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_type_to_choosed_1() {
+		Platform.runLater(() -> {
+			switch (type) {
+			case 1:
+				selectedRole("role_1.png", client.label_room_headpicture1);
+				break;
+			case 2:
+				selectedRole("role_2.png", client.label_room_headpicture1);
+				break;
+			case 3:
+				selectedRole("role_3.png", client.label_room_headpicture1);
+				break;
+			case 4:
+				selectedRole("role_4.png", client.label_room_headpicture1);
+				break;
+			case 5:
+				selectedRole("role_5.png", client.label_room_headpicture1);
+				break;
+			}
+		});
+	}
+
+	private void switch_type_to_choosed_2() {
+		Platform.runLater(() -> {
+			switch (type) {
+			case 1:
+				selectedRole("role_1.png", client.label_room_headpicture2);
+				break;
+			case 2:
+				selectedRole("role_2.png", client.label_room_headpicture2);
+				break;
+			case 3:
+				selectedRole("role_3.png", client.label_room_headpicture2);
+				break;
+			case 4:
+				selectedRole("role_4.png", client.label_room_headpicture2);
+				break;
+			case 5:
+				selectedRole("role_5.png", client.label_room_headpicture2);
+				break;
+			}
+		});
+	}
+
+	private void switch_type_to_choosed_3() {
+		Platform.runLater(() -> {
+			switch (type) {
+			case 1:
+				selectedRole("role_1.png", client.label_room_headpicture2);
+				break;
+			case 2:
+				selectedRole("role_2.png", client.label_room_headpicture2);
+				break;
+			case 3:
+				selectedRole("role_3.png", client.label_room_headpicture2);
+				break;
+			case 4:
+				selectedRole("role_4.png", client.label_room_headpicture2);
+				break;
+			case 5:
+				selectedRole("role_5.png", client.label_room_headpicture2);
+				break;
+			}
+		});
+	}
+
+	private void switch_type_to_choosed_4() {
+		Platform.runLater(() -> {
+			switch (type) {
+			case 1:
+				selectedRole("role_1.png", client.label_room_headpicture1);
+				break;
+			case 2:
+				selectedRole("role_2.png", client.label_room_headpicture1);
+				break;
+			case 3:
+				selectedRole("role_3.png", client.label_room_headpicture1);
+				break;
+			case 4:
+				selectedRole("role_4.png", client.label_room_headpicture1);
+				break;
+			case 5:
+				selectedRole("role_5.png", client.label_room_headpicture1);
+				break;
+			}
+		});
+	}
+
+	// endregion
+	// Switch To Lock
+	// region
+
+	private void switch_myTid_to_switch_role_to_lock() {
+		try {
+			switch (myTid) {
+			case 1:
+				switch_role_to_lock_1();
+				break;
+			case 2:
+				switch_role_to_lock_2();
+				break;
+			case 3:
+				switch_role_to_lock_3();
+				break;
+			case 4:
+				switch_role_to_lock_4();
+				break;
+			}
+
+			initLock();
+			writer.println(encoder());
+			writer.flush();
+			refreshInst();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_role_to_lock_1() {
+		switch (role) {
+		case 1:
+			new_Role_1(client, this, client.image_room_player_1, client.label_room_headpicture1);
+			break;
+		case 2:
+			new_Role_2(client, this, client.image_room_player_1, client.label_room_headpicture1);
+			break;
+		case 3:
+			new_Role_3(client, this, client.image_room_player_1, client.label_room_headpicture1);
+			break;
+		case 4:
+			new_Role_4(client, this, client.image_room_player_1, client.label_room_headpicture1);
+			break;
+		case 5:
+			new_Role_5(client, this, client.image_room_player_1, client.label_room_headpicture1);
+			break;
+		}
+	}
+
+	private void switch_role_to_lock_2() {
+		switch (role) {
+		case 1:
+			new_Role_1(client, this, client.image_room_player_2, client.label_room_headpicture2);
+			break;
+		case 2:
+			new_Role_2(client, this, client.image_room_player_2, client.label_room_headpicture2);
+			break;
+		case 3:
+			new_Role_3(client, this, client.image_room_player_2, client.label_room_headpicture2);
+			break;
+		case 4:
+			new_Role_4(client, this, client.image_room_player_2, client.label_room_headpicture2);
+			break;
+		case 5:
+			new_Role_5(client, this, client.image_room_player_2, client.label_room_headpicture2);
+			break;
+		}
+	}
+
+	private void switch_role_to_lock_3() {
+		switch (role) {
+		case 1:
+			new_Role_1(client, this, client.image_room_player_3, client.label_room_headpicture3);
+			break;
+		case 2:
+			new_Role_2(client, this, client.image_room_player_3, client.label_room_headpicture3);
+			break;
+		case 3:
+			new_Role_3(client, this, client.image_room_player_3, client.label_room_headpicture3);
+			break;
+		case 4:
+			new_Role_4(client, this, client.image_room_player_3, client.label_room_headpicture3);
+			break;
+		case 5:
+			new_Role_5(client, this, client.image_room_player_3, client.label_room_headpicture3);
+			break;
+		}
+	}
+
+	private void switch_role_to_lock_4() {
+		switch (role) {
+		case 1:
+			new_Role_1(client, this, client.image_room_player_4, client.label_room_headpicture4);
+			break;
+		case 2:
+			new_Role_2(client, this, client.image_room_player_4, client.label_room_headpicture4);
+			break;
+		case 3:
+			new_Role_3(client, this, client.image_room_player_4, client.label_room_headpicture4);
+			break;
+		case 4:
+			new_Role_4(client, this, client.image_room_player_4, client.label_room_headpicture4);
+			break;
+		case 5:
+			new_Role_5(client, this, client.image_room_player_4, client.label_room_headpicture4);
+			break;
+		}
+	}
+
+	private void switch_dest_to_switch_type_to_locked() {
+		try {
+			switch (dest) {
+			case 1:
+				switch_type_to_locked_1();
+				break;
+			case 2:
+				switch_type_to_locked_2();
+				break;
+			case 3:
+				switch_type_to_locked_3();
+				break;
+			case 4:
+				switch_type_to_locked_4();
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_type_to_locked_1() {
+		switch (type) {
+		case 1:
+			lockedRole("lock_role_1.png", client.label_room_headpicture1);
+			break;
+		case 2:
+			lockedRole("lock_role_2.png", client.label_room_headpicture1);
+			break;
+		case 3:
+			lockedRole("lock_role_3.png", client.label_room_headpicture1);
+			break;
+		case 4:
+			lockedRole("lock_role_4.png", client.label_room_headpicture1);
+			break;
+		case 5:
+			lockedRole("lock_role_5.png", client.label_room_headpicture1);
+			break;
+		}
+	}
+
+	private void switch_type_to_locked_2() {
+		switch (type) {
+		case 1:
+			lockedRole("lock_role_1.png", client.label_room_headpicture2);
+			break;
+		case 2:
+			lockedRole("lock_role_2.png", client.label_room_headpicture2);
+			break;
+		case 3:
+			lockedRole("lock_role_3.png", client.label_room_headpicture2);
+			break;
+		case 4:
+			lockedRole("lock_role_4.png", client.label_room_headpicture2);
+			break;
+		case 5:
+			lockedRole("lock_role_5.png", client.label_room_headpicture2);
+			break;
+		}
+	}
+
+	private void switch_type_to_locked_3() {
+		switch (type) {
+		case 1:
+			lockedRole("lock_role_1.png", client.label_room_headpicture3);
+			break;
+		case 2:
+			lockedRole("lock_role_2.png", client.label_room_headpicture3);
+			break;
+		case 3:
+			lockedRole("lock_role_3.png", client.label_room_headpicture3);
+			break;
+		case 4:
+			lockedRole("lock_role_4.png", client.label_room_headpicture3);
+			break;
+		case 5:
+			lockedRole("lock_role_5.png", client.label_room_headpicture3);
+			break;
+		}
+	}
+
+	private void switch_type_to_locked_4() {
+		switch (type) {
+		case 1:
+			lockedRole("lock_role_1.png", client.label_room_headpicture4);
+			break;
+		case 2:
+			lockedRole("lock_role_2.png", client.label_room_headpicture4);
+			break;
+		case 3:
+			lockedRole("lock_role_3.png", client.label_room_headpicture4);
+			break;
+		case 4:
+			lockedRole("lock_role_4.png", client.label_room_headpicture4);
+			break;
+		case 5:
+			lockedRole("lock_role_5.png", client.label_room_headpicture4);
+			break;
+		}
+	}
+
+	// endregion
+	// Switch To initial
+	// region
+
+	private void switch_dest_to_initial() {
+		try {
+			switch (dest) {
+			case 1:
+				position[0][0] = X;
+				position[0][1] = Y;
+				if (dest == myTid) {
+					Start_X = X;
+					Start_Y = Y;
+				}
+				break;
+			case 2:
+				position[1][0] = X;
+				position[1][1] = Y;
+				if (dest == myTid) {
+					Start_X = X;
+					Start_Y = Y;
+				}
+				break;
+			case 3:
+				position[2][0] = X;
+				position[2][1] = Y;
+				if (dest == myTid) {
+					Start_X = X;
+					Start_Y = Y;
+				}
+				break;
+			case 4:
+				position[3][0] = X;
+				position[3][1] = Y;
+				if (dest == myTid) {
+					Start_X = X;
+					Start_Y = Y;
+				}
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// endregion
+	// Switch To Move
+	// region
+
+	private void switch_dest_to_movedup() {
+		try {
+			switch (dest) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, X, Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, X, Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, X, Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, X, Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_dest_to_moveddown() {
+		try {
+			switch (dest) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, X, Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, X, Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, X, Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, X, Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_dest_to_movedleft() {
+		try {
+			switch (dest) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, X, Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, X, Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, X, Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, X, Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_dest_to_movedright() {
+		try {
+			switch (dest) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, X, Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, X, Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, X, Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, X, Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// endregion
+	// Switch To Atk
+	// region
+
+	private void switch_dest_to_other_atk() {
+		try {
+			switch (dest) {
+			case 1:
+				switch (role_data[0]) {
+				case 1:
+					attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attacklist));
+					break;
+				case 2:
+					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack2list));
+					break;
+				case 3:
+					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack3list));
+					break;
+				case 4:
+					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack4list));
+					break;
+				case 5:
+					break;
+				}
+				break;
+			case 2:
+				switch (role_data[1]) {
+				case 1:
+					attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attacklist));
+					break;
+				case 2:
+					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack2list));
+					break;
+				case 3:
+					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack3list));
+					break;
+				case 4:
+					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack4list));
+					break;
+				case 5:
+					break;
+				}
+				break;
+			case 3:
+				switch (role_data[2]) {
+				case 1:
+					attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attacklist));
+					break;
+				case 2:
+					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack2list));
+					break;
+				case 3:
+					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack3list));
+					break;
+				case 4:
+					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack4list));
+					break;
+				case 5:
+					break;
+				}
+				break;
+			case 4:
+				switch (role_data[3]) {
+				case 1:
+					attacklist.put(type, new Attack(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attacklist));
+					break;
+				case 2:
+					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack2list));
+					break;
+				case 3:
+					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack3list));
+					break;
+				case 4:
+					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
+							client.return_game_backgroundground(), direction, type, attack4list));
+					break;
+				case 5:
+					break;
+				}
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_dest_to_other_atked() {
+		try {
+			switch (dest) {
+			case 1:
+				client.game_setOtherHP(dest, role_data[0], client.progressbar_game_characterblood1);
+				break;
+			case 2:
+				client.game_setOtherHP(dest, role_data[1], client.progressbar_game_characterblood2);
+				break;
+			case 3:
+				client.game_setOtherHP(dest, role_data[2], client.progressbar_game_characterblood3);
+				break;
+			case 4:
+				client.game_setOtherHP(dest, role_data[3], client.progressbar_game_characterblood4);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// endregion
+	// Switch To Death
+	// region
+
+	private void switch_dest_to_other_death() {
+		try {
+			switch (dest) {
+			case 1:
+				client.label_game_character1.setDisable(true);
+				client.label_game_name1.setDisable(true);
+				client.progressbar_game_characterblood1.setDisable(true);
+				break;
+			case 2:
+				client.label_game_character2.setDisable(true);
+				client.label_game_name2.setDisable(true);
+				client.progressbar_game_characterblood2.setDisable(true);
+				break;
+			case 3:
+				client.label_game_character3.setDisable(true);
+				client.label_game_name3.setDisable(true);
+				client.progressbar_game_characterblood3.setDisable(true);
+				break;
+			case 4:
+				client.label_game_character4.setDisable(true);
+				client.label_game_name4.setDisable(true);
+				client.progressbar_game_characterblood4.setDisable(true);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// endregion
+	// Switch MyRole To Get Value
+	// region
+
+	private void switch_myRole_to_get_GameMyImage() {
+		try {
+			switch (my_role) {
+			case 1:
+				my_png = my_Capoo_1.getGameMyImage();
+				break;
+			case 2:
+				my_png = my_Capoo_2.getGameMyImage();
+				break;
+			case 3:
+				my_png = my_Capoo_3.getGameMyImage();
+				break;
+			case 4:
+				my_png = my_Capoo_4.getGameMyImage();
+				break;
+			case 5:
+				my_png = my_Capoo_5.getGameMyImage();
+				break;
+			}
+			System.out.println("my_png: " + my_png);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// endregion
+	// Switch RoleData To Set Other Image
+	// region
+
+	private void switch_roledata_to_set_other_game_image() {
+		try {
+			switch_roledata_to_set_other_game_image_0();
+			switch_roledata_to_set_other_game_image_1();
+			switch_roledata_to_set_other_game_image_2();
+			switch_roledata_to_set_other_game_image_3();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_roledata_to_set_other_game_image_0() {
+		switch (role_data[0]) {
+		case 1:
+			c1_png = "img_game_role1.png";
+			break;
+		case 2:
+			c1_png = "img_game_role2.png";
+			break;
+		case 3:
+			c1_png = "img_game_role3.png";
+			break;
+		case 4:
+			c1_png = "img_game_role4.png";
+			break;
+		case 5:
+			c1_png = "img_game_role5.png";
+			break;
+		default:
+			c1_png = "img_game_role1.png";
+			break;
+		}
+	}
+
+	private void switch_roledata_to_set_other_game_image_1() {
+		switch (role_data[1]) {
+		case 1:
+			c2_png = "img_game_role1.png";
+			break;
+		case 2:
+			c2_png = "img_game_role2.png";
+			break;
+		case 3:
+			c2_png = "img_game_role3.png";
+			break;
+		case 4:
+			c2_png = "img_game_role4.png";
+			break;
+		case 5:
+			c2_png = "img_game_role5.png";
+			break;
+		default:
+			c2_png = "img_game_role1.png";
+			break;
+		}
+	}
+
+	private void switch_roledata_to_set_other_game_image_2() {
+		switch (role_data[2]) {
+		case 1:
+			c3_png = "img_game_role1.png";
+			break;
+		case 2:
+			c3_png = "img_game_role2.png";
+			break;
+		case 3:
+			c3_png = "img_game_role3.png";
+			break;
+		case 4:
+			c3_png = "img_game_role4.png";
+			break;
+		case 5:
+			c3_png = "img_game_role5.png";
+			break;
+		default:
+			c3_png = "img_game_role1.png";
+			break;
+		}
+	}
+
+	private void switch_roledata_to_set_other_game_image_3() {
+		switch (role_data[3]) {
+		case 1:
+			c4_png = "img_game_role1.png";
+			break;
+		case 2:
+			c4_png = "img_game_role2.png";
+			break;
+		case 3:
+			c4_png = "img_game_role3.png";
+			break;
+		case 4:
+			c4_png = "img_game_role4.png";
+			break;
+		case 5:
+			c4_png = "img_game_role5.png";
+			break;
+		default:
+			c4_png = "img_game_role1.png";
+			break;
+		}
+	}
+	// endregion
+	// coder
+	// region
+
 	public String encoder() {
 		String ta[] = new String[10];
 		ta[0] = Integer.toString(state);
@@ -1949,11 +1907,11 @@ public class ClientCenter implements Runnable {
 		System.out.println("Stype: " + Stype);
 		System.out.println("myTid: " + myTid);
 	}
+
 	// endregion
-
 	// init
-
 	// region
+
 	public void initSelect(int role) {
 		state = 0;
 		myTid = myTid;
@@ -2110,11 +2068,11 @@ public class ClientCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
+
 	// endregion
-
 	// refresh
-
 	// region
+
 	public void refreshInst() {
 
 		state = -1;
@@ -2128,5 +2086,6 @@ public class ClientCenter implements Runnable {
 		direction = 0;
 		Stype = "@";
 	}
+
 	// endregion
 }

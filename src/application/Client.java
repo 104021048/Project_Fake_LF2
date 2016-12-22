@@ -224,7 +224,7 @@ public class Client extends Application {
 				game_setupListener(primaryStage);
 				primaryStage.setScene(scene_game);
 			} catch (Exception ex) {
-
+				ex.printStackTrace();
 			}
 		});
 	}
@@ -1830,22 +1830,28 @@ public class Client extends Application {
 		keyevent_game = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
-				if (e.getCode() != null) {
-					KeyCode k = e.getCode();
-					if (k == KeyCode.UP) {
-						clientCenter.moveup();
-					} else if (k == KeyCode.DOWN) {
-						clientCenter.movedown();
-					} else if (k == KeyCode.LEFT) {
-						clientCenter.moveleft();
-					} else if (k == KeyCode.RIGHT) {
-						clientCenter.moveright();
-					} else if (k == KeyCode.S) {
-						clientCenter.attack2_method();
-					} else if (k == KeyCode.A) {
-						clientCenter.attack_method();
+				Platform.runLater(() -> {
+					try {
+						if (e.getCode() != null) {
+							KeyCode k = e.getCode();
+							if (k == KeyCode.UP) {
+								clientCenter.moveup();
+							} else if (k == KeyCode.DOWN) {
+								clientCenter.movedown();
+							} else if (k == KeyCode.LEFT) {
+								clientCenter.moveleft();
+							} else if (k == KeyCode.RIGHT) {
+								clientCenter.moveright();
+							} else if (k == KeyCode.S) {
+								clientCenter.attack2_method();
+							} else if (k == KeyCode.A) {
+								clientCenter.attack_method();
+							}
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
-				}
+				});
 			}
 		};
 		scene_game.setOnKeyPressed(keyevent_game);
