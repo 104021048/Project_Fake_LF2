@@ -17,42 +17,29 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClientCenter implements Runnable {
+	public static double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
+
 	private static Map<Integer, Attack> attacklist = new HashMap<Integer, Attack>();
 	private static Map<Integer, Attack2> attack2list = new HashMap<Integer, Attack2>();
 	private static Map<Integer, Attack3> attack3list = new HashMap<Integer, Attack3>();
 	private static Map<Integer, Attack4> attack4list = new HashMap<Integer, Attack4>();
 	private static Map<Integer, Attack5> bulletlist = new HashMap<Integer, Attack5>();
-	private int bulletcounter;
-	private int Offset_bullet;
-	public int state;
-	public int Tid, myTid;
-	public String function;
-	public int source;
-	public int dest;
-	public int type;
-	public int role, my_role, role_data[] = new int[4];
-	public double X, Y, position[][] = new double[4][2];
-	public int direction;
-	public String Stype, myName;
-	public Socket sock;
-	public BufferedReader reader;
-	public PrintStream writer;
-	public String ta[], name[] = new String[4];
-	public Stage primaryStage;
-	public Client client;
-	public ClientCenter clientCenter;
-	public Stage stage;
-	public double my_speed, tmpX, tmpY;
-	public int my_hp;
-	public double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
-	public int direction_atk = 1;
-	private Role_Capoo_1 my_Capoo_1 = null;
-	private Role_Capoo_2 my_Capoo_2 = null;
-	private Role_Capoo_3 my_Capoo_3 = null;
-	private Role_Capoo_4 my_Capoo_4 = null;
-	private Role_Capoo_5 my_Capoo_5 = null;
-	private String c1_png = "", c2_png = "", c3_png = "", c4_png = "", my_png = "";
-	private int tmp = 0;
+	private static int bulletcounter, Offset_bullet, state, Tid, myTid, source, dest, type, role, my_role,
+			role_data[] = new int[4], direction, direction_atk = 1, tmp = 0, my_hp;
+	private static String function, Stype, myName, ta[], name[] = new String[4], c1_png = "", c2_png = "", c3_png = "",
+			c4_png = "", my_png = "";
+	private static double X, Y, position[][] = new double[4][2], my_speed, tmpX, tmpY;
+	private static Socket sock;
+	private static BufferedReader reader;
+	private static PrintStream writer;
+	private static Client client;
+	private static ClientCenter clientCenter;
+	private static Stage stage;
+	private static Role_Capoo_1 my_Capoo_1 = null;
+	private static Role_Capoo_2 my_Capoo_2 = null;
+	private static Role_Capoo_3 my_Capoo_3 = null;
+	private static Role_Capoo_4 my_Capoo_4 = null;
+	private static Role_Capoo_5 my_Capoo_5 = null;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
@@ -66,7 +53,7 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public void EstablishConnection(String ip, int port) {
+	private void EstablishConnection(String ip, int port) {
 		try {
 			// 請求建立連線
 			sock = new Socket(ip, port);
@@ -113,7 +100,7 @@ public class ClientCenter implements Runnable {
 
 	// Event Handler
 	// region
-	public void handle() {
+	private void handle() {
 		if (state == 0) {
 			switch_function_to_case_state_0();
 		} else if (state == 1) {
@@ -135,7 +122,7 @@ public class ClientCenter implements Runnable {
 		});
 	}
 
-	public void selectedRole(String png, Label label) {
+	private void selectedRole(String png, Label label) {
 		ImageView image = new ImageView(png);
 		label.setGraphic(image);
 	}
@@ -152,7 +139,7 @@ public class ClientCenter implements Runnable {
 		});
 	}
 
-	public void lockedRole(String png, Label label) {
+	private void lockedRole(String png, Label label) {
 		ImageView image = new ImageView(png);
 		Platform.runLater(() -> {
 			label.setGraphic(image);
@@ -163,7 +150,7 @@ public class ClientCenter implements Runnable {
 	// method
 	// region
 
-	public void select_role_method(ImageView image, String png, Label label, int role) {
+	private void select_role_method(ImageView image, String png, Label label, int role) {
 		image = new ImageView(png);
 		label.setGraphic(image);
 	}
@@ -181,7 +168,7 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public void bulletdeath(int bulletID, double bulletx, double bullety) {
+	private void bulletdeath(int bulletID, double bulletx, double bullety) {
 		initbulletdeath(bulletID, bulletx, bullety);
 		writermsg();
 	}
@@ -288,7 +275,7 @@ public class ClientCenter implements Runnable {
 
 	}
 
-	public void win_method() {
+	private void win_method() {
 
 	}
 
@@ -1502,7 +1489,7 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public int switch_myRole_to_get_SPEED() {
+	private int switch_myRole_to_get_SPEED() {
 		try {
 			switch (my_role) {
 			case 1:
@@ -1527,7 +1514,7 @@ public class ClientCenter implements Runnable {
 		return tmp;
 	}
 
-	public double switch_myRole_to_get_X() {
+	private double switch_myRole_to_get_X() {
 		try {
 			switch (my_role) {
 			case 1:
@@ -1552,7 +1539,7 @@ public class ClientCenter implements Runnable {
 		return tmpX;
 	}
 
-	public void switch_myRole_to_set_X(double tmpX) {
+	private void switch_myRole_to_set_X(double tmpX) {
 		try {
 			switch (my_role) {
 			case 1:
@@ -1576,7 +1563,7 @@ public class ClientCenter implements Runnable {
 		}
 	}
 
-	public double switch_myRole_to_get_Y() {
+	private double switch_myRole_to_get_Y() {
 		try {
 			switch (my_role) {
 			case 1:
@@ -1601,7 +1588,7 @@ public class ClientCenter implements Runnable {
 		return tmpY;
 	}
 
-	public void switch_myRole_to_set_Y(double tmpY) {
+	private void switch_myRole_to_set_Y(double tmpY) {
 		try {
 			switch (my_role) {
 			case 1:
@@ -1736,7 +1723,7 @@ public class ClientCenter implements Runnable {
 	// coder
 	// region
 
-	public String encoder() {
+	private String encoder() {
 		String ta[] = new String[10];
 		ta[0] = Integer.toString(state);
 		ta[1] = Integer.toString(myTid);
@@ -1759,7 +1746,7 @@ public class ClientCenter implements Runnable {
 		return message;
 	}
 
-	public void decoder(String message) {
+	private void decoder(String message) {
 		// 把message用#分開
 		ta = message.split("#");
 		// System.out.print("解開訊息:");
@@ -1797,9 +1784,8 @@ public class ClientCenter implements Runnable {
 	// init
 	// region
 
-	public void initConnection() {
+	private void initConnection() {
 		state = 0;
-		myTid = myTid;
 		function = "connect";
 		source = -1;
 		dest = -1;
@@ -1810,9 +1796,8 @@ public class ClientCenter implements Runnable {
 		Stype = myName;
 	}
 
-	public void initSelect(int role) {
+	private void initSelect(int role) {
 		state = 0;
-		myTid = myTid;
 		function = "choose";
 		source = -1;
 		dest = -1;
@@ -1823,9 +1808,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initLock() {
+	private void initLock() {
 		state = 0;
-		myTid = myTid;
 		function = "lock";
 		source = -1;
 		dest = -1;
@@ -1836,9 +1820,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initMoveUp(double x, double y) {
+	private void initMoveUp(double x, double y) {
 		state = 1;
-		myTid = myTid;
 		function = "moveup";
 		source = -1;
 		dest = -1;
@@ -1849,9 +1832,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initMoveDown(double x, double y) {
+	private void initMoveDown(double x, double y) {
 		state = 1;
-		myTid = myTid;
 		function = "movedown";
 		source = -1;
 		dest = -1;
@@ -1862,9 +1844,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initMoveLeft(double x, double y) {
+	private void initMoveLeft(double x, double y) {
 		state = 1;
-		myTid = myTid;
 		function = "moveleft";
 		source = -1;
 		dest = -1;
@@ -1875,9 +1856,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initMoveRight(double x, double y) {
+	private void initMoveRight(double x, double y) {
 		state = 1;
-		myTid = myTid;
 		function = "moveright";
 		source = -1;
 		dest = -1;
@@ -1888,9 +1868,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initAttack(int bulletNumber) {
+	private void initAttack(int bulletNumber) {
 		state = 1;
-		myTid = myTid;
 		function = "atk";
 		source = -1;
 		dest = -1;
@@ -1901,9 +1880,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initAttack2(int bulletNumber) {
+	private void initAttack2(int bulletNumber) {
 		state = 1;
-		myTid = myTid;
 		function = "atk2";
 		source = -1;
 		dest = -1;
@@ -1914,9 +1892,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initAtked() {
+	private void initAtked() {
 		state = 1;
-		myTid = myTid;
 		function = "atked";
 		source = -1;
 		dest = -1;
@@ -1927,9 +1904,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initAtk2ed() {
+	private void initAtk2ed() {
 		state = 1;
-		myTid = myTid;
 		function = "atked";
 		source = -1;
 		dest = -1;
@@ -1940,7 +1916,7 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initbulletdeath(int bulletID, double bulletX, double bulletY) {
+	private void initbulletdeath(int bulletID, double bulletX, double bulletY) {
 
 		state = 1;
 		Tid = -1;
@@ -1954,9 +1930,8 @@ public class ClientCenter implements Runnable {
 		Stype = "@";
 	}
 
-	public void initDeath() {
+	private void initDeath() {
 		state = 1;
-		myTid = myTid;
 		function = "death";
 		source = -1;
 		dest = -1;
@@ -1971,7 +1946,7 @@ public class ClientCenter implements Runnable {
 	// refresh
 	// region
 
-	public void refreshInst() {
+	private void refreshInst() {
 
 		state = -1;
 		Tid = -1;
@@ -1986,7 +1961,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
-	public void writermsg() {
+	private void writermsg() {
 		writer.println(encoder());
 		writer.flush();
 	}

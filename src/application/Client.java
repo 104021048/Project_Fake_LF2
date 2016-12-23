@@ -29,39 +29,39 @@ import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
 public class Client extends Application {
-	private ClientCenter clientCenter;
-	private final int sence_width = 1024;
-	private final int sence_height = 768;
-	public Client client;
 	public Scene scene_login, scene_room, scene_game;
-	public Socket sock;
-	public GridPane gridpane_login_root, gridpane_room_root;
-	public StackPane stackpane_game_root, stackpane_game_backgroundblood, stackpane_game_backgroundsky,
-			stackpane_game_backgroundground;
-	public TextField textfield_login_ip, textfield_login_name;
 	public Label label_login_ip, label_login_name, label_room_headpicture1, label_room_headpicture2,
 			label_room_headpicture3, label_room_headpicture4, label_room_name1, label_room_name2, label_room_name3,
 			label_room_name4, label_room_systemmessage, label_game_backgroundblood, label_game_backgroundsky,
 			label_game_backgroundground, label_game_headpicture, label_game_character1, label_game_character2,
 			label_game_character3, label_game_character4, label_game_name1, label_game_name2, label_game_name3,
 			label_game_name4;
-	public Button button_login_connect, button_login_exit, button_room_character1, button_room_character2,
-			button_room_character3, button_room_character4, button_room_character5, button_room_ready;
 	public ImageView image_login_logo, image_room_player_1, image_room_player_2, image_room_player_3,
 			image_room_player_4;
-	public HBox hbox_room_button;
-	public String name;
 	public ProgressBar progressbar_game_blood, progressbar_game_characterblood1, progressbar_game_characterblood2,
 			progressbar_game_characterblood3, progressbar_game_characterblood4;
-	public double c1_x, c1_y, c2_x, c2_y, c3_x, c3_y, c4_x, c4_y;
 	public EventHandler<KeyEvent> keyevent_game;
 	public float myHp_max = 0, c1Hp_max = 0, c2Hp_max = 0, c3Hp_max = 0, c4Hp_max = 0;
-	public float my_hp = 0, other_after_hp = 0;
+	
+	private ClientCenter clientCenter;
+	private final int sence_width = 1024;
+	private final int sence_height = 768;
+	private Client client;
+	private Socket sock;
+	private GridPane gridpane_login_root, gridpane_room_root;
+	private StackPane stackpane_game_root, stackpane_game_backgroundblood, stackpane_game_backgroundsky,
+			stackpane_game_backgroundground;
+	private TextField textfield_login_ip, textfield_login_name;
+	private Button button_login_connect, button_login_exit, button_room_character1, button_room_character2,
+			button_room_character3, button_room_character4, button_room_character5, button_room_ready;
+	private HBox hbox_room_button;
+	private String name;
+	private float my_hp = 0, other_after_hp = 0;
 	// login
 
 	// region
 
-	public void login_init() {
+	private void login_init() {
 		gridpane_login_root = new GridPane();
 		gridpane_login_root.setPadding(new Insets(25, 25, 25, 25));
 		image_login_logo = new ImageView("logo.png");
@@ -73,7 +73,7 @@ public class Client extends Application {
 		button_login_exit = new Button("Exit");
 	}
 
-	public void login_setupUI() {
+	private void login_setupUI() {
 		label_login_ip.setPrefSize(100, 10);
 		textfield_login_ip.setPrefSize(1100, 10);
 		label_login_name.setPrefSize(100, 10);
@@ -93,7 +93,7 @@ public class Client extends Application {
 		scene_login.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	}
 
-	public void login_setupListener(Stage primaryStage) {
+	private void login_setupListener(Stage primaryStage) {
 		button_login_connect.setOnAction(e -> {
 			name = textfield_login_name.getText().toString();
 			String ip = textfield_login_ip.getText().toString();
@@ -114,7 +114,7 @@ public class Client extends Application {
 	// room
 
 	// region
-	public void room_init() {
+	private void room_init() {
 		image_room_player_1 = new ImageView("role_1.png");
 		image_room_player_2 = new ImageView("role_1.png");
 		image_room_player_3 = new ImageView("role_1.png");
@@ -139,7 +139,7 @@ public class Client extends Application {
 		gridpane_room_root.setPadding(new Insets(25, 25, 25, 25));
 	}
 
-	public void room_setupUI() {
+	private void room_setupUI() {
 		gridpane_room_root.setHgap(10);
 		gridpane_room_root.setVgap(10);
 		label_room_headpicture1.setGraphic(image_room_player_1);
@@ -193,7 +193,7 @@ public class Client extends Application {
 
 	}
 
-	public void room_setupListener(Stage primaryStage) {
+	private void room_setupListener(Stage primaryStage) {
 		button_room_character1.setOnAction(e -> {
 			clientCenter.selecteRole(1);
 		});
@@ -229,7 +229,7 @@ public class Client extends Application {
 		});
 	}
 
-	public void setDisable() {
+	private void setDisable() {
 		button_room_character1.setDisable(true);
 		button_room_character2.setDisable(true);
 		button_room_character3.setDisable(true);
@@ -240,7 +240,7 @@ public class Client extends Application {
 	// game
 
 	// region
-	public void game_init() {
+	private void game_init() {
 		stackpane_game_root = new StackPane();
 		stackpane_game_backgroundblood = new StackPane();
 		stackpane_game_backgroundground = new StackPane();
@@ -267,15 +267,6 @@ public class Client extends Application {
 	public void game_setupUI(double c1_x, double c1_y, double c2_x, double c2_y, double c3_x, double c3_y, double c4_x,
 			double c4_y, String c1_png, String c2_png, String c3_png, String c4_png, String my_png, String name1,
 			String name2, String name3, String name4) {
-
-		this.c1_x = c1_x;
-		this.c1_y = c1_y;
-		this.c2_x = c2_x;
-		this.c2_y = c2_y;
-		this.c3_x = c3_x;
-		this.c3_y = c3_y;
-		this.c4_x = c4_x;
-		this.c4_y = c4_y;
 
 		label_game_headpicture.setPrefSize(150, 100);
 		// label_headpicture.setStyle("-fx-background-color: #33CCFF");
@@ -429,13 +420,13 @@ public class Client extends Application {
 					other_after_hp = (type - 50) / c4Hp_max;
 					break;
 				}
-				
+
 				if (other_after_hp >= 0) {
 					blood.setProgress(other_after_hp);
 				} else {
 					blood.setProgress(0);
 				}
-				
+
 				System.out.println("===================");
 				System.out.println("other_after_hp: " + other_after_hp);
 				System.out.println("type: " + type);
@@ -451,7 +442,7 @@ public class Client extends Application {
 		return stackpane_game_backgroundground;
 	}
 
-	public void game_setupListener(Stage stage) {
+	private void game_setupListener(Stage stage) {
 		keyevent_game = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
@@ -527,7 +518,7 @@ public class Client extends Application {
 
 	}
 
-	public static void main(String[] args) {
+	private static void main(String[] args) {
 		launch(args);
 	}
 	// endregion
