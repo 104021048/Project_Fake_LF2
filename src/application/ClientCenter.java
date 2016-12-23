@@ -23,7 +23,12 @@ public class ClientCenter implements Runnable {
 	private static Map<Integer, Attack2> attack2list = new HashMap<Integer, Attack2>();
 	private static Map<Integer, Attack3> attack3list = new HashMap<Integer, Attack3>();
 	private static Map<Integer, Attack4> attack4list = new HashMap<Integer, Attack4>();
+	private static Map<Integer, Attack5> attack5list = new HashMap<Integer, Attack5>();
 	private static Map<Integer, Attack1_2> bulletlist = new HashMap<Integer, Attack1_2>();
+	private static Map<Integer, Attack2_2> bullet2list = new HashMap<Integer, Attack2_2>();
+	private static Map<Integer, Attack3_2> bullet3list = new HashMap<Integer, Attack3_2>();
+	private static Map<Integer, Attack4_2> bullet4list = new HashMap<Integer, Attack4_2>();
+	private static Map<Integer, Attack5_2> bullet5list = new HashMap<Integer, Attack5_2>();
 	private static int bulletcounter, Offset_bullet, state, Tid, myTid, source, dest, type, role, my_role,
 			role_data[] = new int[4], direction, direction_atk = 1, tmp = 0, my_hp;
 	private static String function, Stype, myName, ta[], name[] = new String[4], c1_png = "", c2_png = "", c3_png = "",
@@ -33,7 +38,6 @@ public class ClientCenter implements Runnable {
 	private static BufferedReader reader;
 	private static PrintStream writer;
 	private static Client client;
-	private static ClientCenter clientCenter;
 	private static Stage stage;
 	private static Role_Capoo_1 my_Capoo_1 = null;
 	private static Role_Capoo_2 my_Capoo_2 = null;
@@ -44,7 +48,6 @@ public class ClientCenter implements Runnable {
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
 			EstablishConnection(ip, 8888);
-			this.clientCenter = this;
 			this.client = client;
 			myName = name;
 			bulletcounter = 0;
@@ -179,34 +182,34 @@ public class ClientCenter implements Runnable {
 		writermsg();
 		switch (my_role) {
 		case 1:
-			Attack1 attack = new Attack1(client, this.clientCenter, Start_X, Start_Y,
-					client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, attacklist);
+			Attack1 attack = new Attack1(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, attacklist);
 			attacklist.put(Offset_bullet + bulletcounter, attack);
 			attack = null;
 			break;
 		case 2:
-			Attack2 attack2 = new Attack2(client, this.clientCenter, Start_X, Start_Y,
-					client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, attack2list);
+			Attack2 attack2 = new Attack2(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, attack2list);
 			attack2list.put(Offset_bullet + bulletcounter, attack2);
-			attack = null;
+			attack2 = null;
 			break;
 		case 3:
-			Attack3 attack3 = new Attack3(client, this.clientCenter, Start_X, Start_Y,
-					client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, attack3list);
+			Attack3 attack3 = new Attack3(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, attack3list);
 			attack3list.put(Offset_bullet + bulletcounter, attack3);
-			attack = null;
+			attack3 = null;
 			break;
 		case 4:
-			Attack4 attack4 = new Attack4(client, this.clientCenter, Start_X, Start_Y,
-					client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, attack4list);
+			Attack4 attack4 = new Attack4(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, attack4list);
 			attack4list.put(Offset_bullet + bulletcounter, attack4);
 			attack4 = null;
 			break;
 		case 5:
-			Attack1 attack5 = new Attack1(client, this.clientCenter, Start_X, Start_Y,
-					client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, attacklist);
-			attacklist.put(Offset_bullet + bulletcounter, attack5);
-			attack = null;
+			Attack5 attack5 = new Attack5(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, attack5list);
+			attack5list.put(Offset_bullet + bulletcounter, attack5);
+			attack5 = null;
 			break;
 		}
 
@@ -221,10 +224,40 @@ public class ClientCenter implements Runnable {
 		bulletcounter++;
 		initAttack2(Offset_bullet + bulletcounter);
 		writermsg();
-		Attack1_2 attack1_1 = new Attack1_2(client, this.clientCenter, Start_X, Start_Y,
-				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, bulletlist);
-		bulletlist.put(Offset_bullet + bulletcounter, attack1_1);
-		attack1_1 = null;
+
+		switch (my_role) {
+		case 1:
+			Attack1_2 attack1_2 = new Attack1_2(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, bulletlist);
+			bulletlist.put(Offset_bullet + bulletcounter, attack1_2);
+			attack1_2 = null;
+			break;
+		case 2:
+			Attack2_2 attack2_2 = new Attack2_2(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, bullet2list);
+			bullet2list.put(Offset_bullet + bulletcounter, attack2_2);
+			attack2_2 = null;
+			break;
+		case 3:
+			Attack3_2 attack3_2 = new Attack3_2(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, bullet3list);
+			bullet3list.put(Offset_bullet + bulletcounter, attack3_2);
+			attack3_2 = null;
+			break;
+		case 4:
+			Attack4_2 attack4_2 = new Attack4_2(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, bullet4list);
+			bullet4list.put(Offset_bullet + bulletcounter, attack4_2);
+			attack4_2 = null;
+			break;
+		case 5:
+			Attack5_2 attack5_2 = new Attack5_2(client, this, Start_X, Start_Y, client.return_game_backgroundground(),
+					direction_atk, Offset_bullet + bulletcounter, bullet5list);
+			bullet5list.put(Offset_bullet + bulletcounter, attack5_2);
+			attack5_2 = null;
+			break;
+		}
+
 		System.gc();
 		if (bulletcounter == 9999) {
 			bulletcounter = 0;
@@ -439,13 +472,38 @@ public class ClientCenter implements Runnable {
 	private void switch_function_to_case_state_1() {
 		switch (function) {
 		case "bulletdeath":
-			bulletlist.get(type).bulletDeath(X, Y);
-			bulletlist.remove(type);
+			switch (role_data[dest - 1]) {
+			case 1:
+				bulletlist.get(type).bulletDeath(X, Y);
+				bulletlist.remove(type);
+				break;
+			case 2:
+				bullet2list.get(type).bulletDeath(X, Y);
+				bullet2list.remove(type);
+				break;
+			case 3:
+				bullet3list.get(type).bulletDeath(X, Y);
+				bullet3list.remove(type);
+				break;
+			case 4:
+				bullet4list.get(type).bulletDeath(X, Y);
+				bullet4list.remove(type);
+				break;
+			case 5:
+				bullet5list.get(type).bulletDeath(X, Y);
+				bullet5list.remove(type);
+				break;
+			}
 			break;
 		case "atk":
 			switch_dest_to_other_atk();
 			break;
 		case "atk2":
+			/*
+			 * bulletlist.put(type, new Attack1_2(client, this, X, Y,
+			 * client.return_game_backgroundground(), direction, type,
+			 * bulletlist));
+			 */
 			switch_dest_to_other_atk2();
 			break;
 		case "atked":
@@ -1259,102 +1317,26 @@ public class ClientCenter implements Runnable {
 
 	private void switch_dest_to_other_atk() {
 		try {
-			switch (dest) {
+			switch (role_data[dest - 1]) {
 			case 1:
-				switch (role_data[0]) {
-				case 1:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				case 2:
-					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack2list));
-					break;
-				case 3:
-					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack3list));
-					break;
-				case 4:
-					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack4list));
-					break;
-				case 5:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				}
+				attacklist.put(type, new Attack1(client, this, X, Y, client.return_game_backgroundground(), direction,
+						type, attacklist));
 				break;
 			case 2:
-				switch (role_data[1]) {
-				case 1:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				case 2:
-					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack2list));
-					break;
-				case 3:
-					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack3list));
-					break;
-				case 4:
-					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack4list));
-					break;
-				case 5:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				}
+				attack2list.put(type, new Attack2(client, this, X, Y, client.return_game_backgroundground(), direction,
+						type, attack2list));
 				break;
 			case 3:
-				switch (role_data[2]) {
-				case 1:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				case 2:
-					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack2list));
-					break;
-				case 3:
-					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack3list));
-					break;
-				case 4:
-					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack4list));
-					break;
-				case 5:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				}
+				attack3list.put(type, new Attack3(client, this, X, Y, client.return_game_backgroundground(), direction,
+						type, attack3list));
 				break;
 			case 4:
-				switch (role_data[3]) {
-				case 1:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				case 2:
-					attack2list.put(type, new Attack2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack2list));
-					break;
-				case 3:
-					attack3list.put(type, new Attack3(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack3list));
-					break;
-				case 4:
-					attack4list.put(type, new Attack4(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attack4list));
-					break;
-				case 5:
-					attacklist.put(type, new Attack1(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, attacklist));
-					break;
-				}
+				attack4list.put(type, new Attack4(client, this, X, Y, client.return_game_backgroundground(), direction,
+						type, attack4list));
+				break;
+			case 5:
+				attack5list.put(type, new Attack5(client, this, X, Y, client.return_game_backgroundground(), direction,
+						type, attack5list));
 				break;
 			}
 		} catch (Exception ex) {
@@ -1364,104 +1346,29 @@ public class ClientCenter implements Runnable {
 
 	private void switch_dest_to_other_atk2() {
 		try {
-			switch (dest) {
+			switch (role_data[dest - 1]) {
 			case 1:
-				switch (role_data[0]) {
-				case 1:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 2:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 3:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 4:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 5:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				}
+				bulletlist.put(type, new Attack1_2(client, this, X, Y, client.return_game_backgroundground(), direction,
+						type, bulletlist));
 				break;
 			case 2:
-				switch (role_data[1]) {
-				case 1:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 2:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 3:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 4:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 5:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				}
+				bullet2list.put(type, new Attack2_2(client, this, X, Y, client.return_game_backgroundground(),
+						direction, type, bullet2list));
 				break;
 			case 3:
-				switch (role_data[2]) {
-				case 1:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 2:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 3:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 4:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 5:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				}
+				bullet3list.put(type, new Attack3_2(client, this, X, Y, client.return_game_backgroundground(),
+						direction, type, bullet3list));
 				break;
 			case 4:
-				switch (role_data[3]) {
-				case 1:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 2:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 3:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 4:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				case 5:
-					bulletlist.put(type, new Attack1_2(client, this.clientCenter, X, Y,
-							client.return_game_backgroundground(), direction, type, bulletlist));
-					break;
-				}
+				bullet4list.put(type, new Attack4_2(client, this, X, Y, client.return_game_backgroundground(),
+						direction, type, bullet4list));
+				break;
+			case 5:
+				bullet5list.put(type, new Attack5_2(client, this, X, Y, client.return_game_backgroundground(),
+						direction, type, bullet5list));
 				break;
 			}
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

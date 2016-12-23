@@ -27,29 +27,29 @@ import javafx.util.Duration;
  * 		把<Key,Value>=<死亡子彈編號,子彈>從Map裡面去掉。
  */
 
-public class Attack1_2 {
+public class Attack4_2 {
 	public double startx, starty;
 	public boolean boom = false;
 	public Client client;
 	public ClientCenter clientCenter;
 	private int range = 20;
 	ImageView imv;
-	Image imageArray[] = new Image[30];
+	Image imageArray[] = new Image[15];
 	Timeline timeline;
 	int direction;
 	int count = 0;
-	int frame = 27;
+	int frame = 10;
 	private double sizex = 500;
 	private int bulletID = 0;
 	private StackPane sp;
-	private Map<Integer, Attack1_2> bulletlist;
+	private Map<Integer, Attack4_2> bulletlist;
 	private double clientCenterStart_X, clientCenterStart_Y;
 	private double role_size = 25;
 	private double atk_size = 25;
 	private boolean toldDeath = false;
 
-	public Attack1_2(Client client, ClientCenter clientCenter, double x, double y, StackPane sp, int direction,
-			int bulletID, Map<Integer, Attack1_2> bulletlist) {
+	public Attack4_2(Client client, ClientCenter clientCenter, double x, double y, StackPane sp, int direction,
+			int bulletID, Map<Integer, Attack4_2> bulletlist) {
 		this.client = client;
 		this.clientCenter = clientCenter;
 		startx = x;
@@ -62,7 +62,7 @@ public class Attack1_2 {
 		clientCenterStart_Y = clientCenter.Start_Y;
 		timeline = new Timeline();
 		for (int i = 0; i < frame; i++) {
-			imageArray[i] = new Image("atk1_2/atk" + Integer.toString(i + 1) + ".png");
+			imageArray[i] = new Image("atk4_2/atk" + Integer.toString(i + 1) + ".png");
 		}
 		setGraph(sp, direction);
 		// 讓子彈飛一會兒
@@ -121,6 +121,7 @@ public class Attack1_2 {
 					if (boom == true && !toldDeath) {
 						clientCenter.atk2ed_method(imv.getTranslateX(), imv.getTranslateY(), bulletID);
 					}
+					System.out.println(this.getClass().toString()+"fade play");
 				}
 			});
 			fade.play();

@@ -71,7 +71,7 @@ public class Attack4 {
 					count++;
 				} else {
 					// 加速動畫播完
-					timeline.setRate(3);
+					//timeline.setRate(3);
 
 				}
 			}

@@ -381,7 +381,7 @@ public class ServerCenter implements Runnable {
 				instRight(myTid);
 				break;
 			case "bulletdeath":
-				bulletdeath(type);
+				bulletdeath(Tid,type);
 				break;
 			}
 
@@ -671,7 +671,7 @@ public class ServerCenter implements Runnable {
 		Tid = -1;
 		function = "atk2";
 		source = -1;
-		dest = -1;
+		dest = atk2tid;
 		type = type;
 		X = x;
 		Y = y;
@@ -793,12 +793,12 @@ public class ServerCenter implements Runnable {
 		Stype = "@";
 
 	}
-	public void bulletdeath(int bulletid) {
+	public void bulletdeath(int atkedtid,int bulletid) {
 		state = 1;
 		Tid = -1;
 		function = "bulletdeath";
 		source = -1;
-		dest = -1;
+		dest = atkedtid;
 		type = bulletid;
 		direction = 1;
 		Stype = "@";
