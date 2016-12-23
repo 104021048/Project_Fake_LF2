@@ -25,7 +25,7 @@ public class Attack2 {
 	Timeline timeline;
 	int direction;
 	int count = 0;
-	int frame=25;
+	int frame=26;
 	private double sizex = 500;
 	private int bulletID = 0;
 	private StackPane sp;

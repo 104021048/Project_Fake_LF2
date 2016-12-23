@@ -21,11 +21,11 @@ public class Attack4 {
 	public Client client;
 	public ClientCenter clientCenter;
 	ImageView imv;
-	Image imageArray[] = new Image[30];
+	Image imageArray[] = new Image[20];
 	Timeline timeline;
 	int direction;
 	int count = 0;
-	int frame=25;
+	int frame=15;
 	private double sizex = 500;
 	private int bulletID = 0;
 	private StackPane sp;
