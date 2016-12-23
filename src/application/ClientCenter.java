@@ -42,7 +42,7 @@ public class ClientCenter implements Runnable {
 	public Client client;
 	public ClientCenter clientCenter;
 	public Stage stage;
-	public double my_speed;
+	public double my_speed, tmpX, tmpY;
 	public int my_hp;
 	public double Start_X = 0, Start_Y = 0; // 會跟著腳色移動即時更新X，Y
 	public int direction_atk = 1;
@@ -99,12 +99,11 @@ public class ClientCenter implements Runnable {
 					decoder(message);
 					handle();
 					if (Tid == -1) {
-						writer.println(("0#" + myTid + "#connect#-1#-1#-1#-1.0#-1.0#0#" + myName));
-						writer.flush();
+						initConnection();
+						writermsg();
 						Offset_bullet = myTid * 10000;
 					}
 				}
-
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -184,15 +183,13 @@ public class ClientCenter implements Runnable {
 
 	public void bulletdeath(int bulletID, double bulletx, double bullety) {
 		initbulletdeath(bulletID, bulletx, bullety);
-		writer.println(encoder());
-		writer.flush();
+		writermsg();
 	}
 
 	public void attack_method() {
 		bulletcounter++;
 		initAttack(Offset_bullet + bulletcounter);
-		writer.println(encoder());
-		writer.flush();
+		writermsg();
 		switch (my_role) {
 		case 1:
 			Attack attack = new Attack(client, this.clientCenter, Start_X, Start_Y,
@@ -236,12 +233,11 @@ public class ClientCenter implements Runnable {
 	public void attack2_method() {
 		bulletcounter++;
 		initAttack2(Offset_bullet + bulletcounter);
-		writer.println(encoder());
-		writer.flush();
-		Attack5 attack2 = new Attack5(client, this.clientCenter, Start_X, Start_Y,
+		writermsg();
+		Attack5 attack5 = new Attack5(client, this.clientCenter, Start_X, Start_Y,
 				client.return_game_backgroundground(), direction_atk, Offset_bullet + bulletcounter, bulletlist);
-		bulletlist.put(Offset_bullet + bulletcounter, attack2);
-		attack2 = null;
+		bulletlist.put(Offset_bullet + bulletcounter, attack5);
+		attack5 = null;
 		System.gc();
 		if (bulletcounter == 9999) {
 			bulletcounter = 0;
@@ -265,8 +261,7 @@ public class ClientCenter implements Runnable {
 			break;
 		}
 		initAtked();
-		writer.println(encoder());
-		writer.flush();
+		writermsg();
 
 	}
 
@@ -289,8 +284,7 @@ public class ClientCenter implements Runnable {
 		}
 
 		initAtk2ed();
-		writer.println(encoder());
-		writer.flush();
+		writermsg();
 
 	}
 
@@ -324,320 +318,57 @@ public class ClientCenter implements Runnable {
 			break;
 		}
 		initDeath();
-		writer.println(encoder());
-		writer.flush();
+		writermsg();
 	}
 
 	public void moveup() {
-		switch (myTid) {
-		case 1:
-			if (client.c1_y - my_speed > 76) {
-				client.c1_y -= my_speed;
-				Start_Y = client.c1_y;
-			} else {
-				client.c1_y = 76;
-				Start_Y = client.c1_y;
-			}
-			client.label_game_character1.setTranslateX(client.c1_x);
-			client.label_game_character1.setTranslateY(client.c1_y);
-			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-			client.label_game_name1.setTranslateX(client.c1_x);
-			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveUp(client.c1_x, client.c1_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 2:
-			if (client.c2_y - my_speed > 76) {
-				client.c2_y -= my_speed;
-				Start_Y = client.c2_y;
-			} else {
-				client.c2_y = 76;
-				Start_Y = client.c2_y;
-			}
-			client.label_game_character2.setTranslateX(client.c2_x);
-			client.label_game_character2.setTranslateY(client.c2_y);
-			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-			client.label_game_name2.setTranslateX(client.c2_x);
-			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveUp(client.c2_x, client.c2_y);
-			writer.println(encoder());
-			writer.flush();
 
-			break;
-		case 3:
-			if (client.c3_y - my_speed > 76) {
-				client.c3_y -= my_speed;
-				Start_Y = client.c3_y;
-			} else {
-				client.c3_y = 76;
-				Start_Y = client.c3_y;
-			}
-			client.label_game_character3.setTranslateX(client.c3_x);
-			client.label_game_character3.setTranslateY(client.c3_y);
-			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-			client.label_game_name3.setTranslateX(client.c3_x);
-			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveUp(client.c3_x, client.c3_y);
-			writer.println(encoder());
-			writer.flush();
-
-			break;
-		case 4:
-			if (client.c4_y - my_speed > 76) {
-				client.c4_y -= my_speed;
-				Start_Y = client.c4_y;
-			} else {
-				client.c4_y = 76;
-				Start_Y = client.c4_y;
-			}
-			client.label_game_character4.setTranslateX(client.c4_x);
-			client.label_game_character4.setTranslateY(client.c4_y);
-			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-			client.label_game_name4.setTranslateX(client.c4_x);
-			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveUp(client.c4_x, client.c4_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
+		if (Start_Y - my_speed > 76) {
+			Start_Y -= my_speed;
+		} else {
+			Start_Y = 76;
 		}
-
+		switch_myRole_to_set_Y(Start_Y);
+		switch_myTid_to_moveup();
+		initMoveUp(Start_X, Start_Y);
+		writermsg();
 	}
 
 	public void movedown() {
-		switch (myTid) {
-		case 1:
-			if (client.c1_y + my_speed < 362) {
-				client.c1_y += my_speed;
-				Start_Y = client.c1_y;
-			} else {
-				client.c1_y = 362;
-				Start_Y = client.c1_y;
-			}
-			client.label_game_character1.setTranslateX(client.c1_x);
-			client.label_game_character1.setTranslateY(client.c1_y);
-			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-			client.label_game_name1.setTranslateX(client.c1_x);
-			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveDown(client.c1_x, client.c1_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 2:
-			if (client.c2_y + my_speed < 362) {
-				client.c2_y += my_speed;
-				Start_Y = client.c2_y;
-			} else {
-				client.c2_y = 362;
-				Start_Y = client.c2_y;
-			}
-			client.label_game_character2.setTranslateX(client.c2_x);
-			client.label_game_character2.setTranslateY(client.c2_y);
-			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-			client.label_game_name2.setTranslateX(client.c2_x);
-			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveDown(client.c2_x, client.c2_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 3:
-			if (client.c3_y + my_speed < 362) {
-				client.c3_y += my_speed;
-				Start_Y = client.c3_y;
-			} else {
-				client.c3_y = 362;
-				Start_Y = client.c3_y;
-			}
-			client.label_game_character3.setTranslateX(client.c3_x);
-			client.label_game_character3.setTranslateY(client.c3_y);
-			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-			client.label_game_name3.setTranslateX(client.c3_x);
-			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveDown(client.c3_x, client.c3_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 4:
-			if (client.c4_y + my_speed < 362) {
-				client.c4_y += my_speed;
-				Start_Y = client.c4_y;
-			} else {
-				client.c4_y = 362;
-				Start_Y = client.c4_y;
-			}
-			client.label_game_character4.setTranslateX(client.c4_x);
-			client.label_game_character4.setTranslateY(client.c4_y);
-			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-			client.label_game_name4.setTranslateX(client.c4_x);
-			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveDown(client.c4_x, client.c4_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
+		if (Start_Y + my_speed < 362) {
+			Start_Y += my_speed;
+		} else {
+			Start_Y = 362;
 		}
+		switch_myRole_to_set_Y(Start_Y);
+		switch_myTid_to_movedown();
+		initMoveDown(Start_X, Start_Y);
+		writermsg();
 	}
 
 	public void moveleft() {
-		switch (myTid) {
-		case 1:
-			if (client.c1_x - my_speed > -492) {
-				client.c1_x -= my_speed;
-				Start_X = client.c1_x;
-			} else {
-				client.c1_x = -492;
-				Start_X = client.c1_x;
-			}
-			client.label_game_character1.setTranslateX(client.c1_x);
-			client.label_game_character1.setTranslateY(client.c1_y);
-			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-			client.label_game_name1.setTranslateX(client.c1_x);
-			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveLeft(client.c1_x, client.c1_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 2:
-			if (client.c2_x - my_speed > -492) {
-				client.c2_x -= my_speed;
-				Start_X = client.c2_x;
-			} else {
-				client.c2_x = -492;
-				Start_X = client.c2_x;
-			}
-			client.label_game_character2.setTranslateX(client.c2_x);
-			client.label_game_character2.setTranslateY(client.c2_y);
-			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-			client.label_game_name2.setTranslateX(client.c2_x);
-			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveLeft(client.c2_x, client.c2_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 3:
-			if (client.c3_x - my_speed > -492) {
-				client.c3_x -= my_speed;
-				Start_X = client.c3_x;
-			} else {
-				client.c3_x = -492;
-				Start_X = client.c3_x;
-			}
-			client.label_game_character3.setTranslateX(client.c3_x);
-			client.label_game_character3.setTranslateY(client.c3_y);
-			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-			client.label_game_name3.setTranslateX(client.c3_x);
-			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveLeft(client.c3_x, client.c3_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 4:
-			if (client.c4_x - my_speed > -492) {
-				client.c4_x -= my_speed;
-				Start_X = client.c4_x;
-			} else {
-				client.c4_x = -492;
-				Start_X = client.c4_x;
-			}
-			client.label_game_character4.setTranslateX(client.c4_x);
-			client.label_game_character4.setTranslateY(client.c4_y);
-			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-			client.label_game_name4.setTranslateX(client.c4_x);
-			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveLeft(client.c4_x, client.c4_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
+		if (Start_X - my_speed > -492) {
+			Start_X -= my_speed;
+		} else {
+			Start_X = -492;
 		}
+		switch_myRole_to_set_X(Start_X);
+		switch_myTid_to_moveleft();
+		initMoveLeft(Start_X, Start_Y);
+		writermsg();
 		direction_atk = -1;
 	}
 
 	public void moveright() {
-		switch (myTid) {
-		case 1:
-			if (client.c1_x + my_speed < 492) {
-				client.c1_x += my_speed;
-				Start_X = client.c1_x;
-			} else {
-				client.c1_x = 492;
-				Start_X = client.c1_x;
-			}
-			client.label_game_character1.setTranslateX(client.c1_x);
-			client.label_game_character1.setTranslateY(client.c1_y);
-			client.progressbar_game_characterblood1.setTranslateX(client.c1_x);
-			client.progressbar_game_characterblood1.setTranslateY(client.c1_y - 40);
-			client.label_game_name1.setTranslateX(client.c1_x);
-			client.label_game_name1.setTranslateY(client.c1_y + 40);
-			initMoveRight(client.c1_x, client.c1_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 2:
-			if (client.c2_x + my_speed < 492) {
-				client.c2_x += my_speed;
-				Start_X = client.c2_x;
-			} else {
-				client.c2_x = 492;
-				Start_X = client.c2_x;
-			}
-			client.label_game_character2.setTranslateX(client.c2_x);
-			client.label_game_character2.setTranslateY(client.c2_y);
-			client.progressbar_game_characterblood2.setTranslateX(client.c2_x);
-			client.progressbar_game_characterblood2.setTranslateY(client.c2_y - 40);
-			client.label_game_name2.setTranslateX(client.c2_x);
-			client.label_game_name2.setTranslateY(client.c2_y + 40);
-			initMoveRight(client.c2_x, client.c2_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 3:
-			if (client.c3_x + my_speed < 492) {
-				client.c3_x += my_speed;
-				Start_X = client.c3_x;
-			} else {
-				client.c3_x = 492;
-				Start_X = client.c3_x;
-			}
-			client.label_game_character3.setTranslateX(client.c3_x);
-			client.label_game_character3.setTranslateY(client.c3_y);
-			client.progressbar_game_characterblood3.setTranslateX(client.c3_x);
-			client.progressbar_game_characterblood3.setTranslateY(client.c3_y - 40);
-			client.label_game_name3.setTranslateX(client.c3_x);
-			client.label_game_name3.setTranslateY(client.c3_y + 40);
-			initMoveRight(client.c3_x, client.c3_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
-		case 4:
-			if (client.c4_x + my_speed < 492) {
-				client.c4_x += my_speed;
-				Start_X = client.c4_x;
-			} else {
-				client.c4_x = 492;
-				Start_X = client.c4_x;
-			}
-			client.label_game_character4.setTranslateX(client.c4_x);
-			client.label_game_character4.setTranslateY(client.c4_y);
-			client.progressbar_game_characterblood4.setTranslateX(client.c4_x);
-			client.progressbar_game_characterblood4.setTranslateY(client.c4_y - 40);
-			client.label_game_name4.setTranslateX(client.c4_x);
-			client.label_game_name4.setTranslateY(client.c4_y + 40);
-			initMoveRight(client.c4_x, client.c4_y);
-			writer.println(encoder());
-			writer.flush();
-			break;
+		if (Start_X + my_speed < 492) {
+			Start_X += my_speed;
+		} else {
+			Start_X = 492;
 		}
+		switch_myRole_to_set_X(Start_X);
+		switch_myTid_to_moveright();
+		initMoveRight(Start_X, Start_Y);
+		writermsg();
 		direction_atk = 1;
 	}
 
@@ -1293,35 +1024,38 @@ public class ClientCenter implements Runnable {
 				position[0][0] = X;
 				position[0][1] = Y;
 				if (dest == myTid) {
-					Start_X = X;
-					Start_Y = Y;
+					switch_myRole_to_set_X(X);
+					switch_myRole_to_set_Y(Y);
 				}
 				break;
 			case 2:
 				position[1][0] = X;
 				position[1][1] = Y;
 				if (dest == myTid) {
-					Start_X = X;
-					Start_Y = Y;
+					switch_myRole_to_set_X(X);
+					switch_myRole_to_set_Y(Y);
 				}
 				break;
 			case 3:
 				position[2][0] = X;
 				position[2][1] = Y;
 				if (dest == myTid) {
-					Start_X = X;
-					Start_Y = Y;
+					switch_myRole_to_set_X(X);
+					switch_myRole_to_set_Y(Y);
 				}
 				break;
 			case 4:
 				position[3][0] = X;
 				position[3][1] = Y;
 				if (dest == myTid) {
-					Start_X = X;
-					Start_Y = Y;
+					switch_myRole_to_set_X(X);
+					switch_myRole_to_set_Y(Y);
 				}
 				break;
 			}
+			my_speed = switch_myRole_to_get_SPEED();
+			Start_X = switch_myRole_to_get_X();
+			Start_Y = switch_myRole_to_get_Y();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -1332,6 +1066,105 @@ public class ClientCenter implements Runnable {
 	// endregion
 	// Switch To Move
 	// region
+	private void switch_myTid_to_moveup() {
+		try {
+			switch (myTid) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, Start_X, Start_Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, Start_X, Start_Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, Start_X, Start_Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, Start_X, Start_Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_myTid_to_movedown() {
+		try {
+			switch (myTid) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, Start_X, Start_Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, Start_X, Start_Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, Start_X, Start_Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, Start_X, Start_Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_myTid_to_moveleft() {
+		try {
+			switch (myTid) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, Start_X, Start_Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, Start_X, Start_Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, Start_X, Start_Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, Start_X, Start_Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void switch_myTid_to_moveright() {
+		try {
+			switch (myTid) {
+			case 1:
+				client.setLocation(client.label_game_character1, client.label_game_name1,
+						client.progressbar_game_characterblood1, Start_X, Start_Y);
+				break;
+			case 2:
+				client.setLocation(client.label_game_character2, client.label_game_name2,
+						client.progressbar_game_characterblood2, Start_X, Start_Y);
+				break;
+			case 3:
+				client.setLocation(client.label_game_character3, client.label_game_name3,
+						client.progressbar_game_characterblood3, Start_X, Start_Y);
+				break;
+			case 4:
+				client.setLocation(client.label_game_character4, client.label_game_name4,
+						client.progressbar_game_characterblood4, Start_X, Start_Y);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 	private void switch_dest_to_movedup() {
 		try {
@@ -1668,6 +1501,129 @@ public class ClientCenter implements Runnable {
 			ex.printStackTrace();
 		}
 	}
+
+	public int switch_myRole_to_get_SPEED() {
+		try {
+			switch (my_role) {
+			case 1:
+				tmp = my_Capoo_1.getSpeed();
+				break;
+			case 2:
+				tmp = my_Capoo_2.getSpeed();
+				break;
+			case 3:
+				tmp = my_Capoo_3.getSpeed();
+				break;
+			case 4:
+				tmp = my_Capoo_4.getSpeed();
+				break;
+			case 5:
+				tmp = my_Capoo_5.getSpeed();
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public double switch_myRole_to_get_X() {
+		try {
+			switch (my_role) {
+			case 1:
+				tmpX = my_Capoo_1.getX();
+				break;
+			case 2:
+				tmpX = my_Capoo_2.getX();
+				break;
+			case 3:
+				tmpX = my_Capoo_3.getX();
+				break;
+			case 4:
+				tmpX = my_Capoo_4.getX();
+				break;
+			case 5:
+				tmpX = my_Capoo_5.getX();
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tmpX;
+	}
+
+	public void switch_myRole_to_set_X(double tmpX) {
+		try {
+			switch (my_role) {
+			case 1:
+				my_Capoo_1.setX(tmpX);
+				break;
+			case 2:
+				my_Capoo_2.setX(tmpX);
+				break;
+			case 3:
+				my_Capoo_3.setX(tmpX);
+				break;
+			case 4:
+				my_Capoo_4.setX(tmpX);
+				break;
+			case 5:
+				my_Capoo_5.setX(tmpX);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public double switch_myRole_to_get_Y() {
+		try {
+			switch (my_role) {
+			case 1:
+				tmpY = my_Capoo_1.getY();
+				break;
+			case 2:
+				tmpY = my_Capoo_2.getY();
+				break;
+			case 3:
+				tmpY = my_Capoo_3.getY();
+				break;
+			case 4:
+				tmpY = my_Capoo_4.getY();
+				break;
+			case 5:
+				tmpY = my_Capoo_5.getY();
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tmpY;
+	}
+
+	public void switch_myRole_to_set_Y(double tmpY) {
+		try {
+			switch (my_role) {
+			case 1:
+				my_Capoo_1.setY(tmpY);
+				break;
+			case 2:
+				my_Capoo_2.setY(tmpY);
+				break;
+			case 3:
+				my_Capoo_3.setY(tmpY);
+				break;
+			case 4:
+				my_Capoo_4.setY(tmpY);
+				break;
+			case 5:
+				my_Capoo_5.setY(tmpY);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	// endregion
 	// Switch RoleData To Set Other Image
 	// region
@@ -1841,6 +1797,19 @@ public class ClientCenter implements Runnable {
 	// init
 	// region
 
+	public void initConnection() {
+		state = 0;
+		myTid = myTid;
+		function = "connect";
+		source = -1;
+		dest = -1;
+		type = -1;
+		X = -1.0;
+		Y = -1.0;
+		direction = 0;
+		Stype = myName;
+	}
+
 	public void initSelect(int role) {
 		state = 0;
 		myTid = myTid;
@@ -1902,7 +1871,7 @@ public class ClientCenter implements Runnable {
 		type = -1;
 		X = x;
 		Y = y;
-		direction = 0;
+		direction = direction_atk;
 		Stype = "@";
 	}
 
@@ -1915,7 +1884,7 @@ public class ClientCenter implements Runnable {
 		type = -1;
 		X = x;
 		Y = y;
-		direction = 0;
+		direction = direction_atk;
 		Stype = "@";
 	}
 
@@ -2017,6 +1986,10 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
+	public void writermsg() {
+		writer.println(encoder());
+		writer.flush();
+	}
 
 	// endregion
 }
