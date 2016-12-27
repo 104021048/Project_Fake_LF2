@@ -44,6 +44,16 @@ public class ClientCenter implements Runnable {
 	private static Role_Capoo_3 my_Capoo_3 = null;
 	private static Role_Capoo_4 my_Capoo_4 = null;
 	private static Role_Capoo_5 my_Capoo_5 = null;
+	private boolean Collision = false;
+	double wh = 30;
+	double x1 = 0;
+	double y1 = 0;
+	double x2 = 0;
+	double y2 = 0;
+	double x3 = 0;
+	double y3 = 0;
+	double x4 = 0;
+	double y4 = 0;
 
 	public ClientCenter(Client client, Socket socket, String ip, String name) {
 		try {
@@ -343,11 +353,7 @@ public class ClientCenter implements Runnable {
 
 	public void moveup() {
 
-		if (Start_Y - my_speed > 76) {
-			Start_Y -= my_speed;
-		} else {
-			Start_Y = 76;
-		}
+		Collision_moveup();
 		switch_myRole_to_set_Y(Start_Y);
 		switch_myTid_to_moveup();
 		initMoveUp(Start_X, Start_Y);
@@ -355,11 +361,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void movedown() {
-		if (Start_Y + my_speed < 362) {
-			Start_Y += my_speed;
-		} else {
-			Start_Y = 362;
-		}
+		Collision_movedown();
 		switch_myRole_to_set_Y(Start_Y);
 		switch_myTid_to_movedown();
 		initMoveDown(Start_X, Start_Y);
@@ -367,11 +369,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void moveleft() {
-		if (Start_X - my_speed > -492) {
-			Start_X -= my_speed;
-		} else {
-			Start_X = -492;
-		}
+		Collision_moveleft();
 		switch_myRole_to_set_X(Start_X);
 		switch_myTid_to_moveleft();
 		initMoveLeft(Start_X, Start_Y);
@@ -380,11 +378,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	public void moveright() {
-		if (Start_X + my_speed < 492) {
-			Start_X += my_speed;
-		} else {
-			Start_X = 492;
-		}
+		Collision_moveright();
 		switch_myRole_to_set_X(Start_X);
 		switch_myTid_to_moveright();
 		initMoveRight(Start_X, Start_Y);
@@ -392,6 +386,267 @@ public class ClientCenter implements Runnable {
 		direction_atk = 1;
 	}
 
+	private void Collision_moveup() {
+		// TODO Auto-generated method stub
+		x1 = client.label_game_character1.getTranslateX();
+		y1 = client.label_game_character1.getTranslateY();
+		x2 = client.label_game_character2.getTranslateX();
+		y2 = client.label_game_character2.getTranslateY();
+		x3 = client.label_game_character3.getTranslateX();
+		y3 = client.label_game_character3.getTranslateY();
+		x4 = client.label_game_character4.getTranslateX();
+		y4 = client.label_game_character4.getTranslateY();
+		switch (myTid) {
+		case 1:
+			if (x1 >= x2 - wh && x1 <= x2 + wh && y1 - my_speed >= y2 && y1 - my_speed <= y2 + wh) {
+				Collision = true;
+			} else if (x1 >= x3 - wh && x1 <= x3 + wh && y1 - my_speed >= y3 && y1 - my_speed <= y3 + wh) {
+				Collision = true;
+			} else if (x1 >= x4 - wh && x1 <= x4 + wh && y1 - my_speed >= y4 && y1 - my_speed <= y4 + wh) {
+				Collision = true;
+			} else if (Start_Y - my_speed < 76) {
+				Start_Y = 76;
+			} else {
+				Start_Y -= my_speed;
+			}
+			break;
+		case 2:
+			if (x2 >= x1 - wh && x2 <= x1 + wh && y2 - my_speed >= y1 && y2 - my_speed <= y1 + wh) {
+				Collision = true;
+			} else if (x2 >= x3 - wh && x2 <= x3 + wh && y2 - my_speed >= y3 && y2 - my_speed <= y3 + wh) {
+				Collision = true;
+			} else if (x2 >= x4 - wh && x2 <= x4 + wh && y2 - my_speed >= y4 && y2 - my_speed <= y4 + wh) {
+				Collision = true;
+			} else if (Start_Y - my_speed < 76) {
+				Start_Y = 76;
+			} else {
+				Start_Y -= my_speed;
+			}
+			break;
+		case 3:
+			if (x3 >= x2 - wh && x3 <= x2 + wh && y3 - my_speed >= y2 && y3 - my_speed <= y2 + wh) {
+				Collision = true;
+			} else if (x3 >= x1 - wh && x3 <= x1 + wh && y3 - my_speed >= y1 && y3 - my_speed <= y1 + wh) {
+				Collision = true;
+			} else if (x3 >= x4 - wh && x3 <= x4 + wh && y3 - my_speed >= y4 && y3 - my_speed <= y4 + wh) {
+				Collision = true;
+			} else if (Start_Y - my_speed < 76) {
+				Start_Y = 76;
+			} else {
+				Start_Y -= my_speed;
+			}
+			break;
+		case 4:
+			if (x4 >= x2 - wh && x4 <= x2 + wh && y4 - my_speed >= y2 && y4 - my_speed <= y2 + wh) {
+				Collision = true;
+			} else if (x4 >= x1 - wh && x4 <= x1 + wh && y4 - my_speed >= y1 && y4 - my_speed <= y1 + wh) {
+				Collision = true;
+			} else if (x4 >= x3 - wh && x4 <= x3 + wh && y4 - my_speed >= y3 && y4 - my_speed <= y3 + wh) {
+				Collision = true;
+			} else if (Start_Y - my_speed < 76) {
+				Start_Y = 76;
+			} else {
+				Start_Y -= my_speed;
+			}
+			break;
+		}
+	}
+
+	private void Collision_movedown() {
+		// TODO Auto-generated method stub
+		x1 = client.label_game_character1.getTranslateX();
+		y1 = client.label_game_character1.getTranslateY();
+		x2 = client.label_game_character2.getTranslateX();
+		y2 = client.label_game_character2.getTranslateY();
+		x3 = client.label_game_character3.getTranslateX();
+		y3 = client.label_game_character3.getTranslateY();
+		x4 = client.label_game_character4.getTranslateX();
+		y4 = client.label_game_character4.getTranslateY();
+		switch (myTid) {
+		case 1:
+			if (x1 >= x2 - wh && x1 <= x2 + wh && y1 + my_speed >= y2 - wh && y1 + my_speed <= y2) {
+				Collision = true;
+			} else if (x1 >= x3 - wh && x1 <= x3 + wh && y1 + my_speed >= y3 - wh && y1 + my_speed <= y3) {
+				Collision = true;
+			} else if (x1 >= x4 - wh && x1 <= x4 + wh && y1 + my_speed >= y4 - wh && y1 + my_speed <= y4) {
+				Collision = true;
+			} else if (Start_Y + my_speed > 362) {
+				Start_Y = 362;
+			} else {
+				Start_Y += my_speed;
+			}
+			break;
+		case 2:
+			if (x2 >= x1 - wh && x2 <= x1 + wh && y2 + my_speed >= y1 - wh && y2 + my_speed <= y1) {
+				Collision = true;
+			} else if (x2 >= x3 - wh && x2 <= x3 + wh && y2 + my_speed >= y3 - wh && y2 + my_speed <= y3) {
+				Collision = true;
+			} else if (x2 >= x4 - wh && x2 <= x4 + wh && y2 + my_speed >= y4 - wh && y2 + my_speed <= y4) {
+				Collision = true;
+			} else if (Start_Y + my_speed > 362) {
+				Start_Y = 362;
+			} else {
+				Start_Y += my_speed;
+			}
+			break;
+		case 3:
+			if (x3 >= x2 - +wh && x3 <= x2 + wh && y3 + my_speed >= y2 - wh && y3 + my_speed <= y2) {
+				Collision = true;
+			} else if (x3 >= x1 - wh && x3 <= x1 + wh && y3 + my_speed >= y1 - wh && y3 + my_speed <= y1) {
+				Collision = true;
+			} else if (x3 >= x4 - wh && x3 <= x4 + wh && y3 + my_speed >= y4 - wh && y3 + my_speed <= y4) {
+				Collision = true;
+			} else if (Start_Y + my_speed > 362) {
+				Start_Y = 362;
+			} else {
+				Start_Y += my_speed;
+			}
+			break;
+		case 4:
+			if (x4 >= x2 - +wh && x4 <= x2 + wh && y4 + my_speed >= y2 - wh && y4 + my_speed <= y2) {
+				Collision = true;
+			} else if (x4 >= x1 - wh && x4 <= x1 + wh && y4 + my_speed >= y1 - wh && y4 + my_speed <= y1) {
+				Collision = true;
+			} else if (x4 >= x3 - wh && x4 <= x3 + wh && y4 + my_speed >= y3 - wh && y4 + my_speed <= y3) {
+				Collision = true;
+			} else if (Start_Y + my_speed > 362) {
+				Start_Y = 362;
+			} else {
+				Start_Y += my_speed;
+			}
+			break;
+		}
+	}
+
+	private void Collision_moveright() {
+		x1 = client.label_game_character1.getTranslateX();
+		y1 = client.label_game_character1.getTranslateY();
+		x2 = client.label_game_character2.getTranslateX();
+		y2 = client.label_game_character2.getTranslateY();
+		x3 = client.label_game_character3.getTranslateX();
+		y3 = client.label_game_character3.getTranslateY();
+		x4 = client.label_game_character4.getTranslateX();
+		y4 = client.label_game_character4.getTranslateY();
+		switch (myTid) {
+		case 1:
+			if (x1 + my_speed >= x2 - wh && x1 + my_speed <= x2 && y1 >= y2 - wh && y1 <= y2 + wh) {
+				Collision = true;
+			} else if (x1 + my_speed >= x3 - wh && x1 + my_speed <= x3 && y1 >= y3 - wh && y1 <= y3 + wh) {
+				Collision = true;
+			} else if (x1 + my_speed >= x4 - wh && x1 + my_speed <= x4 && y1 >= y4 - wh && y1 <= y4 + wh) {
+				Collision = true;
+			} else if (Start_X + my_speed > 492) {
+				Start_X = 492;
+			} else {
+				Start_X += my_speed;
+			}
+			break;
+		case 2:
+			if (x2 + my_speed >= x1 - wh && x2 + my_speed <= x1 && y2 >= y1 - wh && y2 <= y1 + wh) {
+				Collision = true;
+			} else if (x2 + my_speed >= x3 - wh && x2 + my_speed <= x3 && y2 >= y3 - wh && y2 <= y3 + wh) {
+				Collision = true;
+			} else if (x2 + my_speed >= x4 - wh && x2 + my_speed <= x4 && y2 >= y4 - wh && y2 <= y4 + wh) {
+				Collision = true;
+			} else if (Start_X + my_speed > 492) {
+				Start_X = 492;
+			} else {
+				Start_X += my_speed;
+			}
+			break;
+		case 3:
+			if (x3 + my_speed >= x2 - wh && x3 + my_speed <= x2 && y3 >= y2 - wh && y3 <= y2 + wh) {
+				Collision = true;
+			} else if (x3 + my_speed >= x1 - wh && x3 + my_speed <= x1 && y3 >= y1 - wh && y3 <= y1 + wh) {
+				Collision = true;
+			} else if (x3 + my_speed >= x4 - wh && x3 + my_speed <= x4 && y3 >= y4 - wh && y3 <= y4 + wh) {
+				Collision = true;
+			} else if (Start_X + my_speed > 492) {
+				Start_X = 492;
+			} else {
+				Start_X += my_speed;
+			}
+			break;
+		case 4:
+			if (x4 + my_speed >= x2 - wh && x4 + my_speed <= x2 && y4 >= y2 - wh && y4 <= y2 + wh) {
+				Collision = true;
+			} else if (x4 + my_speed >= x3 - wh && x4 + my_speed <= x3 && y4 >= y3 - wh && y4 <= y3 + wh) {
+				Collision = true;
+			} else if (x4 + my_speed >= x1 - wh && x4 + my_speed <= x1 && y4 >= y1 - wh && y4 <= y1 + wh) {
+				Collision = true;
+			} else if (Start_X + my_speed > 492) {
+				Start_X = 492;
+			} else {
+				Start_X += my_speed;
+			}
+			break;
+		}
+	}
+
+	private void Collision_moveleft() {
+		x1 = client.label_game_character1.getTranslateX();
+		y1 = client.label_game_character1.getTranslateY();
+		x2 = client.label_game_character2.getTranslateX();
+		y2 = client.label_game_character2.getTranslateY();
+		x3 = client.label_game_character3.getTranslateX();
+		y3 = client.label_game_character3.getTranslateY();
+		x4 = client.label_game_character4.getTranslateX();
+		y4 = client.label_game_character4.getTranslateY();
+		switch (myTid) {
+		case 1:
+			if (x1 - my_speed >= x2 && x1 - my_speed <= x2 + wh && y1 >= y2 - wh && y1 <= y2 + wh) {
+				Collision = true;
+			} else if (x1 - my_speed >= x3 && x1 - my_speed <= x3 + wh && y1 >= y3 - wh && y1 <= y3 + wh) {
+				Collision = true;
+			} else if (x1 - my_speed >= x4 && x1 - my_speed <= x4 + wh && y1 >= y4 - wh && y1 <= y4 + wh) {
+				Collision = true;
+			} else if (Start_X - my_speed < -492) {
+				Start_X = -492;
+			} else {
+				Start_X -= my_speed;
+			}
+			break;
+		case 2:
+			if (x2 - my_speed >= x1 && x2 - my_speed <= x1 + wh && y2 >= y1 - wh && y2 <= y1 + wh) {
+				Collision = true;
+			} else if (x2 - my_speed >= x3 && x2 - my_speed <= x3 + wh && y2 >= y3 - wh && y2 <= y3 + wh) {
+				Collision = true;
+			} else if (x2 - my_speed >= x4 && x2 - my_speed <= x4 + wh && y2 >= y4 - wh && y2 <= y4 + wh) {
+				Collision = true;
+			} else if (Start_X - my_speed < -492) {
+				Start_X = -492;
+			} else {
+				Start_X -= my_speed;
+			}
+			break;
+		case 3:
+			if (x3 - my_speed >= x1 && x3 - my_speed <= x1 + wh && y3 >= y1 - wh && y3 <= y1 + wh) {
+				Collision = true;
+			} else if (x3 - my_speed >= x2 && x3 - my_speed <= x2 + wh && y3 >= y2 - wh && y3 <= y2 + wh) {
+				Collision = true;
+			} else if (x3 - my_speed >= x4 && x3 - my_speed <= x4 + wh && y3 >= y4 - wh && y3 <= y4 + wh) {
+				Collision = true;
+			} else if (Start_X - my_speed < -492) {
+				Start_X = -492;
+			} else {
+				Start_X -= my_speed;
+			}
+			break;
+		case 4:
+			if (x4 - my_speed >= x1 && x4 - my_speed <= x1 + wh && y4 >= y1 - wh && y4 <= y1 + wh) {
+				Collision = true;
+			} else if (x4 - my_speed >= x2 && x4 - my_speed <= x2 + wh && y4 >= y2 - wh && y4 <= y2 + wh) {
+				Collision = true;
+			} else if (x4 - my_speed >= x3 && x4 - my_speed <= x3 + wh && y4 >= y3 - wh && y4 <= y3 + wh) {
+				Collision = true;
+			} else if (Start_X - my_speed < -492) {
+				Start_X = -492;
+			} else {
+				Start_X -= my_speed;
+			}
+			break;
+		}
+	}
 	// endregion
 	// New Role
 	// region

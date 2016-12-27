@@ -298,7 +298,7 @@ public class Client extends Application {
 		progressbar_game_blood.setTranslateX(10);
 		progressbar_game_blood.setTranslateY(-285);
 
-		label_game_character1.setPrefSize(50, 50);
+		label_game_character1.setPrefSize(30, 30);
 		label_game_character1.setTranslateX(c1_x);
 		label_game_character1.setTranslateY(c1_y);
 		ImageView imageview_character1 = new ImageView(c1_png);
@@ -314,7 +314,7 @@ public class Client extends Application {
 		label_game_name1.setTranslateY(c1_y + 40);
 		label_game_name1.setText(name1);
 
-		label_game_character2.setPrefSize(50, 50);
+		label_game_character2.setPrefSize(30, 30);
 		label_game_character2.setTranslateX(c2_x);
 		label_game_character2.setTranslateY(c2_y);
 		ImageView imageview_character2 = new ImageView(c2_png);
