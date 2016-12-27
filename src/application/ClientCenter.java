@@ -727,38 +727,12 @@ public class ClientCenter implements Runnable {
 	private void switch_function_to_case_state_1() {
 		switch (function) {
 		case "bulletdeath":
-			switch (role_data[dest - 1]) {
-			case 1:
-				bulletlist.get(type).bulletDeath(X, Y);
-				bulletlist.remove(type);
-				break;
-			case 2:
-				bullet2list.get(type).bulletDeath(X, Y);
-				bullet2list.remove(type);
-				break;
-			case 3:
-				bullet3list.get(type).bulletDeath(X, Y);
-				bullet3list.remove(type);
-				break;
-			case 4:
-				bullet4list.get(type).bulletDeath(X, Y);
-				bullet4list.remove(type);
-				break;
-			case 5:
-				bullet5list.get(type).bulletDeath(X, Y);
-				bullet5list.remove(type);
-				break;
-			}
+			switch_bulletID_to_switch_roledata();
 			break;
 		case "atk":
 			switch_dest_to_other_atk();
 			break;
 		case "atk2":
-			/*
-			 * bulletlist.put(type, new Attack1_2(client, this, X, Y,
-			 * client.return_game_backgroundground(), direction, type,
-			 * bulletlist));
-			 */
 			switch_dest_to_other_atk2();
 			break;
 		case "atked":
@@ -1623,7 +1597,6 @@ public class ClientCenter implements Runnable {
 						direction, type, bullet5list));
 				break;
 			}
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -1996,6 +1969,31 @@ public class ClientCenter implements Runnable {
 	// endregion
 	// coder
 	// region
+
+	private void switch_bulletID_to_switch_roledata() {
+		switch (role_data[(type / 10000) - 1]) {
+		case 1:
+			bulletlist.get(type).bulletDeath(X, Y);
+			bulletlist.remove(type);
+			break;
+		case 2:
+			bullet2list.get(type).bulletDeath(X, Y);
+			bullet2list.remove(type);
+			break;
+		case 3:
+			bullet3list.get(type).bulletDeath(X, Y);
+			bullet3list.remove(type);
+			break;
+		case 4:
+			bullet4list.get(type).bulletDeath(X, Y);
+			bullet4list.remove(type);
+			break;
+		case 5:
+			bullet5list.get(type).bulletDeath(X, Y);
+			bullet5list.remove(type);
+			break;
+		}
+	}
 
 	private String encoder() {
 		String ta[] = new String[10];

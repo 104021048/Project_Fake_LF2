@@ -793,12 +793,12 @@ public class ServerCenter implements Runnable {
 		Stype = "@";
 
 	}
-	public void bulletdeath(int atkedtid,int bulletid) {
+	public void bulletdeath(int atk2tid,int bulletid) {
 		state = 1;
 		Tid = -1;
 		function = "bulletdeath";
 		source = -1;
-		dest = atkedtid;
+		dest = atk2tid;
 		type = bulletid;
 		direction = 1;
 		Stype = "@";
