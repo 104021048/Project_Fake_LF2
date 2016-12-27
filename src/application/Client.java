@@ -127,7 +127,7 @@ public class Client extends Application {
 		label_room_name2 = new Label();
 		label_room_name3 = new Label();
 		label_room_name4 = new Label();
-		label_room_systemmessage = new Label("you are 87");
+		label_room_systemmessage = new Label("請選擇角色...");
 		hbox_room_button = new HBox();
 		button_room_character1 = new Button();
 		button_room_character2 = new Button();

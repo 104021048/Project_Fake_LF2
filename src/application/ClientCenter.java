@@ -144,6 +144,7 @@ public class ClientCenter implements Runnable {
 		stage = primaryStage;
 		Platform.runLater(() -> {
 			try {
+				client.label_room_systemmessage.setText("·Ç³Æ¤¤...");
 				role_data[myTid - 1] = role;
 				switch_myTid_to_switch_role_to_lock();
 			} catch (Exception e) {
