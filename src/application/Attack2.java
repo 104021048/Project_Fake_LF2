@@ -64,16 +64,13 @@ public class Attack2 {
 			public void handle(ActionEvent event) {
 				// 偵測collision
 				collision(imv.getTranslateX(), imv.getTranslateY());
-				if (!hit) {
+				
 					Platform.runLater(() -> {
 						imv.setImage(imageArray[count]);
 					});
 					count++;
-				} else {
-					// 加速動畫播完
-					//timeline.setRate(3);
 
-				}
+				
 			}
 		});
 		timeline.getKeyFrames().add(kf);

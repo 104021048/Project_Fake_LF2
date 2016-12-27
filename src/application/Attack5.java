@@ -13,8 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-
-
 public class Attack5 {
 	public double startx, starty;
 	public boolean hit = false;
@@ -25,14 +23,14 @@ public class Attack5 {
 	Timeline timeline;
 	int direction;
 	int count = 0;
-	int frame=25;
+	int frame = 25;
 	private double sizex = 500;
 	private int bulletID = 0;
 	private StackPane sp;
 	private Map<Integer, Attack5> Attacklist;
 	private double clientCenterStart_X, clientCenterStart_Y;
-	private double role_size=25;
-	private double atk_size=25;
+	private double role_size = 25;
+	private double atk_size = 25;
 
 	public Attack5(Client client, ClientCenter clientCenter, double x, double y, StackPane sp, int direction,
 			int bulletID, Map<Integer, Attack5> Attacklist) {
@@ -64,28 +62,24 @@ public class Attack5 {
 			public void handle(ActionEvent event) {
 				// 偵測collision
 				collision(imv.getTranslateX(), imv.getTranslateY());
-				if (!hit) {
-					Platform.runLater(() -> {
-						imv.setImage(imageArray[count]);
-					});
-					count++;
-				} else {
-					// 加速動畫播完
-					//timeline.setRate(3);
 
-				}
+				Platform.runLater(() -> {
+					imv.setImage(imageArray[count]);
+				});
+				count++;
+
 			}
 		});
 		timeline.getKeyFrames().add(kf);
 		timeline.play();
 		timeline.setOnFinished(e -> {
-					sp.getChildren().remove(imv);
-					System.out.println(bulletID + " death");
-					Attacklist.remove(bulletID);
-					// TODO: boom?
-					if (hit == true) {
-						clientCenter.atked_method(imv.getTranslateX() , imv.getTranslateY());
-					}
+			sp.getChildren().remove(imv);
+			System.out.println(bulletID + " death");
+			Attacklist.remove(bulletID);
+			// TODO: boom?
+			if (hit == true) {
+				clientCenter.atked_method(imv.getTranslateX(), imv.getTranslateY());
+			}
 		});
 
 	}
@@ -101,9 +95,9 @@ public class Attack5 {
 		}
 		Platform.runLater(() -> {
 			if (direction == 1) {
-				imv.setTranslateX(startx + role_size+atk_size-5);// 起始位置
+				imv.setTranslateX(startx + role_size + atk_size - 5);// 起始位置
 			} else if (direction == -1) {
-				imv.setTranslateX(startx - role_size-atk_size+5);// 起始位置
+				imv.setTranslateX(startx - role_size - atk_size + 5);// 起始位置
 			}
 
 			imv.setTranslateY(starty);// 起始位置
@@ -116,10 +110,10 @@ public class Attack5 {
 		// 這邊的參數xy是子彈的位置，因為時變，Client位置需要呼叫
 		// Client儲存自己的位置來跟子彈進行判斷
 		if (x < clientCenterStart_X && x + atk_size >= clientCenterStart_X - role_size && direction == 1
-				&& Math.abs(clientCenterStart_Y - y) <= role_size+atk_size) {
+				&& Math.abs(clientCenterStart_Y - y) <= role_size + atk_size) {
 			hit = true;
 		} else if (x > clientCenterStart_X && x - atk_size <= clientCenterStart_X + role_size && direction == -1
-				&& Math.abs(clientCenterStart_Y - y) <= role_size+atk_size) {
+				&& Math.abs(clientCenterStart_Y - y) <= role_size + atk_size) {
 			hit = true;
 		} else {
 			hit = false;
