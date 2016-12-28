@@ -591,7 +591,7 @@ public class ServerCenter implements Runnable {
 		X = -1;
 		Y = -1;
 		direction = 0;
-		Stype = myName;
+		Stype = "@";
 	}
 
 	public void inst5(int who, int which) {

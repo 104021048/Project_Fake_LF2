@@ -2237,6 +2237,7 @@ public class ClientCenter implements Runnable {
 	private void writermsg() {
 		writer.println(encoder());
 		writer.flush();
+		refreshInst();
 	}
 
 	// endregion
