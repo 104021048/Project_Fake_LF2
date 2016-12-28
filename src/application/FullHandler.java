@@ -21,7 +21,7 @@ public class FullHandler implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		writer.println("下次請早.....");
+		writer.println("0#-1#full#-1#-1#-1#-1.0#-1.0#0#@");
 		writer.flush();
 		try {
 			acceptSocket.close();
