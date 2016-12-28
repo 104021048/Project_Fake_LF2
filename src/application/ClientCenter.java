@@ -722,6 +722,9 @@ public class ClientCenter implements Runnable {
 		case "go2":
 			client.toGame(stage);
 			break;
+		case "full":
+			System.out.println("人數已滿，關閉連線");
+			break;
 		}
 	}
 
