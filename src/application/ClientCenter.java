@@ -100,8 +100,8 @@ public class ClientCenter implements Runnable {
 					handle();
 					if (Tid == -1) {
 						initConnection();
-						writermsg();
 						Offset_bullet = myTid * 10000;
+						writermsg();
 					}
 				}
 			}

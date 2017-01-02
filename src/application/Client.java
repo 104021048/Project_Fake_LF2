@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -42,7 +44,7 @@ public class Client extends Application {
 			progressbar_game_characterblood3, progressbar_game_characterblood4;
 	public EventHandler<KeyEvent> keyevent_game;
 	public float myHp_max = 0, c1Hp_max = 0, c2Hp_max = 0, c3Hp_max = 0, c4Hp_max = 0;
-	
+
 	private ClientCenter clientCenter;
 	private final int sence_width = 1024;
 	private final int sence_height = 768;
@@ -283,14 +285,14 @@ public class Client extends Application {
 		// label_backgroundsky.setStyle("-fx-background-color: #77FFCC");
 		label_game_backgroundsky.setTranslateX(0);
 		label_game_backgroundsky.setTranslateY(-70);
-		ImageView imageview_backgroundsky = new ImageView("back.jpg");
+		ImageView imageview_backgroundsky = new ImageView("sky4.jpg");
 		label_game_backgroundsky.setGraphic(imageview_backgroundsky);
 
 		label_game_backgroundground.setPrefSize(sence_width, sence_height / 12 * 5);
 		// label_backgroundground.setStyle("-fx-background-color: #008800");
 		label_game_backgroundground.setTranslateX(0);
 		label_game_backgroundground.setTranslateY(220);
-		ImageView imageview_backgroundground = new ImageView("ground.jpg");
+		ImageView imageview_backgroundground = new ImageView("ground4.jpg");
 		label_game_backgroundground.setGraphic(imageview_backgroundground);
 
 		progressbar_game_blood.setStyle("-fx-accent: red"); // ?Y繒糧礎疇簣繪
@@ -460,8 +462,81 @@ public class Client extends Application {
 								clientCenter.moveright();
 							} else if (k == KeyCode.S) {
 								clientCenter.attack2_method();
+								CD();
+								delay_to_refreshCD();
 							} else if (k == KeyCode.A) {
 								clientCenter.attack_method();
+								CD();
+								delay_to_refreshCD();
+							}
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				});
+			}
+		};
+		scene_game.setOnKeyPressed(keyevent_game);
+	}
+
+	public void delay_to_refreshCD() {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				keyevent_game = new EventHandler<KeyEvent>() {
+					@Override
+					public void handle(KeyEvent e) {
+						Platform.runLater(() -> {
+							try {
+								if (e.getCode() != null) {
+									KeyCode k = e.getCode();
+									if (k == KeyCode.UP) {
+										clientCenter.moveup();
+									} else if (k == KeyCode.DOWN) {
+										clientCenter.movedown();
+									} else if (k == KeyCode.LEFT) {
+										clientCenter.moveleft();
+									} else if (k == KeyCode.RIGHT) {
+										clientCenter.moveright();
+									} else if (k == KeyCode.S) {
+										clientCenter.attack2_method();
+										CD();
+										delay_to_refreshCD();
+									} else if (k == KeyCode.A) {
+										clientCenter.attack_method();
+										CD();
+										delay_to_refreshCD();
+									}
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+						});
+					}
+				};
+				scene_game.setOnKeyPressed(keyevent_game);
+				this.cancel();
+			}
+		}, 1000);
+
+	}
+
+	public void CD() {
+		keyevent_game = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent e) {
+				Platform.runLater(() -> {
+					try {
+						if (e.getCode() != null) {
+							KeyCode k = e.getCode();
+							if (k == KeyCode.UP) {
+								clientCenter.moveup();
+							} else if (k == KeyCode.DOWN) {
+								clientCenter.movedown();
+							} else if (k == KeyCode.LEFT) {
+								clientCenter.moveleft();
+							} else if (k == KeyCode.RIGHT) {
+								clientCenter.moveright();
 							}
 						}
 					} catch (Exception ex) {
