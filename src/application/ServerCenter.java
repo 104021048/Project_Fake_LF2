@@ -321,7 +321,7 @@ public class ServerCenter implements Runnable {
 	// --------------------------------------------------------------------//
 
 	// 處理所有接收到的訊息
-	public void handle() {
+	synchronized public void handle() {
 
 		if (state == 0) {
 			switch (function) {
@@ -410,7 +410,7 @@ public class ServerCenter implements Runnable {
 		started = true;
 	}
 
-	public int whoWon() {
+	synchronized public int whoWon() {
 		Iterator<Integer> it = setLocked.iterator();
 		int wtid = -1;
 		while (it.hasNext() && wtid == -1) {
@@ -500,7 +500,7 @@ public class ServerCenter implements Runnable {
 	}
 
 	// 把所有亂數參數依序送給Live裡面的人
-	public void calculateAll() {
+	synchronized public void calculateAll() {
 		Iterator<Integer> it = setLocked.iterator();
 		while (it.hasNext()) {
 			try {

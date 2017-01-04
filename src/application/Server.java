@@ -45,7 +45,9 @@ public class Server implements Runnable{
 			while (true) {
 				acceptSocket = serverSock.accept();
 				PrintStream writer = new PrintStream(acceptSocket.getOutputStream());
-				output.add(writer);
+				synchronized (this) {  
+					output.add(writer);
+				  }  
 				playerTid = chooseTid();
 				if (playerTid == -1) {
 					// 人數已滿
