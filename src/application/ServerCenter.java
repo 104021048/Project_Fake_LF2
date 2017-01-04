@@ -91,7 +91,7 @@ public class ServerCenter implements Runnable {
 			}
 
 		} catch (Exception ex) {
-			System.out.println("連接失敗 in Center");
+			Main.appendTa("連接失敗 in Center");
 		}
 	}
 
@@ -101,7 +101,7 @@ public class ServerCenter implements Runnable {
 		try {
 			// 讀取資料
 			while ((message = reader.readLine()) != null) {
-				System.out.println("收到" + message);
+				Main.appendTa("收到" + message);
 				if (message.contains("#")) {
 					// 這是因為暫時測試用的的client會把名字:打在前面
 
@@ -112,7 +112,7 @@ public class ServerCenter implements Runnable {
 						gotofight();
 
 					} else if (setLive.size() > 1 && setLive.size() - 1 == setDeath.size() && setDeath.size() >= 1) {
-						System.out.println("贏家出現");
+						Main.appendTa("贏家出現");
 						tellOthers();
 						// 如果贏家出現了
 						// win 告訴自己誰贏了
@@ -149,7 +149,7 @@ public class ServerCenter implements Runnable {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			dcHandle();
-			System.out.println("Tid:" + myTid + "連接離開" + ex.toString());
+			Main.appendTa("Tid:" + myTid + "連接離開" + ex.toString());
 			if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size() > 1) {
 				gotofight();
 
@@ -171,11 +171,11 @@ public class ServerCenter implements Runnable {
 				if (setLive.contains(pmap.get(writer))) {
 					writer.println(encoder(pmap.get(writer)));
 					writer.flush();
-					System.out.println(myTid + "tellAll");
+					Main.appendTa(myTid + "tellAll");
 				}
 
 			} catch (Exception ex) {
-				System.out.println("tellAll 噴錯");
+				Main.appendTa("tellAll 噴錯");
 			}
 		}
 		// 送完之後把訊息參數初始化
@@ -201,7 +201,7 @@ public class ServerCenter implements Runnable {
 				}
 
 			} catch (Exception ex) {
-				System.out.println("tellOthers 噴錯");
+				Main.appendTa("tellOthers 噴錯");
 			}
 		}
 		// 送完之後把訊息參數初始化
@@ -242,7 +242,7 @@ public class ServerCenter implements Runnable {
 				}
 
 			} catch (Exception ex) {
-				System.out.println("tellMyself 噴錯");
+				Main.appendTa("tellMyself 噴錯");
 			}
 		}
 		// 送完之後把訊息參數初始化
@@ -259,7 +259,7 @@ public class ServerCenter implements Runnable {
 		// for (int i = 0; i < ta.length; i++) {
 		// System.out.print(ta[i] + "+");
 		// }
-		// System.out.println();
+		// Main.appendTa();
 		// 把所有拆開的訊息依序填入thread中的參數
 		state = Integer.parseInt(ta[0]);
 		Tid = Integer.parseInt(ta[1]);
@@ -326,7 +326,7 @@ public class ServerCenter implements Runnable {
 		if (state == 0) {
 			switch (function) {
 			case "connect":
-				System.out.println("handle 線上名單 for " + myTid + ":" + setLive);
+				Main.appendTa("handle 線上名單 for " + myTid + ":" + setLive);
 				//
 
 				if (Stype.equals("@")) {
@@ -343,12 +343,12 @@ public class ServerCenter implements Runnable {
 				break;
 			case "choose":
 				tchoose.put(Tid, type);
-				System.out.println("tchoose名單 for " + myTid + ":" + tchoose);
+				Main.appendTa("tchoose名單 for " + myTid + ":" + tchoose);
 				inst4(Tid, type);
 				break;
 			case "lock":
 				setLocked.add(Tid);
-				System.out.println("鎖定名單 for " + myTid + ":" + setLocked);
+				Main.appendTa("鎖定名單 for " + myTid + ":" + setLocked);
 				inst5(myTid, type);
 				break;
 			}
@@ -394,7 +394,7 @@ public class ServerCenter implements Runnable {
 	// 計算出誰贏了
 	public void gotofight() {
 		// 如果大家都鎖定了
-		System.out.println("鎖定已滿遊戲準備開始");
+		Main.appendTa("鎖定已滿遊戲準備開始");
 		// go1 告訴自己準備要開始
 		tellOthers();
 		inst6();
@@ -422,7 +422,7 @@ public class ServerCenter implements Runnable {
 				}
 
 			} catch (Exception ex) {
-				System.out.println("計算誰贏噴錯");
+				Main.appendTa("計算誰贏噴錯");
 			}
 		}
 		return wtid;
@@ -431,14 +431,14 @@ public class ServerCenter implements Runnable {
 	// 利用Thread Sleep來倒數五秒
 	public void doCountDown() {
 		// Timer timer = new Timer();
-		System.out.println("Delay:" + time + "秒");
+		Main.appendTa("Delay:" + time + "秒");
 		try {
 			Thread.sleep(time * 1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println(myTid + "離開TimerTask");
+		// Main.appendTa(myTid + "離開TimerTask");
 	}
 
 	// 計算亂數起始位置
@@ -469,7 +469,7 @@ public class ServerCenter implements Runnable {
 					writer.flush();
 				}
 			} catch (Exception ex) {
-				System.out.println("getChoose 噴錯");
+				Main.appendTa("getChoose 噴錯");
 			}
 		}
 		// 送完之後把訊息參數初始化
@@ -492,7 +492,7 @@ public class ServerCenter implements Runnable {
 					writer.flush();
 				}
 			} catch (Exception ex) {
-				System.out.println("getName 噴錯");
+				Main.appendTa("getName 噴錯");
 			}
 		}
 		// 送完之後把訊息參數初始化
@@ -509,7 +509,7 @@ public class ServerCenter implements Runnable {
 				randomPosition();
 				tellAll();
 			} catch (Exception ex) {
-				System.out.println("計算誰贏噴錯");
+				Main.appendTa("計算誰贏噴錯");
 			}
 		}
 	}
@@ -517,7 +517,7 @@ public class ServerCenter implements Runnable {
 	public void dcHandle() {
 		// 線上的Tid名單除掉斷線者
 		// 並告訴其他人我自己斷線了
-		System.out.println("開始清理" + myTid + "斷線殘存的垃圾......");
+		Main.appendTa("開始清理" + myTid + "斷線殘存的垃圾......");
 		setLive.remove(myTid);
 		setLocked.remove(myTid);
 		setDeath.remove(myTid);
@@ -528,10 +528,10 @@ public class ServerCenter implements Runnable {
 		tmap.remove(myTid);
 		inst3(myTid);
 		tellOthers();
-		System.out.println(myTid + " dcHandle:");
-		System.out.println("線上名單:" + setLive);
-		System.out.println("鎖定名單:" + setLocked);
-		System.out.println("線上名單:" + setDeath);
+		Main.appendTa(myTid + " dcHandle:");
+		Main.appendTa("線上名單:" + setLive);
+		Main.appendTa("鎖定名單:" + setLocked);
+		Main.appendTa("線上名單:" + setDeath);
 	}
 
 	// --------------------------------------------------------------------//

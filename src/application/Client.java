@@ -134,7 +134,7 @@ public class Client extends Application {
 		label_room_name2 = new Label();
 		label_room_name3 = new Label();
 		label_room_name4 = new Label();
-		label_room_systemmessage = new Label("隢���...");
+		label_room_systemmessage = new Label("��蹓蕭嚙踝嚙踐�...");
 		hbox_room_button = new HBox();
 		button_room_character1 = new Button();
 		button_room_character2 = new Button();
@@ -300,7 +300,7 @@ public class Client extends Application {
 		ImageView imageview_backgroundground = new ImageView("ground4.jpg");
 		label_game_backgroundground.setGraphic(imageview_backgroundground);
 
-		progressbar_game_blood.setStyle("-fx-accent: red"); // ?Y蝜釦蝷�除蝜�
+		progressbar_game_blood.setStyle("-fx-accent: red"); // ?Y������蕭����蕭
 		progressbar_game_blood.setPrefSize(500, 25);
 		progressbar_game_blood.setTranslateX(10);
 		progressbar_game_blood.setTranslateY(-285);
@@ -597,9 +597,4 @@ public class Client extends Application {
 		primaryStage.show();
 
 	}
-
-	private static void main(String[] args) {
-		launch(args);
-	}
-	// endregion
 }
