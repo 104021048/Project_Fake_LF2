@@ -63,7 +63,12 @@ public class Client extends Application {
 
 	// region
 
-	private void login_init() {
+	public Client(Stage primaryStage) {
+		// TODO Auto-generated constructor stub
+		start(primaryStage);
+	}
+
+	public void login_init() {
 		gridpane_login_root = new GridPane();
 		gridpane_login_root.setPadding(new Insets(25, 25, 25, 25));
 		image_login_logo = new ImageView("logo.png");
@@ -75,7 +80,7 @@ public class Client extends Application {
 		button_login_exit = new Button("Exit");
 	}
 
-	private void login_setupUI() {
+	public void login_setupUI() {
 		label_login_ip.setPrefSize(100, 10);
 		textfield_login_ip.setPrefSize(1100, 10);
 		label_login_name.setPrefSize(100, 10);
@@ -95,7 +100,7 @@ public class Client extends Application {
 		scene_login.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	}
 
-	private void login_setupListener(Stage primaryStage) {
+	public void login_setupListener(Stage primaryStage) {
 		button_login_connect.setOnAction(e -> {
 			name = textfield_login_name.getText().toString();
 			String ip = textfield_login_ip.getText().toString();
@@ -129,7 +134,7 @@ public class Client extends Application {
 		label_room_name2 = new Label();
 		label_room_name3 = new Label();
 		label_room_name4 = new Label();
-		label_room_systemmessage = new Label("請選擇角色...");
+		label_room_systemmessage = new Label("隢���...");
 		hbox_room_button = new HBox();
 		button_room_character1 = new Button();
 		button_room_character2 = new Button();
@@ -295,7 +300,7 @@ public class Client extends Application {
 		ImageView imageview_backgroundground = new ImageView("ground4.jpg");
 		label_game_backgroundground.setGraphic(imageview_backgroundground);
 
-		progressbar_game_blood.setStyle("-fx-accent: red"); // ?Y繒糧礎疇簣繪
+		progressbar_game_blood.setStyle("-fx-accent: red"); // ?Y蝜釦蝷�除蝜�
 		progressbar_game_blood.setPrefSize(500, 25);
 		progressbar_game_blood.setTranslateX(10);
 		progressbar_game_blood.setTranslateY(-285);

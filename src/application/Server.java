@@ -1,72 +1,91 @@
 package application;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
 
-public class Server {
-	static Vector<PrintStream> output;
-	static int playerTid;
-	static Map<Integer, PrintStream> tMap = new HashMap<>();
-	static Map<PrintStream, Integer> pMap = new HashMap<>();
-	static Set<Integer> Live = new HashSet<Integer>();
-	static Set<Integer> Locked = new HashSet<Integer>();
-	static Set<Integer> Death = new HashSet<Integer>();
-	static Map<Integer, Integer> tchoose = new HashMap<>();
-	static Map<Integer, String> tname = new HashMap<>();
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+public class Server extends Application {
 	// region
-	public static void main(String args[]) {
-		System.out.println("Server is ON...");
-		output = new Vector<PrintStream>();
-		try {
-			ServerSocket serverSock = new ServerSocket(8888);
-			while (true) {
-				Socket acceptSocket = serverSock.accept();
-				PrintStream writer = new PrintStream(acceptSocket.getOutputStream());
-				System.out.println(writer);
-				output.add(writer);
-				playerTid = chooseTid();
-				if (playerTid == -1) {
-					// 人數已滿
-					System.out.println("Server已滿....");
-					Thread full=new Thread(new FullHandler(acceptSocket, writer));
-					full.start();
-					full=null;
-					output.remove(output.lastElement());
-					System.gc();
+	public Scene scene_main;
+	public GridPane gridpane_main_root;
+	public ImageView image_main_logo;
+	public Button button_main_client, button_main_server;
 
-				} else {
-					tMap.put(playerTid, writer);
-					pMap.put(writer, playerTid);
-					Thread t = new Thread(new ServerCenter(acceptSocket, playerTid, output, tMap, pMap, Live, Locked,
-							Death, tchoose, tname, false));
-					t.start();
-				}
-				System.out.println(acceptSocket.getLocalSocketAddress() +
-				// 執行緒的在線次數
-						"有" + (Thread.activeCount() - 1) +
-						// 顯示連線人次
-						"個連接");
+	private void main_init() {
+		gridpane_main_root = new GridPane();
+		gridpane_main_root.setPadding(new Insets(25, 25, 25, 25));
+		image_main_logo = new ImageView("logo.png");
+		button_main_client = new Button("Client");
+		button_main_server = new Button("Server");
+	}
 
-			}
-		} catch (Exception ex) {
-			System.out.println("連接失敗" + ex.toString());
-		}
+	private void main_setupUI() {
 
+		button_main_client.setPrefSize(100, 10);
+		button_main_server.setPrefSize(100, 10);
+		gridpane_main_root.setHgap(10);
+		gridpane_main_root.setVgap(10);
+		gridpane_main_root.add(image_main_logo, 1, 1, 10, 1);
+		gridpane_main_root.add(button_main_client, 1, 10, 5, 1);
+		gridpane_main_root.add(button_main_server, 10, 10, 5, 1);
+		scene_main = new Scene(gridpane_main_root, 400, 300);
+		scene_main.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+	}
+
+	private void main_setupListener(Stage primaryStage) {
+		button_main_client.setOnAction(e -> {
+			Client client = new Client(primaryStage);
+		});
+		button_main_server.setOnAction(e -> {
+			primaryStage.setTitle("Server is running..當機是正常現象請不要關閉");
+			Thread serverThread = new Thread(new Out());
+			serverThread.start();
+			button_main_client.setDisable(true);
+			button_main_server.setDisable(true);
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		              System.out.println("Server is closing");
+		              System.exit(0);
+		              try {
+						Out.closeSocket();
+					} catch (IOException e) {
+					}
+		              primaryStage.close();
+		          }
+		    });
+			
+		});
+		
 	}
 
 	// endregion
-	public static int chooseTid() {
-		int tid = -1, i = 1;
-		while (i <= 4) {
-			if (!Live.contains(i)) {
-				tid = i;
-				break;
-			}
-			i++;
-		}
-		return tid;
+	public void start(Stage primaryStage) {
+		main_init();
+		main_setupUI();
+		main_setupListener(primaryStage);
+		primaryStage.setTitle("Project_Fake_LF2");
+		primaryStage.setScene(scene_main);
+		primaryStage.setResizable(false);
+		primaryStage.show();
+		        
+		
 
 	}
+
+	private static void main(String[] args) {
+
+		Application.launch(args);
+	}
+	// endregion
 }
