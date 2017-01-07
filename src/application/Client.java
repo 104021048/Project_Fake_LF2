@@ -49,7 +49,7 @@ public class Client extends Application {
 	private final int sence_width = 1024;
 	private final int sence_height = 768;
 	private Client client;
-	private Socket sock;
+	public Socket sock;
 	private GridPane gridpane_login_root, gridpane_room_root;
 	private StackPane stackpane_game_root, stackpane_game_backgroundblood, stackpane_game_backgroundsky,
 			stackpane_game_backgroundground;
@@ -134,7 +134,7 @@ public class Client extends Application {
 		label_room_name2 = new Label();
 		label_room_name3 = new Label();
 		label_room_name4 = new Label();
-		label_room_systemmessage = new Label("��蹓蕭嚙踝嚙踐�...");
+		label_room_systemmessage = new Label("請選擇角色...");
 		hbox_room_button = new HBox();
 		button_room_character1 = new Button();
 		button_room_character2 = new Button();
