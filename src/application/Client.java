@@ -394,9 +394,11 @@ public class Client extends Application {
 				my_hp = ((clientCenter.switch_myRole_to_get_HP() - 50) / myHp_max);
 				if (my_hp >= 0) {
 					myblood.setProgress(my_hp);
+					progressbar_game_blood.setProgress(my_hp);
 					clientCenter.switch_myRole_to_set_HP((int) (my_hp * myHp_max));
 				} else {
 					myblood.setProgress(0);
+					progressbar_game_blood.setProgress(0);
 					clientCenter.death_method();
 				}
 				System.out.println("===================");
