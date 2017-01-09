@@ -765,13 +765,14 @@ public class ClientCenter implements Runnable {
 		case "win":
 			client.keyevent_game = null;
 			client.scene_game.setOnKeyPressed(client.keyevent_game);
-			new Firework(client.return_game_backgroundground(),name[type-1]);
+			new Firework(client.return_game_backgroundground(), name[type - 1]);
 			break;
 		case "back1":
 			break;
 		case "back2":
-			//refreshInst();
-			client.toRoom(stage);
+			// refreshInst();
+			client.toRoom(stage, client.label_room_name1, client.label_room_name2, client.label_room_name3,
+					client.label_room_name4);
 			break;
 		}
 	}
