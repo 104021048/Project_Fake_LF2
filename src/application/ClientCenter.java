@@ -88,7 +88,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	synchronized public void run() {
 		// TODO Auto-generated method stub
 		String message;
 		try {
@@ -113,7 +113,7 @@ public class ClientCenter implements Runnable {
 
 	// Event Handler
 	// region
-	private void handle() {
+	synchronized private void handle() {
 		if (state == 0) {
 			switch_function_to_case_state_0();
 		} else if (state == 1) {
@@ -2238,7 +2238,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
-	private void writermsg() {
+	synchronized private void writermsg() {
 		writer.println(encoder());
 		writer.flush();
 		refreshInst();
