@@ -132,6 +132,7 @@ public class ServerCenter implements Runnable {
 						started = false;
 						setLocked.clear();
 						setDeath.clear();
+						giveAllInfo();
 					} else if (state == 0 && setLive.size() > 0 && getHistory) {
 						// 第一次連入接收前人的資訊S
 						tellOthers();
@@ -226,24 +227,16 @@ public class ServerCenter implements Runnable {
 	}
 
 	public void tellMyself() {
-		Iterator<PrintStream> it = output.iterator();
-		while (it.hasNext()) {
-			try {
-				PrintStream writer = (PrintStream) it.next();
-				// 把PS跟tmap<Integer,PrintStream>中拿到的對應Tid去比對
-				// 如果剛好是自己的話就發送訊息
-				if (writer == tmap.get(myTid)) {
-					// 把pmap<PrintStream,Integer>中拿到的跟PS相對應的Tid餵給encoder
-					// 讓Encoder去填寫接收者的Tid
-					writer.println(encoder(pmap.get(writer)));
-					writer.flush();
-				} else {
-					writer = null;
-				}
-
-			} catch (Exception ex) {
-				Main.appendTa("tellMyself 噴錯");
-			}
+		try {
+			// 用map去get PrintStream
+			PrintStream writer = tmap.get(myTid);
+			inst2(myTid);
+			// 第一次傳送Tid時Client還不知道自己的tid
+			String message = encoder(myTid);
+			writer.println(message);
+			writer.flush();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		// 送完之後把訊息參數初始化
 		refreshInst();
@@ -498,7 +491,12 @@ public class ServerCenter implements Runnable {
 		// 送完之後把訊息參數初始化
 		refreshInst();
 	}
-
+	public void giveAllInfo(){
+		getName();
+		inst2(myTid);
+		tellMyself();
+		
+	}
 	// 把所有亂數參數依序送給Live裡面的人
 	synchronized public void calculateAll() {
 		Iterator<Integer> it = setLocked.iterator();

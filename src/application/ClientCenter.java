@@ -88,7 +88,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	@Override
-	synchronized public void run() {
+	public void run() {
 		// TODO Auto-generated method stub
 		String message;
 		try {
@@ -113,7 +113,7 @@ public class ClientCenter implements Runnable {
 
 	// Event Handler
 	// region
-	synchronized private void handle() {
+	private void handle() {
 		if (state == 0) {
 			switch_function_to_case_state_0();
 		} else if (state == 1) {
@@ -770,12 +770,11 @@ public class ClientCenter implements Runnable {
 		case "back1":
 			break;
 		case "back2":
-			refreshInst();
+			//refreshInst();
 			client.toRoom(stage);
 			break;
 		}
 	}
-	// endregion
 
 	// endregion
 	// Switch To Connect
@@ -2238,7 +2237,7 @@ public class ClientCenter implements Runnable {
 	}
 
 	// endregion
-	synchronized private void writermsg() {
+	private void writermsg() {
 		writer.println(encoder());
 		writer.flush();
 		refreshInst();
