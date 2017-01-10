@@ -121,6 +121,7 @@ public class Client extends Application {
 	// room
 
 	// region
+
 	private void room_init() {
 		image_room_player_1 = new ImageView("role_1.png");
 		image_room_player_2 = new ImageView("role_1.png");
@@ -134,7 +135,7 @@ public class Client extends Application {
 		label_room_name2 = new Label();
 		label_room_name3 = new Label();
 		label_room_name4 = new Label();
-		label_room_systemmessage = new Label("請選擇角色...");
+		label_room_systemmessage = new Label("請選擇角色...");
 		hbox_room_button = new HBox();
 		button_room_character1 = new Button();
 		button_room_character2 = new Button();
@@ -145,7 +146,9 @@ public class Client extends Application {
 		gridpane_room_root = new GridPane();
 		gridpane_room_root.setPadding(new Insets(25, 25, 25, 25));
 	}
-	private void room_reinit(Label label_room_name1,Label label_room_name2,Label label_room_name3,Label label_room_name4) {
+
+	private void room_reinit(Label label_room_name1, Label label_room_name2, Label label_room_name3,
+			Label label_room_name4) {
 		image_room_player_1 = new ImageView("role_1.png");
 		image_room_player_2 = new ImageView("role_1.png");
 		image_room_player_3 = new ImageView("role_1.png");
@@ -169,6 +172,7 @@ public class Client extends Application {
 		gridpane_room_root = new GridPane();
 		gridpane_room_root.setPadding(new Insets(25, 25, 25, 25));
 	}
+
 	private void room_setupUI() {
 		gridpane_room_root.setHgap(10);
 		gridpane_room_root.setVgap(10);
@@ -323,7 +327,7 @@ public class Client extends Application {
 		ImageView imageview_backgroundground = new ImageView("ground4.jpg");
 		label_game_backgroundground.setGraphic(imageview_backgroundground);
 
-		progressbar_game_blood.setStyle("-fx-accent: red"); // ?Y������蕭����蕭
+		progressbar_game_blood.setStyle("-fx-accent: red");
 		progressbar_game_blood.setPrefSize(500, 25);
 		progressbar_game_blood.setTranslateX(10);
 		progressbar_game_blood.setTranslateY(-285);
@@ -593,10 +597,11 @@ public class Client extends Application {
 		});
 	}
 
-	public void toRoom(Stage primaryStage,Label label_room_name1,Label label_room_name2,Label label_room_name3,Label label_room_name4) {
+	public void toRoom(Stage primaryStage, Label label_room_name1, Label label_room_name2, Label label_room_name3,
+			Label label_room_name4) {
 		Platform.runLater(() -> {
 			try {
-				room_reinit(label_room_name1,label_room_name2,label_room_name3,label_room_name4);
+				room_reinit(label_room_name1, label_room_name2, label_room_name3, label_room_name4);
 				room_setupUI();
 				room_setupListener(primaryStage);
 				primaryStage.setScene(scene_room);

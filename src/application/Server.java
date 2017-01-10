@@ -1,4 +1,3 @@
-
 package application;
 
 import java.io.*;
@@ -17,6 +16,7 @@ public class Server implements Runnable{
 	static Map<Integer, String> tname = new HashMap<>();
 	private static ServerSocket serverSock;
 	private static Socket acceptSocket;
+	final static boolean started=false;
 
 	public static int chooseTid() {
 		int tid = -1, i = 1;
@@ -62,7 +62,7 @@ public class Server implements Runnable{
 					tMap.put(playerTid, writer);
 					pMap.put(writer, playerTid);
 					Thread t = new Thread(new ServerCenter(acceptSocket, playerTid, output, tMap, pMap, Live, Locked,
-							Death, tchoose, tname, false));
+							Death, tchoose, tname, started));
 					t.start();
 				}
 				Main.appendTa(acceptSocket.getLocalSocketAddress() +

@@ -107,8 +107,12 @@ public class ServerCenter implements Runnable {
 
 					decoder(message);
 					handle();
-
-					if (state == 0 && setLocked.size() == setLive.size() && !started && setLive.size() > 1) {
+					Main.appendTa("Live: "+setLive.size()+" Locked : "+setLocked.size());
+					Main.appendTa("state: "+state+" started : "+started);
+					if(setLocked.size()!=setLive.size()){
+						started=false;
+					}
+					if (state == 0 && setLocked.size() == setLive.size() && started==false && setLive.size() > 1) {
 						gotofight();
 
 					} else if (setLive.size() > 1 && setLive.size() - 1 == setDeath.size() && setDeath.size() >= 1) {
@@ -132,7 +136,7 @@ public class ServerCenter implements Runnable {
 						started = false;
 						setLocked.clear();
 						setDeath.clear();
-						giveAllInfo();
+						getHistory = true;
 					} else if (state == 0 && setLive.size() > 0 && getHistory) {
 						// 第一次連入接收前人的資訊S
 						tellOthers();

@@ -21,7 +21,7 @@ public class Role_Capoo_5 {
 
 		setImage();
 		setLabel();
-		setHp(600);
+		setHp(10);
 		setSpeed();
 	}
 
