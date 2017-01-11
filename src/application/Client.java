@@ -123,10 +123,10 @@ public class Client extends Application {
 	// region
 
 	private void room_init() {
-		image_room_player_1 = new ImageView("role_1.png");
-		image_room_player_2 = new ImageView("role_1.png");
-		image_room_player_3 = new ImageView("role_1.png");
-		image_room_player_4 = new ImageView("role_1.png");
+		image_room_player_1 = new ImageView("first.jpg");
+		image_room_player_2 = new ImageView("first.jpg");
+		image_room_player_3 = new ImageView("first.jpg");
+		image_room_player_4 = new ImageView("first.jpg");
 		label_room_headpicture1 = new Label();
 		label_room_headpicture2 = new Label();
 		label_room_headpicture3 = new Label();

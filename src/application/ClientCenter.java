@@ -177,6 +177,10 @@ public class ClientCenter implements Runnable {
 			client.game_setupUI(position[0][0], position[0][1], position[1][0], position[1][1], position[2][0],
 					position[2][1], position[3][0], position[3][1], c1_png, c2_png, c3_png, c4_png, my_png, name[0],
 					name[1], name[2], name[3]);
+			System.out.println("name[0]: " + name[0]);
+			System.out.println("name[1]: " + name[1]);
+			System.out.println("name[2]: " + name[2]);
+			System.out.println("name[3]: " + name[3]);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -809,7 +813,6 @@ public class ClientCenter implements Runnable {
 					name[3] = myName;
 					break;
 				}
-				selecteRole(1);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
