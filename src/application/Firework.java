@@ -15,10 +15,10 @@ import javafx.util.Duration;
 
 public class Firework {
 	ImageView imv;
-	Image imageArray[] = new Image[30];
+	Image imageArray[] = new Image[35];
 	Timeline timeline;
 	private StackPane sp;
-	int frame = 9;
+	int frame = 32;
 	int count = 0;
 	private Label name;
 
@@ -33,9 +33,9 @@ public class Firework {
 	}
 
 	public void fire() {
-		timeline.setCycleCount(9);
+		timeline.setCycleCount(32);
 		// Duration每次多少秒,然後觸發事件
-		final KeyFrame kf = new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
+		final KeyFrame kf = new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				// 偵測collision
 				imv.setImage(imageArray[count]);

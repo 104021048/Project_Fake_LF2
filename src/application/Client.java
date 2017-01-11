@@ -621,7 +621,7 @@ public class Client extends Application {
 		login_init();
 		login_setupUI();
 		login_setupListener(primaryStage);
-		primaryStage.setTitle("Client");
+		primaryStage.setTitle("Capoo Battle");
 		primaryStage.setScene(scene_login);
 		primaryStage.setResizable(false);
 		primaryStage.show();

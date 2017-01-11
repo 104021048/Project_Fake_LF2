@@ -767,8 +767,10 @@ public class ClientCenter implements Runnable {
 			client.scene_game.setOnKeyPressed(client.keyevent_game);
 			if (my_hp > 0) {
 				new Win(client.return_game_backgroundground(), name[type - 1]);
+				new Firework(client.return_game_backgroundground(), name[type - 1]);
 			} else {
 				new Lose(client.return_game_backgroundground(), name[type - 1]);
+				new Firework(client.return_game_backgroundground(), name[type - 1]);
 			}
 			break;
 		case "back1":
