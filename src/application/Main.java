@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaPlayer;
 
 public class Main extends Application {
 	// region
@@ -23,7 +26,7 @@ public class Main extends Application {
 	public ImageView image_main_logo, image_server_logo;
 	public Button button_main_client, button_main_server;
 	public static TextArea ta;
-
+	public AudioClip clip;
 	private void main_init() {
 		gridpane_main_root = new GridPane();
 		gridpane_main_root.setPadding(new Insets(25, 25, 25, 25));
@@ -76,6 +79,7 @@ public class Main extends Application {
 		});
 		button_main_server.setOnAction(e -> {
 			primaryStage.setTitle("Server is running..當機是正常現象請不要關閉");
+			clip.stop();
 			Thread serverThread = new Thread(new Server());
 			serverThread.start();
 			primaryStage.setScene(scene_server);
@@ -95,7 +99,22 @@ public class Main extends Application {
 
 	}
 
-	// endregion
+	public void playmusic() {
+		final Task task = new Task() {
+			@Override
+			protected Object call() throws Exception {
+				clip = new AudioClip(getClass().getResource("victory.wav").toExternalForm());
+				clip.setCycleCount(AudioClip.INDEFINITE);
+				clip.play(1.0);
+				return null;
+			}
+		};
+		
+		Thread thread = new Thread(task);
+		thread.start();
+		
+	}
+
 	public static void appendTa(String msg) {
 		Platform.runLater(() -> {
 			try {
@@ -114,6 +133,7 @@ public class Main extends Application {
 		primaryStage.setScene(scene_main);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		playmusic();
 	}
 
 	public static void main(String[] args) {
@@ -121,4 +141,5 @@ public class Main extends Application {
 		Application.launch(args);
 	}
 	// endregion
+
 }
